@@ -1,5 +1,110 @@
+import { FormProvider, useForm } from "react-hook-form";
+import { PasswordInput } from "../components/form/PasswordInput";
+import { TextInput } from "../components/form/TextInput";
+import { SelectInput } from "../components/form/SelectInput";
+import { User, Phone, ShieldCheck, Stethoscope } from "lucide-react";
+
 export default function Home() {
+  const methods = useForm();
+
+  const onSubmit = (data: any) => {
+    console.log("Datos del paciente:", data);
+  };
+
   return (
-    <h1 className="text-2xl font-semibold">Bienvenido al Panel Salud360</h1>
+    <FormProvider {...methods}>
+      <form
+        onSubmit={methods.handleSubmit(onSubmit)}
+        className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
+      >
+        <h1 className="text-2xl font-bold text-gray-800 mb-6">
+          Registro de Paciente
+        </h1>
+
+        {/* Grid de 2x2 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Card: Información Personal */}
+          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2 flex items-center gap-2">
+              <User className="w-5 h-5 text-blue-600" />
+              Información personal
+            </h2>
+            <div className="grid grid-cols-1 gap-4">
+              <TextInput name="firstName" label="Nombre" />
+              <TextInput name="lastName" label="Apellido" />
+              <TextInput
+                name="dateBirth"
+                label="Fecha de nacimiento"
+                type="date"
+              />
+            </div>
+          </section>
+
+          {/* Card: Información de contacto */}
+          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2 flex items-center gap-2">
+              <Phone className="w-5 h-5 text-green-600" />
+              Información de contacto
+            </h2>
+            <div className="grid grid-cols-1 gap-4">
+              <TextInput name="email" label="Correo electrónico" type="email" />
+              <TextInput name="phone" label="Teléfono" />
+              <TextInput name="address" label="Dirección" />
+              <TextInput
+                name="contactEmergency"
+                label="Contacto de emergencia"
+              />
+            </div>
+          </section>
+
+          {/* Card: Información médica */}
+          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2 flex items-center gap-2">
+              <Stethoscope className="w-5 h-5 text-red-600" />
+              Información médica
+            </h2>
+            <div className="grid grid-cols-1 gap-4">
+              <TextInput name="documentNumber" label="DNI / Documento" />
+              <SelectInput
+                name="bloodType"
+                label="Tipo de sangre"
+                options={[
+                  { label: "A+", value: "A+" },
+                  { label: "A-", value: "A-" },
+                  { label: "B+", value: "B+" },
+                  { label: "B-", value: "B-" },
+                  { label: "O+", value: "O+" },
+                  { label: "O-", value: "O-" },
+                  { label: "AB+", value: "AB+" },
+                  { label: "AB-", value: "AB-" },
+                ]}
+              />
+              <TextInput name="allergies" label="Alergias" />
+            </div>
+          </section>
+
+          {/* Card: Seguridad */}
+          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2 flex items-center gap-2">
+              <ShieldCheck className="w-5 h-5 text-yellow-600" />
+              Seguridad
+            </h2>
+            <div className="grid grid-cols-1 gap-4">
+              <PasswordInput name="password" label="Contraseña" />
+            </div>
+          </section>
+        </div>
+
+        {/* Botón de envío */}
+        <div className="flex justify-end mt-6">
+          <button
+            type="submit"
+            className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition"
+          >
+            Registrar paciente
+          </button>
+        </div>
+      </form>
+    </FormProvider>
   );
 }
