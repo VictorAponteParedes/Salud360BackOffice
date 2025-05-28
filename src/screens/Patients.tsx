@@ -3,6 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { PasswordInput } from "../components/form/PasswordInput";
 import { TextInput } from "../components/form/TextInput";
 import { SelectInput } from "../components/form/SelectInput";
+import { ImageInput } from "../components/form/ImageInput";
 import { User, Phone, ShieldCheck, Stethoscope, ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -46,6 +47,11 @@ export default function Patients() {
               Información personal
             </h2>
             <div className="grid grid-cols-1 gap-4">
+              <ImageInput
+                name="photo"
+                label="Foto de perfil"
+                control={methods.control}
+              />
               <TextInput name="firstName" label="Nombre" />
               <TextInput name="lastName" label="Apellido" />
               <TextInput
