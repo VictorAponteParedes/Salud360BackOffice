@@ -4,6 +4,7 @@ import DashboardLayout from "./layouts/DashboardLayout";
 import Home from "./screens/Home";
 import Patients from "./screens/Patients";
 import Doctors from "./screens/Doctors";
+import "./index.css";
 
 function App() {
   return (
