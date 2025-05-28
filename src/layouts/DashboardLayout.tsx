@@ -1,50 +1,133 @@
 // src/layouts/DashboardLayout.tsx
 import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
-import { LogOut } from "lucide-react";
+import {
+  LayoutDashboard,
+  Users,
+  User,
+  Hospital,
+  Calendar,
+  FileText,
+  Shield,
+  Bell,
+  BarChart2,
+  Settings,
+  HeartPulse,
+  LogOut,
+} from "lucide-react";
 
 type Props = {
   children: ReactNode;
 };
 
 export default function DashboardLayout({ children }: Props) {
+  const handleLogout = () => {
+    console.log("Logout clickeado");
+  };
+
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 bg-primary text-white flex flex-col p-4 justify-between">
+      <aside className="w-64 bg-primary border-r p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between">
         <div>
-          <h2 className="text-2xl font-bold mb-6">Salud360</h2>
-          <nav className="flex flex-col space-y-2">
-            <Link to="/" className="hover:bg-blue-700 rounded px-3 py-2">
-              Inicio
-            </Link>
-            <Link
-              to="/patients"
-              className="hover:bg-blue-700 rounded px-3 py-2"
-            >
-              Pacientes
-            </Link>
-            <Link to="/doctors" className="hover:bg-blue-700 rounded px-3 py-2">
-              Doctores
-            </Link>
-            {/* Más links si lo deseas */}
-          </nav>
+          {/* Logo */}
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <HeartPulse className="text-blue-600 w-6 h-6" />
+              <span className="text-xl font-bold">Salud360</span>
+            </div>
+            <p className="text-sm text-gray-500">Sistema Médico</p>
+          </div>
+
+          {/* Sección: Gestión Principal */}
+          <div className="mt-8">
+            <h3 className="text-xs text-gray-500 uppercase mb-3">
+              Gestión principal
+            </h3>
+            <nav className="flex flex-col gap-4">
+              <Link
+                to="/"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <LayoutDashboard className="w-5 h-5" /> Dashboard
+              </Link>
+              <Link
+                to="/patients"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <Users className="w-5 h-5" /> Pacientes
+              </Link>
+              <Link
+                to="/doctors"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <User className="w-5 h-5" /> Doctores
+              </Link>
+              <Link
+                to="/hospitals"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <Hospital className="w-5 h-5" /> Hospitales
+              </Link>
+              <Link
+                to="/appointments"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <Calendar className="w-5 h-5" /> Citas
+              </Link>
+              <Link
+                to="/analysis"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <FileText className="w-5 h-5" /> Análisis Clínicos
+              </Link>
+            </nav>
+          </div>
+
+          {/* Sección: Sistema */}
+          <div className="mt-8">
+            <h3 className="text-xs text-gray-500 uppercase mb-3">Sistema</h3>
+            <nav className="flex flex-col gap-4">
+              <Link
+                to="/users-roles"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <Shield className="w-5 h-5" /> Usuarios y Roles
+              </Link>
+              <Link
+                to="/notifications"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <Bell className="w-5 h-5" /> Notificaciones
+              </Link>
+              <Link
+                to="/reports"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <BarChart2 className="w-5 h-5" /> Reportes
+              </Link>
+              <Link
+                to="/settings"
+                className="flex items-center gap-2 text-white hover:text-blue-600"
+              >
+                <Settings className="w-5 h-5" /> Configuración
+              </Link>
+            </nav>
+          </div>
         </div>
 
-        {/* Logout Button */}
+        {/* Logout abajo */}
         <button
-          onClick={() => console.log("Logout")}
-          className="mt-4 flex items-center gap-2 hover:bg-blue-700 rounded px-3 py-2"
+          onClick={handleLogout}
+          className="flex items-center gap-2 text-white hover:text-red-600"
         >
           <LogOut className="w-5 h-5" />
           Cerrar sesión
         </button>
       </aside>
 
-      {/* Main content (scrollable) */}
-      <main className="flex-1 bg-gray-100 p-6 overflow-y-auto max-h-screen">
-        {children}
-      </main>
+      {/* Main content */}
+      <main className="flex-1 bg-gray-100 p-6 overflow-y-auto">{children}</main>
     </div>
   );
 }
