@@ -28,7 +28,7 @@ export default function DashboardLayout({ children }: Props) {
   return (
     <div className="flex min-h-screen">
       {/* Sidebar */}
-      <aside className="w-64 bg-primary border-r p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between">
+      <aside className="w-64 bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between">
         <div>
           {/* Logo */}
           <div>
