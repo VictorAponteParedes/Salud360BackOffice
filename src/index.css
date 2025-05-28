@@ -1,1 +1,14 @@
 @import "tailwindcss";
+@theme {
+
+    /* Colors to texts*/
+    --color-primary: #67a3c9;
+
+    --color-green-check-50: #9dd284;
+    --color-green-check-100: #7bcf6b;
+    --color-green-check-200: #5abf54;
+    --color-green-check-300: #3aa03d;
+    --color-green-check-400: #1b8126;
+    --color-green-check-500: #007f00;
+
+}
