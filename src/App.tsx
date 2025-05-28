@@ -1,15 +1,22 @@
-import { useState } from 'react'
-import './App.css'
+// src/App.tsx
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import DashboardLayout from "./layouts/DashboardLayout";
+import Home from "./screens/Home";
+import Patients from "./screens/Patients";
+import Doctors from "./screens/Doctors";
 
 function App() {
-
   return (
-    <>
-      <h1 className="text-3xl font-bold">
-        Salud360Back Office
-      </h1>
-    </>
-  )
+    <Router>
+      <DashboardLayout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/patients" element={<Patients />} />
+          <Route path="/doctors" element={<Doctors />} />
+        </Routes>
+      </DashboardLayout>
+    </Router>
+  );
 }
 
-export default App
+export default App;
