@@ -53,7 +53,7 @@ export default function Patients() {
         description: translate("registerPatient.message.success.description"),
       });
       setTimeout(() => {
-        navigate("patients/list");
+        navigate(-1);
       }, 2000);
     } catch (error: any) {
       setMessage({
