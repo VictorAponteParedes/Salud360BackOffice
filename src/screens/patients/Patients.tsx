@@ -73,7 +73,7 @@ export default function Patients() {
           onSubmit={methods.handleSubmit(onSubmit)}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+          transition={{ duration: 1, ease: "easeOut" }}
           className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
         >
           <div className="flex items-center gap-2 mb-6">
