@@ -17,6 +17,11 @@ export type PatientFormData = {
     status?: PatientStatusEnum;
     lastVisit?: string;
     doctor?: string;
+    photo?: {
+    file: File;
+    preview: string;
+  };
+    profileImageId?: string;
 }
 
 export type LoginFormData = {

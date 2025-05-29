@@ -27,8 +27,8 @@ export default function Patients() {
     try {
       const formData = new FormData();
 
-      if (data.profileImage?.file) {
-        formData.append("file", data.profileImage.file);
+      if (data.photo?.file) {
+        formData.append("file", data.photo.file); // Asegúrate que 'file' coincide con el nombre esperado en el backend
       }
 
       let imageId = null;
@@ -41,6 +41,8 @@ export default function Patients() {
       const userData = {
         ...data,
         profileImageId: imageId,
+        // Eliminar el objeto photo para no enviarlo dos veces
+        photo: undefined,
       };
 
       console.log("Registrando usuario:", userData);
