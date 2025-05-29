@@ -1,6 +1,6 @@
 // src/screens/PatientList.tsx
 import { motion } from "framer-motion";
-import { Search, ArrowLeft, Filter, User } from "lucide-react";
+import { Search, ArrowLeft, Filter, User, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { patients } from "../../mocks/patients";
 import { PatientCard } from "./PatiendCard";
@@ -10,6 +10,11 @@ import { PatientStatusEnum } from "../../enums";
 export default function PatientList() {
   const navigate = useNavigate();
 
+  const handleCreateNewPatient = () => {
+    // Navegar a la vista de creación de paciente
+    navigate("/patients/create");
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: -50 }}
@@ -17,15 +22,26 @@ export default function PatientList() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="max-w-6xl mx-auto p-8"
     >
-      <div className="flex items-center gap-2 mb-6">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => navigate(-1)}
+            className="text-gray-600 hover:text-gray-800"
+          >
+            <ArrowLeft className="w-6 h-6" />
+          </button>
+          <h1 className="text-2xl font-bold text-gray-800">Gestión de Pacientes</h1>
+        </div>
+
+        {/* Botón para crear nuevo paciente */}
         <button
-          type="button"
-          onClick={() => navigate(-1)}
-          className="text-gray-600 hover:text-gray-800"
+          onClick={handleCreateNewPatient}
+          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
         >
-          <ArrowLeft className="w-6 h-6" />
+          <Plus className="w-5 h-5" />
+          Crear Nuevo Paciente
         </button>
-        <h1 className="text-2xl font-bold text-gray-800">Gestión de Pacientes</h1>
       </div>
 
       <p className="mb-6 text-gray-700">Administra la información de todos los pacientes</p>
