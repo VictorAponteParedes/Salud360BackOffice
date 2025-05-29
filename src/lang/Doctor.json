@@ -1,0 +1,81 @@
+{
+  "registerDoctor": {
+    "title": "Registro de Doctor",
+    "description": "Registra un nuevo doctor en el sistema.",
+    "button": {
+      "submit": "Crear doctor"
+    },
+    "message": {
+      "success": {
+        "title": "Doctor creado",
+        "description": "El perfil del doctor fue registrado exitosamente."
+      },
+      "error": {
+        "title": "Error",
+        "description": "No se pudo registrar el doctor. Por favor, inténtalo de nuevo."
+      }
+    },
+    "fields": {
+      "titleBasicInfo": "Información Básica",
+      "firstName": {
+        "label": "Nombre",
+        "placeholder": "Ingresa el nombre del doctor"
+      },
+      "lastName": {
+        "label": "Apellido",
+        "placeholder": "Ingresa el apellido del doctor"
+      },
+      "rating": {
+        "label": "Rating",
+        "placeholder": "Calificación promedio (ej. 4.5)"
+      },
+      "reviews": {
+        "label": "Reseñas",
+        "placeholder": "Cantidad de reseñas recibidas"
+      },
+      "status": {
+        "label": "Estado",
+        "options": {
+          "available": "Disponible",
+          "unavailable": "No disponible",
+          "on_leave": "En licencia"
+        }
+      },
+      "schedule": {
+        "label": "Horario",
+        "placeholder": "Horario de atención del doctor"
+      },
+
+      "titleExperienceDescription": "Experiencia y Descripción",
+      "experience": {
+        "label": "Experiencia",
+        "placeholder": "Detalle la experiencia profesional"
+      },
+      "description": {
+        "label": "Descripción",
+        "placeholder": "Descripción del doctor",
+        "multiline": true
+      },
+
+      "titleSpecialtiesLanguages": "Especialidades y Lenguajes",
+      "specialties": {
+        "label": "Especialidades",
+        "options": {
+          "cardiology": "Cardiología",
+          "pediatrics": "Pediatría",
+          "neurology": "Neurología",
+          "dermatology": "Dermatología"
+        }
+      },
+      "languages": {
+        "label": "Idiomas",
+        "options": {
+          "es": "Español",
+          "en": "Inglés",
+          "fr": "Francés",
+          "pt": "Portugués"
+        }
+      }
+    }
+  }
+}
