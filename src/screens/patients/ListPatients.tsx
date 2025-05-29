@@ -11,7 +11,6 @@ export default function PatientList() {
   const navigate = useNavigate();
 
   const handleCreateNewPatient = () => {
-    // Navegar a la vista de creación de paciente
     navigate("/patients/create");
   };
 
