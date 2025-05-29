@@ -39,7 +39,7 @@ class PatientServices {
     async createPatient(userData: PatientFormData) {
         try {
             const response = await axios.post(
-                '/users/register',
+                `${API_BASE_URL}/users/register`,
                 userData,
                 {
                     headers: {
