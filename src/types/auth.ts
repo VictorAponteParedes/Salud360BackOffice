@@ -1,3 +1,5 @@
+import type { PatientStatusEnum } from "../enums";
+
 export type PatientFormData = {
     firstName: string;
     lastName: string;
@@ -8,11 +10,14 @@ export type PatientFormData = {
     password: string;
     confirmPassword?: string;
     dateBirth: string;
-    bloodType: string
-    allergies: string
+    bloodType: string;
+    allergies: string;
     contactEmergency: string;
     profileImage?: any;
-};
+    status?: PatientStatusEnum;
+    lastVisit?: string;
+    doctor?: string;
+}
 
 export type LoginFormData = {
     email: string;

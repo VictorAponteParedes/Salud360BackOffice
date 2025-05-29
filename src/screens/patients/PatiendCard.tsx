@@ -1,10 +1,14 @@
 import { motion } from "framer-motion";
 import { Circle, UserIcon } from "lucide-react";
 import { PatientStatus } from "../../helpers";
+import type { PatientFormData } from "../../types/auth";
+import { PatientStatusEnum } from "../../enums";
 
+interface Props {
+    patient: PatientFormData;
+}
 
-export const PatientCard = ({ patient }: { patient: any }) => {
-
+export const PatientCard = ({ patient }: Props) => {
     return (
         <motion.div
             whileHover={{ scale: 1.01 }}
@@ -19,9 +23,10 @@ export const PatientCard = ({ patient }: { patient: any }) => {
                 {/* Información del paciente en horizontal */}
                 <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div className="space-y-1">
-                        <h3 className="text-lg font-bold text-gray-800">{patient.name}</h3>
-                        <p className="text-sm text-gray-600">{patient.id}</p>
-                        <PatientStatus status={patient.status} />
+                        <h3 className="text-lg font-bold text-gray-800">
+                            {patient.firstName} {patient.lastName}
+                        </h3>
+                        <PatientStatus status={patient.status ?? PatientStatusEnum.INACTIVO} />
                     </div>
 
                     <div className="space-y-1">
@@ -31,9 +36,8 @@ export const PatientCard = ({ patient }: { patient: any }) => {
                     </div>
 
                     <div className="space-y-1">
-                        <p className="text-sm font-medium text-gray-700">Última visita</p>
-                        <p className="text-sm text-gray-600">{patient.lastVisit}</p>
-                        <p className="text-sm text-gray-600">Dr. {patient.doctor.split("Dr. ")[1]}</p>
+                        <p className="text-sm font-medium text-gray-700">Fecha de nacimiento</p>
+                        <p className="text-sm text-gray-600">{patient.dateBirth}</p>
                     </div>
 
                     <div className="flex items-center justify-end">

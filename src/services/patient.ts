@@ -68,6 +68,16 @@ class PatientServices {
         }
     }
 
+    async getPatients() {
+        try {
+            const response = await axios.get(`${API_BASE_URL}/users/`);
+            return response.data;
+        } catch (error) {
+            console.error('Error al obtener pacientes:', error);
+            throw error;
+        }
+    }
+
 }
 
 export default PatientServices

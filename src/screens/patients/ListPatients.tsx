@@ -2,17 +2,63 @@
 import { motion } from "framer-motion";
 import { Search, ArrowLeft, Filter, User, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { patients } from "../../mocks/patients";
 import { PatientCard } from "./PatiendCard";
 import { PatientStatus } from "../../helpers";
 import { PatientStatusEnum } from "../../enums";
+import PatientServices from "../../services/patient";
+import { useEffect, useState } from "react";
 
 export default function PatientList() {
   const navigate = useNavigate();
+  const [patients, setPatients] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const patientService = new PatientServices();
+
+  useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const response = await patientService.getPatients();
+        console.log("Pacientes obtenidos:", response);
+        setPatients(response);
+      } catch (error) {
+        console.error("Error fetching patients:", error);
+        setError("Error al cargar los pacientes");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPatients();
+  }, []);
 
   const handleCreateNewPatient = () => {
     navigate("/patients/create");
   };
+
+  if (isLoading) {
+    return (
+      <div className="max-w-6xl mx-auto p-8 flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-6xl mx-auto p-8">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
+          {error}
+          <button
+            onClick={() => window.location.reload()}
+            className="absolute top-0 right-0 px-4 py-3"
+          >
+            <span className="text-red-700">×</span>
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -33,7 +79,6 @@ export default function PatientList() {
           <h1 className="text-2xl font-bold text-gray-800">Gestión de Pacientes</h1>
         </div>
 
-        {/* Botón para crear nuevo paciente */}
         <button
           onClick={handleCreateNewPatient}
           className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
