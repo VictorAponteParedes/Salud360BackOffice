@@ -70,39 +70,66 @@ export default function CreateDoctor() {
               {translate("registerDoctor.fields.titleBasicInfo")}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <TextInput 
-                name="firstName" 
-                label={translate("registerDoctor.fields.firstName.label")} 
-                placeholder={translate("registerDoctor.fields.firstName.placeholder")}
-               />
-              <TextInput 
-                name="lastName" 
-                label={translate("registerDoctor.fields.lastName.label")} 
-                placeholder={translate("registerDoctor.fields.lastName.placeholder")}
-               />
-              <TextInput 
-                name="rating" 
-                label={translate("registerDoctor.fields.rating.label")} type="number" 
-                placeholder={translate("registerDoctor.fields.rating.placeholder")} 
+              <TextInput
+                name="firstName"
+                label={translate("registerDoctor.fields.firstName.label")}
+                placeholder={translate(
+                  "registerDoctor.fields.firstName.placeholder"
+                )}
               />
-              <TextInput 
-                name="reviews" 
-                label={translate("registerDoctor.fields.reviews.label")} type="number" 
-                placeholder={translate("registerDoctor.fields.reviews.placeholder")}
-               />
+              <TextInput
+                name="lastName"
+                label={translate("registerDoctor.fields.lastName.label")}
+                placeholder={translate(
+                  "registerDoctor.fields.lastName.placeholder"
+                )}
+              />
+              <TextInput
+                name="rating"
+                label={translate("registerDoctor.fields.rating.label")}
+                type="number"
+                placeholder={translate(
+                  "registerDoctor.fields.rating.placeholder"
+                )}
+              />
+              <TextInput
+                name="reviews"
+                label={translate("registerDoctor.fields.reviews.label")}
+                type="number"
+                placeholder={translate(
+                  "registerDoctor.fields.reviews.placeholder"
+                )}
+              />
               <SelectInput
                 name="status"
                 label={translate("registerDoctor.fields.status.label")}
                 options={[
-                  { label: translate("registerDoctor.fields.status.options.available"), value: "available" },
-                  { label: translate("registerDoctor.fields.status.options.unavailable"), value: "unavailable" },
-                  { label: translate("registerDoctor.fields.status.options.on_leave"), value: "on_leave" },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.status.options.available"
+                    ),
+                    value: "available",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.status.options.unavailable"
+                    ),
+                    value: "unavailable",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.status.options.on_leave"
+                    ),
+                    value: "on_leave",
+                  },
                 ]}
               />
-              <TextInput 
-                name="schedule" 
-                label={translate("registerDoctor.fields.schedule.label")} 
-                placeholder={translate("registerDoctor.fields.schedule.placeholder")} 
+              <TextInput
+                name="schedule"
+                label={translate("registerDoctor.fields.schedule.label")}
+                placeholder={translate(
+                  "registerDoctor.fields.schedule.placeholder"
+                )}
               />
             </div>
           </section>
@@ -114,15 +141,19 @@ export default function CreateDoctor() {
               {translate("registerDoctor.fields.titleExperienceDescription")}
             </h2>
             <div className="grid grid-cols-1 gap-4">
-              <TextInput 
-                name="experience" 
-                label={translate("registerDoctor.fields.experience.label")} 
-                placeholder={translate("registerDoctor.fields.experience.placeholder")} 
-              />  
+              <TextInput
+                name="experience"
+                label={translate("registerDoctor.fields.experience.label")}
+                placeholder={translate(
+                  "registerDoctor.fields.experience.placeholder"
+                )}
+              />
               <TextInput
                 name="description"
                 label={translate("registerDoctor.fields.description.label")}
-                placeholder={translate("registerDoctor.fields.description.placeholder")}
+                placeholder={translate(
+                  "registerDoctor.fields.description.placeholder"
+                )}
               />
             </div>
           </section>
@@ -138,21 +169,60 @@ export default function CreateDoctor() {
                 name="specialties"
                 label={translate("registerDoctor.fields.specialties.label")}
                 options={[
-                  { label: translate("registerDoctor.fields.specialties.options.cardiology"), value: "cardiology" },
-                  { label: translate("registerDoctor.fields.specialties.options.pediatrics"), value: "pediatrics" },
-                  { label: translate("registerDoctor.fields.specialties.options.neurology"), value: "neurology" },
-                  { label: translate("registerDoctor.fields.specialties.options.dermatology"), value: "dermatology" },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.specialties.options.cardiology"
+                    ),
+                    value: "cardiology",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.specialties.options.pediatrics"
+                    ),
+                    value: "pediatrics",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.specialties.options.neurology"
+                    ),
+                    value: "neurology",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.specialties.options.dermatology"
+                    ),
+                    value: "dermatology",
+                  },
                 ]}
               />
               <SelectInput
                 name="languages"
                 label={translate("registerDoctor.fields.languages.label")}
-                
                 options={[
-                  { label: translate("registerDoctor.fields.languages.options.es"), value: "es" },
-                  { label: translate("registerDoctor.fields.languages.options.en"), value: "en" },
-                  { label: translate("registerDoctor.fields.languages.options.fr"), value: "fr" },
-                  { label: translate("registerDoctor.fields.languages.options.pt"), value: "pt" },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.languages.options.es"
+                    ),
+                    value: "es",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.languages.options.en"
+                    ),
+                    value: "en",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.languages.options.fr"
+                    ),
+                    value: "fr",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.languages.options.pt"
+                    ),
+                    value: "pt",
+                  },
                 ]}
               />
             </div>
@@ -164,7 +234,7 @@ export default function CreateDoctor() {
               type="submit"
               className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition"
             >
-              {translate("registerDoctor.button.create")}
+              {translate("registerDoctor.button.submit")}
             </button>
           </div>
         </motion.form>
