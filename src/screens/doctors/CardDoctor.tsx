@@ -1,4 +1,4 @@
-import { User } from "lucide-react";
+import { Languages, User } from "lucide-react";
 
 interface DoctorCardProps {
   id: number;
@@ -54,7 +54,9 @@ export const DoctorCard = ({
             {"★".repeat(Math.round(rating))}{" "}
             <span className="text-gray-600 ml-1">({reviews} reseñas)</span>
           </div>
-          <div className="flex gap-2 mt-2">
+          <div className="flex gap-2 mt-2 items-center">
+            <Languages className="w-4 h-4 text-gray-500" />{" "}
+            {/* Ícono de idiomas */}
             {languages.map((lang) => (
               <span
                 key={lang}
@@ -80,7 +82,7 @@ export const DoctorCard = ({
         </span>
         <button
           onClick={onViewDetails}
-          className="px-3 py-1 bg-black text-white text-sm rounded hover:bg-gray-800"
+          className="px-3 py-1 bg-primary text-white text-sm rounded hover:bg-primary-hover"
         >
           Ver detalles
         </button>

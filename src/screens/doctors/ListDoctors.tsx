@@ -120,7 +120,7 @@ export default function DoctorList() {
 
         <button
           onClick={handleCreateNewDoctor}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition-colors"
         >
           <Plus className="w-5 h-5" />
           Crear Nuevo Doctor
@@ -185,13 +185,13 @@ export default function DoctorList() {
         <div className="space-y-4">
           {filteredDoctors.map((doctor) => (
             <DoctorCard
-                key={doctor.id}
-                {...doctor}
-                onViewDetails={() => navigate(`/doctors/${doctor.id}`)}
-                room="Sala A" 
-                reviews={15}  
-                languages={["Español"]}
-            />  
+              key={doctor.id}
+              {...doctor}
+              onViewDetails={() => navigate(`/doctors/${doctor.id}`)}
+              room="Sala A"
+              reviews={15}
+              languages={["Español", "Inglés", "Francés"]}
+            />
           ))}
         </div>
       </div>
