@@ -1,0 +1,83 @@
+{
+  "registerPatient": {
+    "title": "Registro de Paciente",
+    "description": "Registra un nuevo paciente en el sistema.",
+    "button": {
+      "submit": "Registrar paciente"
+    },
+    "message": {
+      "success": {
+        "title": "Paciente registrado con éxito",
+        "description": "El paciente ha sido registrado correctamente en el sistema."
+      },
+      "error": {
+        "title": "Error al registrar el paciente",
+        "description": "Por favor, inténtalo de nuevo."
+      }
+    },
+    "fields": {
+      "titlePersonalInfo": "Información personal",
+      "photo": {
+        "label": "Foto del paciente",
+        "placeholder": "Haz clic para subir una imagen"
+      },
+      "firstName": {
+        "label": "Nombre",
+        "placeholder": "Ingresa el nombre completo del paciente"
+      },
+      "lastName": {
+        "label": "Apellido",
+        "placeholder": "Ingresa el apellido completo del paciente"
+      },
+      "birthDate": {
+        "label": "Fecha de nacimiento",
+        "placeholder": "Selecciona la fecha de nacimiento del paciente"
+      },
+
+      "titleContactInfo": "Información de contacto",
+      "email": {
+        "label": "Correo electrónico",
+        "placeholder": "Ingresa el correo electrónico del paciente"
+      },
+      "phone": {
+        "label": "Teléfono",
+        "placeholder": "Ingresa el número de teléfono del paciente"
+      },
+      "address": {
+        "label": "Dirección",
+        "placeholder": "Ingresa la dirección del paciente"
+      },
+      "contactEmergency": {
+        "label": "Contacto de emergencia",
+        "placeholder": "Nombre y teléfono de emergencia"
+      },
+
+      "titleMedicalInfo": "Información médica",
+      "documentNumber": {
+        "label": "Número de documento",
+        "placeholder": "Ingresa el número de documento del paciente"
+      },
+      "bloodType": {
+        "label": "Tipo de sangre",
+        "placeholder": "Selecciona el tipo de sangre del paciente",
+        "options": {
+          "select": "Seleccione una opción"
+        }
+      },
+      "allergies": {
+        "label": "Alergias",
+        "placeholder": "Ingresa las alergias del paciente"
+      },
+
+      "titleSecurity": "Seguridad",
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Crea una contraseña segura"
+      },
+      "confirmPassword": {
+        "label": "Confirmar contraseña",
+        "placeholder": "Confirma la contraseña"
+      }
+    }
+  }
+}
