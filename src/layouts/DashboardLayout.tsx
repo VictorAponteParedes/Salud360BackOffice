@@ -58,7 +58,7 @@ export default function DashboardLayout({ children }: Props) {
                 <Users className="w-5 h-5" /> Pacientes
               </Link>
               <Link
-                to="/doctors"
+                to="/doctors/create"
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <User className="w-5 h-5" /> Doctores
