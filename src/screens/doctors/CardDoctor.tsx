@@ -60,7 +60,7 @@ export const DoctorCard = ({
             {languages.map((lang) => (
               <span
                 key={lang}
-                className="bg-gray-200 text-gray-700 text-xs px-2 py-1 rounded"
+                className="bg-gray-200 text-black text-xs px-2 py-1 rounded-full"
               >
                 {lang}
               </span>
