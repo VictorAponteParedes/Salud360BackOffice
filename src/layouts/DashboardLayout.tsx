@@ -52,7 +52,7 @@ export default function DashboardLayout({ children }: Props) {
                 <LayoutDashboard className="w-5 h-5" /> Dashboard
               </Link>
               <Link
-                to="/patients"
+                to="/patients/list"
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <Users className="w-5 h-5" /> Pacientes
