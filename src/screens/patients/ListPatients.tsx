@@ -64,7 +64,7 @@ export default function PatientList() {
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="max-w-6xl mx-auto p-8"
+      className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
     >
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
@@ -75,7 +75,9 @@ export default function PatientList() {
           >
             <ArrowLeft className="w-6 h-6" />
           </button>
-          <h1 className="text-2xl font-bold text-gray-800">Gestión de Pacientes</h1>
+          <h1 className="text-2xl font-bold text-gray-800">
+            Gestión de Pacientes
+          </h1>
         </div>
 
         <button
@@ -87,7 +89,9 @@ export default function PatientList() {
         </button>
       </div>
 
-      <p className="mb-6 text-gray-700">Administra la información de todos los pacientes</p>
+      <p className="mb-6 text-gray-700">
+        Administra la información de todos los pacientes
+      </p>
 
       {/* Barra de búsqueda y filtros */}
       <div className="flex flex-col md:flex-row gap-4 mb-8">
@@ -110,8 +114,12 @@ export default function PatientList() {
 
       <div className="border-t border-gray-200 pt-4 mb-4">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-lg font-semibold text-gray-800">Lista de Pacientes</h2>
-          <p className="text-sm text-gray-600">{patients.length} pacientes registrados</p>
+          <h2 className="text-lg font-semibold text-gray-800">
+            Lista de Pacientes
+          </h2>
+          <p className="text-sm text-gray-600">
+            {patients.length} pacientes registrados
+          </p>
         </div>
 
         {/* Lista de pacientes */}
@@ -124,7 +132,9 @@ export default function PatientList() {
 
       {/* Posibles estados para referencia */}
       <div className="mt-8 p-4 bg-gray-50 rounded-lg">
-        <h3 className="text-sm font-medium text-gray-700 mb-2">Estados disponibles:</h3>
+        <h3 className="text-sm font-medium text-gray-700 mb-2">
+          Estados disponibles:
+        </h3>
         <div className="flex flex-wrap gap-2">
           <PatientStatus status={PatientStatusEnum.ACTIVO} />
           <PatientStatus status={PatientStatusEnum.CRITICO} />
