@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { logoHospital } from "../../../assets/images";
+import { logoHospital, logo } from "../../../assets/images";
 import { Hospital } from "lucide-react";
 
 export default function LoginPage() {
@@ -54,12 +54,17 @@ export default function LoginPage() {
       <div className="flex flex-col md:flex-row w-full max-w-6xl shadow-2xl rounded-3xl overflow-hidden bg-white relative z-10">
         {/* Columna izquierda con ícono Lucide */}
         <div
-          className="hidden md:flex flex-1 bg-blue-50 items-center justify-center p-14"
+          className="hidden md:flex flex-1 bg-blue-50 items-center justify-center"
           style={{
             background: "linear-gradient(135deg, #d0e7ff 0%, #a3c7ff 100%)",
           }}
         >
-          <Hospital className="w-48 h-48 text-blue-600" />{" "}
+          <img
+            src={logo}
+            alt="Logo"
+            className="w-full h-full object-cover"
+            style={{ borderRadius: "0 0 0 12px" }} // Si querés esquinas redondeadas solo en este lado
+          />
         </div>
 
         {/* Columna derecha con formulario */}
