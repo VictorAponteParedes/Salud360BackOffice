@@ -3,10 +3,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { logoHospital } from "../../../assets/images";
-import { Hospital } from "lucide-react"; // ✅ Ícono Lucide importado
-
-// Imagen de fondo difuminada
-const BACKGROUND_BLUR_URL = logoHospital;
+import { Hospital } from "lucide-react";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -41,20 +38,12 @@ export default function LoginPage() {
       initial={{ opacity: 0, y: -50 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 to-white font-poppins relative overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center font-poppins bg-gradient-to-r from-blue-100 to-white overflow-hidden"
     >
-      {/* Imagen de fondo difuminada */}
       <div
-        className="absolute top-0 left-0 w-full h-full pointer-events-none"
+        className="absolute top-0 left-0 w-full h-full"
         style={{
-          backgroundImage: `url(${BACKGROUND_BLUR_URL})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          filter: "blur(80px)",
-          transform: "scale(1.1)",
-          opacity: 0.12,
-          zIndex: 0,
+          backgroundImage: `url(${logoHospital})`,
         }}
       ></div>
 
