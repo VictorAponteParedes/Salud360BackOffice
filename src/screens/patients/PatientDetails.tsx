@@ -69,11 +69,17 @@ const PatientDetails = () => {
               className="w-full"
             >
               <div className="flex items-center gap-4">
-                <img
-                  src={patient.photo?.preview || "/default-avatar.png"}
-                  alt="Foto del paciente"
-                  className="w-24 h-24 object-cover rounded-full"
-                />
+                {patient.photo ? (
+                  <img
+                    src={patient.photo?.preview || "/default-avatar.png"}
+                    alt="Foto del paciente"
+                    className="w-24 h-24 object-cover rounded-full"
+                  />
+                ) : (
+                  <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
+                    <User className="text-gray-500" size={48} />
+                  </div>
+                )}
                 <div>
                   <p>
                     <strong>Nombre(s):</strong> {patient.firstName}
