@@ -3,7 +3,7 @@ import type { PatientFormData } from "../types/auth";
 import { API_BASE_URL } from "../constants";
 
 
-const uploadApi = axios.create({
+export const uploadApi = axios.create({
     baseURL: API_BASE_URL,
     timeout: 10000,
     headers: {
