@@ -44,6 +44,9 @@ export default function LoginPage() {
         className="absolute top-0 left-0 w-full h-full"
         style={{
           backgroundImage: `url(${logoHospital})`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
         }}
       ></div>
 
