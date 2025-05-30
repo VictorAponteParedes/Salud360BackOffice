@@ -14,29 +14,12 @@ import {
   User,
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
-import type { PatientFormData } from "../../types/auth";
+import { usePatient } from "../../hooks/usePatient";
 
 const PatientDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const [patient, setPatient] = useState<PatientFormData | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const patientService = new PatientServices();
-
-  useEffect(() => {
-    const fetchPatient = async () => {
-      try {
-        const data = await patientService.getPatientById(id!);
-        setPatient(data);
-      } catch (error) {
-        console.error("Error fetching patient:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPatient();
-  }, [id]);
+  const { patient, isLoading } = usePatient(id);
 
   return (
     <>
