@@ -2,8 +2,8 @@
 import { Controller, useFormContext } from "react-hook-form";
 import { MultiSelect } from "primereact/multiselect";
 import type { SelectInputProps } from "../../types/input";
-import "primereact/resources/themes/lara-light-blue/theme.css"; // Asegúrate de importar el tema
-import "primereact/resources/primereact.min.css"; // Estilos base de primereact
+import "primereact/resources/themes/lara-light-blue/theme.css";
+import "primereact/resources/primereact.min.css"; 
 
 export const SelectInput = ({
   name,
