@@ -16,14 +16,20 @@ import {
   LogOut,
 } from "lucide-react";
 import { RoutesView } from "../routes";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 type Props = {
   children: ReactNode;
 };
 
 export default function DashboardLayout({ children }: Props) {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
+
   const handleLogout = () => {
-    console.log("Logout clickeado");
+    logout();
+    navigate("/auth/login");
   };
 
   return (
