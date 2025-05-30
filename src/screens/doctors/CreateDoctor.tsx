@@ -57,7 +57,9 @@ export default function CreateDoctor() {
       setMessage({
         type: "error",
         title: translate("registerDoctor.message.error.title"),
-        description: error.message || translate("registerDoctor.message.error.description"),
+        description:
+          error.message ||
+          translate("registerDoctor.message.error.description"),
       });
     }
   };
@@ -122,12 +124,29 @@ export default function CreateDoctor() {
                   "registerDoctor.fields.reviews.placeholder"
                 )}
               />
-              <TextInput
+              <SelectInput
                 name="hospital"
                 label={translate("registerDoctor.fields.hospital.label")}
-                placeholder={translate(
-                  "registerDoctor.fields.hospital.placeholder"
-                )}
+                options={[
+                  {
+                    label: translate(
+                      "registerDoctor.fields.hospital.options.hospital1"
+                    ),
+                    value: "hospital1",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.hospital.options.hospital2"
+                    ),
+                    value: "hospital2",
+                  },
+                  {
+                    label: translate(
+                      "registerDoctor.fields.hospital.options.hospital3"
+                    ),
+                    value: "hospital3",
+                  },
+                ]}
               />
               <TextInput
                 name="patients"
@@ -136,11 +155,7 @@ export default function CreateDoctor() {
                   "registerDoctor.fields.patient.placeholder"
                 )}
               />
-              <ImageInput
-                name="profileImage"
-                label={translate("registerDoctor.fields.photo.label")}
-                control={methods.control}
-              />
+
               <SelectInput
                 name="status"
                 label={translate("registerDoctor.fields.status.label")}
@@ -171,6 +186,11 @@ export default function CreateDoctor() {
                 placeholder={translate(
                   "registerDoctor.fields.schedule.placeholder"
                 )}
+              />
+              <ImageInput
+                name="profileImage"
+                label={translate("registerDoctor.fields.photo.label")}
+                control={methods.control}
               />
             </div>
           </section>
