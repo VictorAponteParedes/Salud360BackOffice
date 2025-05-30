@@ -6,6 +6,7 @@ import PatientList from '../screens/patients/ListPatients';
 import CreateDoctor from "../screens/doctors/CreateDoctor";
 import ErrorPage from '../components/erroPage';
 import ListDoctors from "../screens/doctors/ListDoctors";
+import PatientDetails from "../screens/patients/PatientDetails";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "patients/create", element: <Patients /> },
       { path: "patients/list", element: <PatientList /> },
+      { path: "patients/:id", element: <PatientDetails /> },
       { path: "doctors/create", element: <CreateDoctor /> },
       { path: "doctors/list", element: <ListDoctors /> },
     ],
