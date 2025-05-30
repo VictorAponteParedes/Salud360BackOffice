@@ -18,9 +18,9 @@ export type PatientFormData = {
     lastVisit?: string;
     doctor?: string;
     photo?: {
-    file: File;
-    preview: string;
-  };
+        file: File;
+        preview: string;
+    };
     profileImageId?: string;
 }
 

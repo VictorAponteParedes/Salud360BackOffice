@@ -8,6 +8,9 @@ export interface DoctorFormData {
   schedule?: string;
   experience?: string;
   description?: string;
-  specialties?: string[];
-  languages?: string[]; 
+  specialties?: string;
+  languages?: string;
+  hospital?: string;
+  patients?: string;
+  profileImage?: File | string;
 }
