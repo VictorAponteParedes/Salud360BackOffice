@@ -5,32 +5,13 @@ import { useNavigate } from "react-router-dom";
 import { PatientCard } from "./PatiendCard";
 import { PatientStatus } from "../../helpers";
 import { PatientStatusEnum } from "../../enums";
-import PatientServices from "../../services/patient";
-import { useEffect, useState } from "react";
+import { usePatient } from "../../hooks/usePatient";
 
 export default function PatientList() {
   const navigate = useNavigate();
-  const [patients, setPatients] = useState<any[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const patientService = new PatientServices();
-
-  useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await patientService.getPatients();
-        setPatients(response);
-      } catch (error) {
-        console.error("Error fetching patients:", error);
-        setError("Error al cargar los pacientes");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPatients();
-  }, []);
-
+  const { patients, isLoading, error } = usePatient();
+  if (isLoading) return <div>Cargando pacientes...</div>;
+  if (error) return <div>{error}</div>;
   const handleCreateNewPatient = () => {
     navigate("/patients/create");
   };
