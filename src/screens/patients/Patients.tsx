@@ -27,8 +27,8 @@ export default function Patients() {
     try {
       const formData = new FormData();
 
-      if (data.photo?.file) {
-        formData.append("file", data.photo.file); // Asegúrate que 'file' coincide con el nombre esperado en el backend
+      if (data.profileImage) {
+        formData.append("file", data.profileImage);
       }
 
       let imageId = null;
@@ -41,8 +41,6 @@ export default function Patients() {
       const userData = {
         ...data,
         profileImageId: imageId,
-        // Eliminar el objeto photo para no enviarlo dos veces
-        photo: undefined,
       };
 
       console.log("Registrando usuario:", userData);
@@ -101,7 +99,7 @@ export default function Patients() {
               </h2>
               <div className="grid grid-cols-1 gap-4">
                 <ImageInput
-                  name="photo"
+                  name="profileImage"
                   label={translate("registerPatient.fields.photo.label")}
                   control={methods.control}
                 />
