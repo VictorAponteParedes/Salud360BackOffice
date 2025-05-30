@@ -20,8 +20,7 @@ export const ImageInput: React.FC<ImageInputProps> = ({ name, label, control }) 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      onChange(imageUrl);
+      onChange(file); // ✅ Guardamos el File directamente
     }
   };
 
@@ -32,9 +31,9 @@ export const ImageInput: React.FC<ImageInputProps> = ({ name, label, control }) 
         onClick={() => fileInputRef.current?.click()}
         className="cursor-pointer border border-dashed border-gray-400 rounded-md p-4 flex flex-col items-center justify-center hover:bg-gray-50 transition"
       >
-        {value ? (
+        {value instanceof File ? (
           <img
-            src={value}
+            src={URL.createObjectURL(value)}
             alt="Preview"
             className="w-32 h-32 object-cover rounded-full"
           />
