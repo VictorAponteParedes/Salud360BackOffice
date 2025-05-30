@@ -1,8 +1,14 @@
-import Routes from './routes';
-import './index.css';
+// src/App.tsx
+import Routes from "./routes";
+import "./index.css";
+import { AuthProvider } from "./context/AuthContext";
 
 function App() {
-  return <Routes />;
+  return (
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
+  );
 }
 
 export default App;
