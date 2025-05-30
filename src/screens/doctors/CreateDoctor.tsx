@@ -9,8 +9,11 @@ import { ArrowLeft, User, Stethoscope, Star } from "lucide-react";
 import { MessageToast } from "../../components/MessageToast";
 import type { DoctorFormData } from "../../types/doctors";
 import { translate } from "../../lang";
+import { ImageInput } from "../../components/form/ImageInput";
+import { DoctorService } from "../../services/doctor";
 
 export default function CreateDoctor() {
+  const doctorService = new DoctorService();
   const methods = useForm<DoctorFormData>();
   const navigate = useNavigate();
   const [message, setMessage] = useState<null | {
@@ -21,9 +24,28 @@ export default function CreateDoctor() {
 
 
   const onSubmit = async (data: DoctorFormData) => {
-  console.log("Datos del formulario:", data);
-
     try {
+      const formData = new FormData();
+
+      if (data.profileImage) {
+        formData.append("file", data.profileImage);
+      }
+
+      let imageId = null;
+      if (formData.has("file")) {
+        const uploadResponse = await doctorService.uploadImage(formData);
+        imageId = uploadResponse.id;
+        console.log("Imagen subida:", uploadResponse);
+      }
+
+      const doctorData = {
+        ...data,
+        profileImageId: imageId,
+      };
+
+      console.log("Registrando doctor:", doctorData);
+      await doctorService.createDoctor(doctorData);
+
       setMessage({
         type: "success",
         title: translate("registerDoctor.message.success.title"),
@@ -99,6 +121,25 @@ export default function CreateDoctor() {
                 placeholder={translate(
                   "registerDoctor.fields.reviews.placeholder"
                 )}
+              />
+              <TextInput
+                name="hospital"
+                label={translate("registerDoctor.fields.hospital.label")}
+                placeholder={translate(
+                  "registerDoctor.fields.hospital.placeholder"
+                )}
+              />
+              <TextInput
+                name="patients"
+                label={translate("registerDoctor.fields.patient.label")}
+                placeholder={translate(
+                  "registerDoctor.fields.patient.placeholder"
+                )}
+              />
+              <ImageInput
+                name="profileImage"
+                label={translate("registerDoctor.fields.photo.label")}
+                control={methods.control}
               />
               <SelectInput
                 name="status"
