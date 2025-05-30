@@ -19,7 +19,6 @@ export default function PatientList() {
     const fetchPatients = async () => {
       try {
         const response = await patientService.getPatients();
-        console.log("Pacientes obtenidos:", response);
         setPatients(response);
       } catch (error) {
         console.error("Error fetching patients:", error);

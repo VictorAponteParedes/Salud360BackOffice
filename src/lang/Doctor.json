@@ -35,7 +35,12 @@
       },
       "hospital": {
         "label": "Hospital",
-        "placeholder": "Selecciona el hospital al que pertenece el doctor"
+        "placeholder": "Selecciona el hospital al que pertenece el doctor",
+        "options": {
+          "hospital1": "Hospital Distritral",
+          "hospital2": "Hospital Nacional",
+          "hospital3": "Hospital Metropolitano"
+        }
       },
       "patient": {
         "label": "Pacientes",

@@ -1,4 +1,5 @@
 import { PatientStatusEnum } from "../enums";
+import { LOCAL_IP } from "../constants";
 
 interface PatientStatusProps {
   status: PatientStatusEnum;
@@ -31,4 +32,12 @@ export const PatientStatus = ({ status }: PatientStatusProps) => {
       {status}
     </span>
   );
+};
+
+export const fixUrl = (url: string) => {
+  if (!url) return url;
+  if (url.includes("localhost")) {
+    return url.replace("localhost", LOCAL_IP);
+  }
+  return url;
 };

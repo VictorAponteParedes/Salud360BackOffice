@@ -1,16 +1,24 @@
 // src/types/doctor.ts
 export interface DoctorFormData {
+  id: string;
   firstName: string;
   lastName: string;
-  rating: number;
+  description: string;
+  experience: string;
+  languages: string[];
+  patients: any[];
+  profileImage: {
+    id: string;
+    filename: string;
+    originalname: string;
+    mimetype: string;
+    size: number;
+    path: string;
+  };
+  rating: string;
   reviews: number;
+  schedule: string;
+  specialties: string[];
   status: "available" | "unavailable" | "on_leave";
-  schedule?: string;
-  experience?: string;
-  description?: string;
-  specialties?: string;
-  languages?: string;
-  hospital?: string;
-  patients?: string;
-  profileImage?: File | string;
-}
+  onViewDetails?: () => void;
+}  

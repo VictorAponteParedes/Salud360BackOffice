@@ -1,6 +1,7 @@
 import type { PatientStatusEnum } from "../enums";
 
 export type PatientFormData = {
+    id?: string;
     firstName: string;
     lastName: string;
     phone: string;

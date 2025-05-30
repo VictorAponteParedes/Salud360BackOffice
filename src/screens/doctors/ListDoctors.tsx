@@ -21,54 +21,13 @@ export default function DoctorList() {
   });
 
   useEffect(() => {
-    const fetchPatients = async () => {
-      try {
-        const response = await doctorService.getDoctors();
-        console.log("doctores obtenidos:", response);
-        setDoctors(response);
-      } catch (error) {
-        console.error("Error fetching patients:", error);
-        setError("Error al cargar los pacientes");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchPatients();
-  }, []);
-
-  useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await new Promise<DoctorFormData[]>((resolve) =>
-          setTimeout(() => {
-            resolve([
-              {
-                id: 1,
-                name: "Dr. Ana Pérez",
-                specialty: "Cardiología",
-                rating: 4.8,
-                status: "available",
-              },
-              {
-                id: 2,
-                name: "Dr. Juan García",
-                specialty: "Pediatría",
-                rating: 4.5,
-                status: "on_leave",
-              },
-              {
-                id: 3,
-                name: "Dra. Lucia Gómez",
-                specialty: "Neurología",
-                rating: 4.7,
-                status: "unavailable",
-              },
-            ]);
-          }, 1000)
-        );
+        const response = await doctorService.getDoctors();
+        console.log("Doctores obtenidos:", response);
         setDoctors(response);
-      } catch (err) {
+      } catch (error) {
+        console.error("Error al cargar doctores:", error);
         setError("Error al cargar los doctores");
       } finally {
         setIsLoading(false);
@@ -77,6 +36,8 @@ export default function DoctorList() {
 
     fetchDoctors();
   }, []);
+
+
 
   const handleCreateNewDoctor = () => {
     navigate("/doctors/create");
@@ -198,7 +159,6 @@ export default function DoctorList() {
               key={doctor.id}
               {...doctor}
               onViewDetails={() => navigate(`/doctors/${doctor.id}`)}
-              room="Sala A"
               reviews={15}
               languages={["Español", "Inglés", "Francés"]}
             />

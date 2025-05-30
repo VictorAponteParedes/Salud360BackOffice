@@ -1,43 +1,32 @@
+import React, { useEffect, useState } from "react";
+import type { DoctorFormData } from "../../types/doctors";
 import { Languages, User } from "lucide-react";
-
-interface DoctorCardProps {
-  id: number;
-  name: string;
-  specialty: string;
-  room: string;
-  rating: number;
-  reviews: number;
-  status: "available" | "unavailable" | "on_leave";
-  languages: string[];
-  image?: string;
-  onViewDetails: () => void;
-}
+import useShowPerfilImagen from "../../hooks/useShowPerfilImge";
 
 export const DoctorCard = ({
-  name,
-  specialty,
-  room,
+  id,
+  firstName,
+  lastName,
+  description,
   rating,
   reviews,
   status,
-  languages,
-  image,
+  languages = [],
+  profileImage,
   onViewDetails,
-}: DoctorCardProps) => {
-  const statusColor = {
-    available: "bg-green-100 text-green-700",
-    unavailable: "bg-red-100 text-red-700",
-    on_leave: "bg-yellow-100 text-yellow-700",
-  };
+}: DoctorFormData) => {
+  // Usa el hook para obtener la URL si no tienes filename directo
+  const { profileImageUri, loadingImage } = useShowPerfilImagen({ id });
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between">
-      {/* Foto o ícono */}
       <div className="flex items-center gap-4">
-        {image ? (
+        {loadingImage ? (
+          <div className="w-16 h-16 rounded-full bg-gray-200 animate-pulse" />
+        ) : profileImageUri ? (
           <img
-            src={image}
-            alt={`Foto de ${name}`}
+            src={profileImageUri}
+            alt={`Foto de ${firstName} ${lastName}`}
             className="w-16 h-16 rounded-full object-cover"
           />
         ) : (
@@ -45,34 +34,42 @@ export const DoctorCard = ({
             <User className="w-8 h-8 text-gray-400" />
           </div>
         )}
-        {/* Info */}
+
         <div>
-          <h3 className="text-lg font-semibold text-gray-800">{name}</h3>
-          <p className="text-sm text-gray-600">{specialty}</p>
-          <p className="text-sm text-gray-500">Consulta {room}</p>
+          <h3 className="text-lg font-semibold text-gray-800">
+            {firstName} {lastName}
+          </h3>
+          <p className="text-sm text-gray-600">{description}</p>
+          <p className="text-sm text-gray-500">Consulta</p>
           <div className="flex items-center gap-1 text-yellow-500 text-sm mt-1">
-            {"★".repeat(Math.round(rating))}{" "}
+            {"★".repeat(Math.round(Number(rating)))}
             <span className="text-gray-600 ml-1">({reviews} reseñas)</span>
           </div>
-          <div className="flex gap-2 mt-2 items-center">
-            <Languages className="w-4 h-4 text-gray-500" />{" "}
-            {/* Ícono de idiomas */}
-            {languages.map((lang) => (
-              <span
-                key={lang}
-                className="bg-gray-200 text-black text-xs px-2 py-1 rounded-full"
-              >
-                {lang}
-              </span>
-            ))}
-          </div>
+          {languages.length > 0 && (
+            <div className="flex gap-2 mt-2 items-center">
+              <Languages className="w-4 h-4 text-gray-500" />
+              {languages.map((lang) => (
+                <span
+                  key={lang}
+                  className="bg-gray-200 text-black text-xs px-2 py-1 rounded-full"
+                >
+                  {lang}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Estado y botón */}
       <div className="flex flex-col items-end gap-2">
         <span
-          className={`px-3 py-1 rounded-full text-xs font-medium ${statusColor[status]}`}
+          className={`px-3 py-1 rounded-full text-xs font-medium ${
+            {
+              available: "bg-green-100 text-green-700",
+              unavailable: "bg-red-100 text-red-700",
+              on_leave: "bg-yellow-100 text-yellow-700",
+            }[status]
+          }`}
         >
           {status === "available"
             ? "Disponible"

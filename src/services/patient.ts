@@ -15,7 +15,7 @@ class PatientServices {
     async getProfileImage(userId: any) {
         try {
             const response = await axios.get(`/users/${userId}/profile-image`);
-            console.log("Dat perfil imagen: ", response.data.url)
+            console.log("Paciente perfil imagen: ", response.data.url)
             return response.data.url;
         } catch (error) {
             console.log('Error al obtener imagen de perfil', error);
@@ -68,7 +68,7 @@ class PatientServices {
         }
     }
 
-    async getPatients() {
+    async getPatients(): Promise<PatientFormData[]> {
         try {
             const response = await axios.get(`${API_BASE_URL}/users/`);
             return response.data;
