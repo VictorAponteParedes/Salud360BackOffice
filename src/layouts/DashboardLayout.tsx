@@ -48,37 +48,37 @@ export default function DashboardLayout({ children }: Props) {
             <nav className="flex flex-col gap-4">
               <Link
                 to={RoutesView.dashboard}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <LayoutDashboard className="w-5 h-5" /> Dashboard
               </Link>
               <Link
                 to={RoutesView.patients}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <Users className="w-5 h-5" /> Pacientes
               </Link>
               <Link
                 to={RoutesView.doctors}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <User className="w-5 h-5" /> Doctores
               </Link>
               <Link
                 to={RoutesView.hospitals}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <Hospital className="w-5 h-5" /> Hospitales
               </Link>
               <Link
                 to={RoutesView.appointments}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <Calendar className="w-5 h-5" /> Citas
               </Link>
               <Link
                 to={RoutesView.analysis}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <FileText className="w-5 h-5" /> Análisis Clínicos
               </Link>
@@ -91,25 +91,25 @@ export default function DashboardLayout({ children }: Props) {
             <nav className="flex flex-col gap-4">
               <Link
                 to={RoutesView.usersRoles}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <Shield className="w-5 h-5" /> Usuarios y Roles
               </Link>
               <Link
                 to={RoutesView.notifications}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <Bell className="w-5 h-5" /> Notificaciones
               </Link>
               <Link
                 to={RoutesView.reports}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <BarChart2 className="w-5 h-5" /> Reportes
               </Link>
               <Link
                 to={RoutesView.settings}
-                className="flex items-center gap-2 text-white hover:text-blue-600"
+                className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <Settings className="w-5 h-5" /> Configuración
               </Link>
@@ -120,7 +120,7 @@ export default function DashboardLayout({ children }: Props) {
         {/* Logout abajo */}
         <button
           onClick={handleLogout}
-          className="flex items-center gap-2 text-white hover:text-red-600"
+          className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-red-600 hover:bg-blue-50 hover:text-red-400 transition-all duration-200"
         >
           <LogOut className="w-5 h-5" />
           Cerrar sesión
