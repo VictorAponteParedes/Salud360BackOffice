@@ -23,6 +23,7 @@ export type PatientFormData = {
         preview: string;
     };
     profileImageId?: string;
+    onclick?: () => void;
 }
 
 export type LoginFormData = {
