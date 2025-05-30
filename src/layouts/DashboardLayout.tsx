@@ -15,6 +15,7 @@ import {
   HeartPulse,
   LogOut,
 } from "lucide-react";
+import { RoutesView } from "../routes";
 
 type Props = {
   children: ReactNode;
@@ -46,37 +47,37 @@ export default function DashboardLayout({ children }: Props) {
             </h3>
             <nav className="flex flex-col gap-4">
               <Link
-                to="/"
+                to={RoutesView.dashboard}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <LayoutDashboard className="w-5 h-5" /> Dashboard
               </Link>
               <Link
-                to="/patients/list"
+                to={RoutesView.patients}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <Users className="w-5 h-5" /> Pacientes
               </Link>
               <Link
-                to="/doctors/list"
+                to={RoutesView.doctors}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <User className="w-5 h-5" /> Doctores
               </Link>
               <Link
-                to="/hospitals"
+                to={RoutesView.hospitals}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <Hospital className="w-5 h-5" /> Hospitales
               </Link>
               <Link
-                to="/appointments"
+                to={RoutesView.appointments}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <Calendar className="w-5 h-5" /> Citas
               </Link>
               <Link
-                to="/analysis"
+                to={RoutesView.analysis}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <FileText className="w-5 h-5" /> Análisis Clínicos
@@ -89,25 +90,25 @@ export default function DashboardLayout({ children }: Props) {
             <h3 className="text-xs text-gray-500 uppercase mb-3">Sistema</h3>
             <nav className="flex flex-col gap-4">
               <Link
-                to="/users-roles"
+                to={RoutesView.usersRoles}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <Shield className="w-5 h-5" /> Usuarios y Roles
               </Link>
               <Link
-                to="/notifications"
+                to={RoutesView.notifications}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <Bell className="w-5 h-5" /> Notificaciones
               </Link>
               <Link
-                to="/reports"
+                to={RoutesView.reports}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <BarChart2 className="w-5 h-5" /> Reportes
               </Link>
               <Link
-                to="/settings"
+                to={RoutesView.settings}
                 className="flex items-center gap-2 text-white hover:text-blue-600"
               >
                 <Settings className="w-5 h-5" /> Configuración

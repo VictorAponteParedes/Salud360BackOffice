@@ -24,6 +24,19 @@ const router = createBrowserRouter([
   },
 ]);
 
+export const RoutesView = {
+  patients: "/patients/list",
+  doctors: "/doctors/list",
+  hospitals: "/hospitals",
+  appointments: "/appointments",
+  analysis: "/analysis",
+  usersRoles: "/users-roles",
+  notifications: "/notifications",
+  reports: "/reports",
+  settings: "/settings",
+  dashboard: "/",
+};
+
 export default function Routes() {
     return <RouterProvider router={router} />;
 }
