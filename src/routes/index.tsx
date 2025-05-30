@@ -1,12 +1,15 @@
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import AppRoutes from './AppRoutes';
-import Home from '../screens/Home';
-import Patients from '../screens/patients/Patients';
-import PatientList from '../screens/patients/ListPatients';
+// src/routes/index.tsx
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import AppRoutes from "./AppRoutes";
+import Home from "../screens/Home";
+import Patients from "../screens/patients/Patients";
+import PatientList from "../screens/patients/ListPatients";
 import CreateDoctor from "../screens/doctors/CreateDoctor";
-import ErrorPage from '../components/erroPage';
+import ErrorPage from "../components/erroPage";
 import ListDoctors from "../screens/doctors/ListDoctors";
 import PatientDetails from "../screens/patients/PatientDetails";
+import LoginPage from "../screens/auth/login";
+import { AuthLayout } from "./AuthRoutes";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +25,11 @@ const router = createBrowserRouter([
       { path: "doctors/list", element: <ListDoctors /> },
     ],
   },
+  {
+    path: "/auth",
+    element: <AuthLayout />,
+    children: [{ path: "login", element: <LoginPage /> }],
+  },
 ]);
 
 export const RoutesView = {
@@ -35,8 +43,9 @@ export const RoutesView = {
   reports: "/reports",
   settings: "/settings",
   dashboard: "/",
+  login: "/auth/login",
 };
 
 export default function Routes() {
-    return <RouterProvider router={router} />;
+  return <RouterProvider router={router} />;
 }
