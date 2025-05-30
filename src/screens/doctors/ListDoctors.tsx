@@ -3,19 +3,12 @@ import { Search, ArrowLeft, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { DoctorCard } from "./CardDoctor";
 import { useEffect, useState } from "react";
-
-interface Doctor {
-  id: number;
-  name: string;
-  specialty: string;
-  rating: number;
-  status: "available" | "unavailable" | "on_leave";
-  image?: string; 
-}
-
+import type { DoctorFormData } from "../../types/doctors";
+import { DoctorService } from "../../services/doctor";
 export default function DoctorList() {
+  const doctorService = new DoctorService();
   const navigate = useNavigate();
-  const [doctors, setDoctors] = useState<Doctor[]>([]);
+  const [doctors, setDoctors] = useState<DoctorFormData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState("all");
@@ -23,14 +16,31 @@ export default function DoctorList() {
 
   const filteredDoctors = doctors.filter((doc) => {
     const matchesStatus = statusFilter === "all" || doc.status === statusFilter;
-    const matchesSpecialty = specialtyFilter === "all" || doc.specialty === specialtyFilter;
+    const matchesSpecialty = specialtyFilter === "all" || doc.specialties === specialtyFilter;
     return matchesStatus && matchesSpecialty;
   });
 
   useEffect(() => {
+    const fetchPatients = async () => {
+      try {
+        const response = await doctorService.getDoctors();
+        console.log("doctores obtenidos:", response);
+        setDoctors(response);
+      } catch (error) {
+        console.error("Error fetching patients:", error);
+        setError("Error al cargar los pacientes");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPatients();
+  }, []);
+
+  useEffect(() => {
     const fetchDoctors = async () => {
       try {
-        const response = await new Promise<Doctor[]>((resolve) =>
+        const response = await new Promise<DoctorFormData[]>((resolve) =>
           setTimeout(() => {
             resolve([
               {
