@@ -1,6 +1,6 @@
 // src/screens/PatientList.tsx
 import { motion } from "framer-motion";
-import { Search, ArrowLeft, Filter, User, Plus } from "lucide-react";
+import { Search, ArrowLeft, Filter, Plus } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { PatientCard } from "./PatiendCard";
 import { PatientStatus } from "../../helpers";
