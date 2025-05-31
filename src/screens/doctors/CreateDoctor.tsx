@@ -11,10 +11,17 @@ import type { DoctorFormData } from "../../types/doctors";
 import { translate } from "../../lang";
 import { ImageInput } from "../../components/form/ImageInput";
 import { DoctorService } from "../../services/doctor";
+import { usePatient } from "../../hooks/usePatient";
 
 export default function CreateDoctor() {
   const doctorService = new DoctorService();
-  const methods = useForm<DoctorFormData>();
+  const { patients } = usePatient();
+  const methods = useForm({
+    defaultValues: {
+      patientId: [],
+    },
+  });
+
   const navigate = useNavigate();
   const [message, setMessage] = useState<null | {
     type: "success" | "error";
@@ -22,6 +29,12 @@ export default function CreateDoctor() {
     description: string;
   }>(null);
 
+  const patientOptions = patients
+    .filter((patient) => !!patient.id)
+    .map((patient) => ({
+      label: `${patient.firstName} ${patient.lastName}`,
+      value: patient.id as string,
+    }));
 
   const onSubmit = async (data: DoctorFormData) => {
     try {
@@ -148,12 +161,12 @@ export default function CreateDoctor() {
                   },
                 ]}
               />
-              <TextInput
-                name="patients"
-                label={translate("registerDoctor.fields.patient.label")}
-                placeholder={translate(
-                  "registerDoctor.fields.patient.placeholder"
-                )}
+
+
+              <SelectInput
+                name="patientId"
+                label="Paciente"
+                options={patientOptions}
               />
 
               <SelectInput
