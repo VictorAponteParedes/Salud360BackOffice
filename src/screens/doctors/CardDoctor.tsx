@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from "react";
 import type { DoctorFormData } from "../../types/doctors";
 import { Languages, User } from "lucide-react";
 import useShowPerfilImagen from "../../hooks/useShowPerfilImge";
+import { useNavigate } from "react-router-dom";
 
-export const DoctorCard = ({
-  id,
-  firstName,
-  lastName,
-  description,
-  rating,
-  reviews,
-  status,
-  languages = [],
-  profileImage,
-  onViewDetails,
-}: DoctorFormData) => {
-  // Usa el hook para obtener la URL si no tienes filename directo
-  const { profileImageUri, loadingImage } = useShowPerfilImagen({ id });
+interface Props {
+  doctor: DoctorFormData;
+}
+
+export const DoctorCard = ({ doctor }: Props) => {
+  const navigate = useNavigate();
+  const { profileImageUri, loadingImage } = useShowPerfilImagen(doctor.id);
+  const goToDetails = () => {
+    navigate(`/doctors/${doctor.id}`);
+  };
 
   return (
     <div className="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between">
@@ -26,7 +22,7 @@ export const DoctorCard = ({
         ) : profileImageUri ? (
           <img
             src={profileImageUri}
-            alt={`Foto de ${firstName} ${lastName}`}
+            alt={`Foto de ${doctor.firstName} ${doctor.lastName}`}
             className="w-16 h-16 rounded-full object-cover"
           />
         ) : (
@@ -37,18 +33,18 @@ export const DoctorCard = ({
 
         <div>
           <h3 className="text-lg font-semibold text-gray-800">
-            {firstName} {lastName}
+            {doctor.firstName} {doctor.lastName}
           </h3>
-          <p className="text-sm text-gray-600">{description}</p>
+          <p className="text-sm text-gray-600">{doctor.description}</p>
           <p className="text-sm text-gray-500">Consulta</p>
           <div className="flex items-center gap-1 text-yellow-500 text-sm mt-1">
-            {"★".repeat(Math.round(Number(rating)))}
-            <span className="text-gray-600 ml-1">({reviews} reseñas)</span>
+            {"★".repeat(Math.round(Number(doctor.rating)))}
+            <span className="text-gray-600 ml-1">({doctor.reviews} reseñas)</span>
           </div>
-          {languages.length > 0 && (
+          {doctor.languages.length > 0 && (
             <div className="flex gap-2 mt-2 items-center">
               <Languages className="w-4 h-4 text-gray-500" />
-              {languages.map((lang) => (
+              {doctor.languages.map((lang) => (
                 <span
                   key={lang}
                   className="bg-gray-200 text-black text-xs px-2 py-1 rounded-full"
@@ -63,22 +59,21 @@ export const DoctorCard = ({
 
       <div className="flex flex-col items-end gap-2">
         <span
-          className={`px-3 py-1 rounded-full text-xs font-medium ${
-            {
-              available: "bg-green-100 text-green-700",
-              unavailable: "bg-red-100 text-red-700",
-              on_leave: "bg-yellow-100 text-yellow-700",
-            }[status]
-          }`}
+          className={`px-3 py-1 rounded-full text-xs font-medium ${{
+            available: "bg-green-100 text-green-700",
+            unavailable: "bg-red-100 text-red-700",
+            on_leave: "bg-yellow-100 text-yellow-700",
+          }[status]
+            }`}
         >
           {status === "available"
             ? "Disponible"
             : status === "unavailable"
-            ? "No disponible"
-            : "En permiso"}
+              ? "No disponible"
+              : "En permiso"}
         </span>
         <button
-          onClick={onViewDetails}
+          onClick={goToDetails}
           className="px-3 py-1 bg-primary text-white text-sm rounded hover:bg-primary-hover"
         >
           Ver detalles

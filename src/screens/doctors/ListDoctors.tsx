@@ -1,46 +1,27 @@
 import { motion } from "framer-motion";
-import { Search, ArrowLeft, Plus } from "lucide-react";
+import { Search, ArrowLeft, Plus, UserX } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { DoctorCard } from "./CardDoctor";
-import { useEffect, useState } from "react";
-import type { DoctorFormData } from "../../types/doctors";
-import { DoctorService } from "../../services/doctor";
+import { useState } from "react";
+import { RoutesView } from "../../routes";
+import { useDoctor } from "../../hooks/useDoctor";
+
+
 export default function DoctorList() {
-  const doctorService = new DoctorService();
+  const { doctors, error, isLoading } = useDoctor();
   const navigate = useNavigate();
-  const [doctors, setDoctors] = useState<DoctorFormData[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [statusFilter, setStatusFilter] = useState("all");
   const [specialtyFilter, setSpecialtyFilter] = useState("all");
 
   const filteredDoctors = doctors.filter((doc) => {
     const matchesStatus = statusFilter === "all" || doc.status === statusFilter;
-    const matchesSpecialty = specialtyFilter === "all" || doc.specialties === specialtyFilter;
+    const matchesSpecialty =
+      specialtyFilter === "all" || doc.specialties.includes(specialtyFilter);
     return matchesStatus && matchesSpecialty;
   });
 
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        const response = await doctorService.getDoctors();
-        console.log("Doctores obtenidos:", response);
-        setDoctors(response);
-      } catch (error) {
-        console.error("Error al cargar doctores:", error);
-        setError("Error al cargar los doctores");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchDoctors();
-  }, []);
-
-
-
   const handleCreateNewDoctor = () => {
-    navigate("/doctors/create");
+    navigate(RoutesView.createDoctor);
   };
 
   if (isLoading) {
@@ -66,6 +47,10 @@ export default function DoctorList() {
       </div>
     );
   }
+
+  const uniqueSpecialties = Array.from(
+    new Set(doctors.flatMap((d) => d.specialties))
+  );
 
   return (
     <motion.div
@@ -134,7 +119,7 @@ export default function DoctorList() {
           className="border border-gray-300 rounded-md px-3 py-2 text-sm"
         >
           <option value="all">Todas las especialidades</option>
-          {[...new Set(doctors.map((d) => d.specialty))].map((specialty) => (
+          {uniqueSpecialties.map((specialty) => (
             <option key={specialty} value={specialty}>
               {specialty}
             </option>
@@ -153,17 +138,21 @@ export default function DoctorList() {
           </p>
         </div>
 
-        <div className="space-y-4">
-          {filteredDoctors.map((doctor) => (
-            <DoctorCard
-              key={doctor.id}
-              {...doctor}
-              onViewDetails={() => navigate(`/doctors/${doctor.id}`)}
-              reviews={15}
-              languages={["Español", "Inglés", "Francés"]}
-            />
-          ))}
-        </div>
+        {filteredDoctors.length === 0 ? (
+          <div className="flex flex-col items-center justify-center text-center text-gray-600 py-12">
+            <UserX className="w-16 h-16 mb-4 text-gray-400" />
+            <p className="text-lg font-semibold">
+              No hay doctores registrados en este momento.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {filteredDoctors.map((doctor) => (
+              <DoctorCard key={doctor.id} doctor={doctor} />
+            ))}
+          </div>
+        )}
+
       </div>
     </motion.div>
   );
