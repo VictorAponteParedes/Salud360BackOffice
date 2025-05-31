@@ -1,6 +1,6 @@
 // src/screens/PatientList.tsx
 import { motion } from "framer-motion";
-import { Search, ArrowLeft, Filter, Plus } from "lucide-react";
+import { Search, ArrowLeft, Filter, Plus, UserX } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { PatientCard } from "./PatiendCard";
 import { PatientStatus } from "../../helpers";
@@ -10,7 +10,7 @@ import { usePatient } from "../../hooks/usePatient";
 export default function PatientList() {
   const navigate = useNavigate();
   const { patients, isLoading, error } = usePatient();
-  if (isLoading) return <div>Cargando pacientes...</div>;
+
   if (error) return <div>{error}</div>;
   const handleCreateNewPatient = () => {
     navigate("/patients/create");
@@ -104,11 +104,20 @@ export default function PatientList() {
         </div>
 
         {/* Lista de pacientes */}
-        <div className="space-y-4">
-          {patients.map((patient) => (
-            <PatientCard key={patient.id} patient={patient} />
-          ))}
-        </div>
+        {patients.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-64 text-gray-500 bg-gray-50 rounded-lg">
+            <UserX className="w-12 h-12 mb-4 text-gray-400" />
+            <p className="text-lg font-semibold text-center">
+              No hay pacientes registrados en este momento.
+            </p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {patients.map((patient) => (
+              <PatientCard key={patient.id} patient={patient} />
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Posibles estados para referencia */}

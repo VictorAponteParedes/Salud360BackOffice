@@ -2,11 +2,8 @@ import React, { useEffect, useState } from "react";
 import { DoctorService } from "../services/doctor";
 import { fixUrl } from "../helpers";
 
-interface User {
-  id?: string;
-}
 
-const useShowPerfilImagen = (user: User) => {
+const useShowPerfilImagen = (user: any) => {
   const doctorService = new DoctorService();
 
   const [profileImageUri, setProfileImageUri] = useState<string | null>(null);

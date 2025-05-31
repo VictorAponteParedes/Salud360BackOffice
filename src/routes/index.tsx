@@ -35,6 +35,7 @@ const router = createBrowserRouter([
 export const RoutesView = {
   patients: "/patients/list",
   doctors: "/doctors/list",
+  createDoctor: "/doctors/create",
   hospitals: "/hospitals",
   appointments: "/appointments",
   analysis: "/analysis",
