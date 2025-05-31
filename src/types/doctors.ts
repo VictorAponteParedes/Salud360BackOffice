@@ -3,8 +3,8 @@ export interface DoctorFormData {
   id: string;
   firstName: string;
   lastName: string;
-  description: string;
-  experience: string;
+  description?: string;
+  experience?: string;
   languages: string[];
   patients: any[];
   profileImage: {
@@ -15,10 +15,18 @@ export interface DoctorFormData {
     size: number;
     path: string;
   };
-  rating: string;
-  reviews: number;
+  rating: string | number;
+  reviews?: number;
   schedule: string;
   specialties: string[];
   status: "available" | "unavailable" | "on_leave";
   onViewDetails?: () => void;
-}  
+}
+
+
+
+
+
+
+
+

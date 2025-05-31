@@ -34,6 +34,7 @@ export const useDoctor = (id?: string) => {
         const fetchDoctors = async () => {
             try {
                 const response = await doctorService.getDoctors();
+                console.log("Listado de doctores: ", response)
                 setDoctors(response);
             } catch (error) {
                 console.error("Error fetching doctors:", error);

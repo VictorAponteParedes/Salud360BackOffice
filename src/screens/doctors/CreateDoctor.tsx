@@ -12,13 +12,21 @@ import { translate } from "../../lang";
 import { ImageInput } from "../../components/form/ImageInput";
 import { DoctorService } from "../../services/doctor";
 import { usePatient } from "../../hooks/usePatient";
+import { useLanguages } from "../../hooks/useLanguage";
+import { useSpecialty } from "../../hooks/useSpecialty";
+import type { LanguageType } from "../../types/language";
+import type { SpecialtiesType } from "../../types/specialties";
 
 export default function CreateDoctor() {
   const doctorService = new DoctorService();
   const { patients } = usePatient();
+  const { languages } = useLanguages();
+  const { specialties } = useSpecialty();
   const methods = useForm({
     defaultValues: {
-      patientId: [],
+      patientIds: [],
+      languageIds: [],
+      specialtyIds: []
     },
   });
 
@@ -34,6 +42,20 @@ export default function CreateDoctor() {
     .map((patient) => ({
       label: `${patient.firstName} ${patient.lastName}`,
       value: patient.id as string,
+    }));
+
+  const languagesOptions = languages
+    .filter((language: LanguageType) => !!language.id)
+    .map((language: LanguageType) => ({
+      label: language.name,
+      value: language.id,
+    }));
+
+  const specialtyOptions = specialties
+    .filter((specialty: SpecialtiesType) => !!specialty.id)
+    .map((specialty: SpecialtiesType) => ({
+      label: specialty.name,
+      value: specialty.id,
     }));
 
   const onSubmit = async (data: DoctorFormData) => {
@@ -164,7 +186,7 @@ export default function CreateDoctor() {
 
 
               <SelectInput
-                name="patientId"
+                name="patientIds"
                 label="Paciente"
                 options={patientOptions}
               />
@@ -240,65 +262,16 @@ export default function CreateDoctor() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <SelectInput
-                name="specialties"
+                name="specialtyIds"
                 label={translate("registerDoctor.fields.specialties.label")}
-                options={[
-                  {
-                    label: translate(
-                      "registerDoctor.fields.specialties.options.cardiology"
-                    ),
-                    value: "cardiology",
-                  },
-                  {
-                    label: translate(
-                      "registerDoctor.fields.specialties.options.pediatrics"
-                    ),
-                    value: "pediatrics",
-                  },
-                  {
-                    label: translate(
-                      "registerDoctor.fields.specialties.options.neurology"
-                    ),
-                    value: "neurology",
-                  },
-                  {
-                    label: translate(
-                      "registerDoctor.fields.specialties.options.dermatology"
-                    ),
-                    value: "dermatology",
-                  },
-                ]}
+                options={specialtyOptions}
               />
               <SelectInput
-                name="languages"
+                name="languageIds"
                 label={translate("registerDoctor.fields.languages.label")}
-                options={[
-                  {
-                    label: translate(
-                      "registerDoctor.fields.languages.options.es"
-                    ),
-                    value: "es",
-                  },
-                  {
-                    label: translate(
-                      "registerDoctor.fields.languages.options.en"
-                    ),
-                    value: "en",
-                  },
-                  {
-                    label: translate(
-                      "registerDoctor.fields.languages.options.fr"
-                    ),
-                    value: "fr",
-                  },
-                  {
-                    label: translate(
-                      "registerDoctor.fields.languages.options.pt"
-                    ),
-                    value: "pt",
-                  },
-                ]}
+                options={languagesOptions}
               />
+
             </div>
           </section>
 
