@@ -6,7 +6,7 @@ const doctorService = new DoctorService();
 
 export const useDoctor = (id?: string) => {
     const [doctor, setDoctor] = useState<DoctorFormData | null>(null);
-    const [doctors, setDoctors] = useState<DoctorFormData[]>([]);
+    const [doctors, setDoctors] = useState<DoctorFormData[] | undefined>();
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
@@ -34,7 +34,6 @@ export const useDoctor = (id?: string) => {
         const fetchDoctors = async () => {
             try {
                 const response = await doctorService.getDoctors();
-                console.log("Listado de doctores: ", response)
                 setDoctors(response);
             } catch (error) {
                 console.error("Error fetching doctors:", error);

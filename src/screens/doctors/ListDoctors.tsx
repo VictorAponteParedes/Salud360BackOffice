@@ -8,17 +8,17 @@ import { useDoctor } from "../../hooks/useDoctor";
 
 
 export default function DoctorList() {
-  const { doctors, error, isLoading } = useDoctor();
+  const { doctors = [], error, isLoading } = useDoctor();
   const navigate = useNavigate();
   const [statusFilter, setStatusFilter] = useState("all");
   const [specialtyFilter, setSpecialtyFilter] = useState("all");
 
-  const filteredDoctors = doctors.filter((doc) => {
-    const matchesStatus = statusFilter === "all" || doc.status === statusFilter;
-    const matchesSpecialty =
-      specialtyFilter === "all" || doc.specialties.includes(specialtyFilter);
-    return matchesStatus && matchesSpecialty;
-  });
+  // const filteredDoctors = (doctors ?? []).filter((doc) => {
+  //   const matchesStatus = statusFilter === "all" || doc.status === statusFilter;
+  //   const matchesSpecialty =
+  //     specialtyFilter === "all" || doc.specialties.includes(specialtyFilter);
+  //   return matchesStatus && matchesSpecialty;
+  // });
 
   const handleCreateNewDoctor = () => {
     navigate(RoutesView.createDoctor);
@@ -48,9 +48,9 @@ export default function DoctorList() {
     );
   }
 
-  const uniqueSpecialties = Array.from(
-    new Set(doctors.flatMap((d) => d.specialties))
-  );
+  // const uniqueSpecialties = Array.from(
+  //   new Set(doctors.flatMap((d) => d.specialties))
+  // );
 
   return (
     <motion.div
@@ -113,7 +113,7 @@ export default function DoctorList() {
         </select>
 
         {/* Filtro por especialidad */}
-        <select
+        {/* <select
           value={specialtyFilter}
           onChange={(e) => setSpecialtyFilter(e.target.value)}
           className="border border-gray-300 rounded-md px-3 py-2 text-sm"
@@ -124,7 +124,7 @@ export default function DoctorList() {
               {specialty}
             </option>
           ))}
-        </select>
+        </select> */}
       </div>
 
       {/* Lista */}
@@ -134,11 +134,11 @@ export default function DoctorList() {
             Lista de Doctores
           </h2>
           <p className="text-sm text-gray-600">
-            {filteredDoctors.length} doctores encontrados
+            {doctors.length} doctores encontrados
           </p>
         </div>
 
-        {filteredDoctors.length === 0 ? (
+        {doctors.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center text-gray-600 py-12">
             <UserX className="w-16 h-16 mb-4 text-gray-400" />
             <p className="text-lg font-semibold">
@@ -147,7 +147,7 @@ export default function DoctorList() {
           </div>
         ) : (
           <div className="space-y-4">
-            {filteredDoctors.map((doctor) => (
+            {doctors.map((doctor) => (
               <DoctorCard key={doctor.id} doctor={doctor} />
             ))}
           </div>
