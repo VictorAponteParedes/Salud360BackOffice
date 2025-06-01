@@ -4,5 +4,5 @@ export interface SpecialtiesType {
     id: string;
     name: string;
     description: string;
-    // doctors: DoctorFormData[]
+    doctors?: DoctorFormData[];
 }

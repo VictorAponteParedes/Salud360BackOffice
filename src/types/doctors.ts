@@ -1,12 +1,16 @@
 // src/types/doctor.ts
+import type { SpecialtiesType } from "./specialties";
+import type { LanguageType } from "./language";
+import type { PatientFormDataType } from "./patient";
+
 export interface DoctorFormData {
   id: string;
   firstName: string;
   lastName: string;
   description?: string;
   experience?: string;
-  languages: string[];
-  patients: any[];
+  languages?: LanguageType[];
+  patients: PatientFormDataType[];
   profileImage: {
     id: string;
     filename: string;
@@ -18,7 +22,7 @@ export interface DoctorFormData {
   rating: string | number;
   reviews?: number;
   schedule: string;
-  specialties: string[];
+  specialties: SpecialtiesType[];
   status: "available" | "unavailable" | "on_leave";
   onViewDetails?: () => void;
 }
