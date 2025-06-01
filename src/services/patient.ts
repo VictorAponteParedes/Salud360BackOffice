@@ -88,6 +88,14 @@ class PatientServices {
         }
     }
 
+    returnUrlImage(patient: any): string {
+        return patient?.profileImage?.path
+            ? patient.profileImage.path.startsWith("http")
+                ? patient.profileImage.path
+                : `${API_BASE_URL}/${patient.profileImage.path}`
+            : "/default-avatar.png";
+    }
+
 }
 
 export default PatientServices

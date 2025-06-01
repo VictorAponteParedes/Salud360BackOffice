@@ -15,20 +15,15 @@ import {
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePatient } from "../../hooks/usePatient";
-import { API_BASE_URL } from "../../constants";
+const patientService = new PatientServices()
 
 const PatientDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { patient, isLoading } = usePatient(id);
-
-  const imageUrl = patient?.profileImage?.path
-    ? patient.profileImage.path.startsWith("http")
-      ? patient.profileImage.path
-      : `${API_BASE_URL}/${patient.profileImage.path}`
+  const imageUrl = patient
+    ? patientService.returnUrlImage(patient)
     : "/default-avatar.png";
-
-  console.log("url imagenpaciente: ", imageUrl)
 
   return (
     <>
@@ -84,7 +79,7 @@ const PatientDetails = () => {
                     alt={`Foto de ${patient.firstName} ${patient.lastName}`}
                     className="w-24 h-24 object-cover rounded-full"
                     onError={(e) => {
-                      e.currentTarget.src = "/default-avatar.png"; // Fallback to default image on error
+                      e.currentTarget.src = "/default-avatar.png"; // Fallback a imagen por defecto en caso de error
                     }}
                   />
                 ) : (
