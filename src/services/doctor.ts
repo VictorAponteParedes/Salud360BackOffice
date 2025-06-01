@@ -48,10 +48,10 @@ export class DoctorService {
             throw e;
         }
     }
-    async getProfileImage(userId: any) {
+    async getProfileDoctorImage(doctorId: string) {
         try {
-            const response = await axios.get(`/users/${userId}/profile-image`);
-            console.log("doctor perfil imagen: ", response.data.url)
+            const response = await axios.get(`${API_BASE_URL}/doctors/${doctorId}/profile-image`);
+            console.log("doctor perfil imagen: ", response.data.url);
             return response.data.url;
         } catch (error) {
             console.log('Error al obtener imagen de perfil', error);
