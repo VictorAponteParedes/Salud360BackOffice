@@ -67,15 +67,15 @@ export const DoctorCard = ({ doctor }: Props) => {
           </div>
 
           {/* Idiomas */}
-          {doctor.languages?.length > 0 && (
+          {(doctor.languages || []).length > 0 && (
             <div className="flex gap-2 mt-2 items-center flex-wrap">
               <Languages className="w-4 h-4 text-gray-500 flex-shrink-0" />
-              {doctor.languages.map((lang) => (
+              {(doctor.languages || []).map((lang) => (
                 <span
-                  key={lang}
+                  key={lang.id}
                   className="bg-gray-200 text-gray-800 text-xs px-2 py-1 rounded-full"
                 >
-                  {lang}
+                  {lang.name}
                 </span>
               ))}
             </div>
