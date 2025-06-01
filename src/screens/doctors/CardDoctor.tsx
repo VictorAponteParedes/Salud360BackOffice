@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { Languages, User, Star } from "lucide-react";
-import useShowPerfilImagen from "../../hooks/useShowPerfilImge";
 import { useNavigate } from "react-router-dom";
 import type { DoctorFormData } from "../../types/doctors";
+import { API_BASE_URL } from "../../constants";
 
 interface Props {
   doctor: DoctorFormData;
@@ -10,11 +10,16 @@ interface Props {
 
 export const DoctorCard = ({ doctor }: Props) => {
   const navigate = useNavigate();
-  const { profileImageUri, loadingImage } = useShowPerfilImagen(doctor.id);
+
 
   const goToDetails = () => {
     navigate(`/doctors/${doctor.id}`);
   };
+
+
+  const imageUrl = doctor.profileImage?.path
+    ? `${API_BASE_URL}/${doctor.profileImage.path}`
+    : '/default-profile.png';
 
   const status = doctor.status || 'unavailable';
 
@@ -33,13 +38,11 @@ export const DoctorCard = ({ doctor }: Props) => {
       <div className="flex items-start gap-4">
         {/* Imagen de perfil */}
         <div className="relative">
-          {loadingImage ? (
-            <div className="w-12 h-12 rounded-full bg-gray-200 animate-pulse" />
-          ) : profileImageUri ? (
+          {doctor.profileImage?.path ? (
             <img
-              src={profileImageUri}
+              src={imageUrl}
               alt={`Foto de ${doctor.firstName} ${doctor.lastName}`}
-              className="w-12 h-12 rounded-full object-cover border-2 border-white"
+              className="w-16 h-16 rounded-full object-cover"
             />
           ) : (
             <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
