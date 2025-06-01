@@ -7,7 +7,7 @@ export class HospitalService {
     async getHospitals(): Promise<HospitalType[]> {
         try {
             const response = await axios.get(`${API_BASE_URL}/hospitals`);
-            return response.data;
+            return response.data.data;
         } catch (error) {
             console.error("Error fetching hospitals:", error);
             throw error;
@@ -17,7 +17,7 @@ export class HospitalService {
     async createHospital(hospitalData: Omit<HospitalType, 'id'>): Promise<HospitalType> {
         try {
             const response = await axios.post(`${API_BASE_URL}/hospitals`, hospitalData);
-            return response.data;
+            return response.data.data;
         } catch (error) {
             console.error("Error creating hospital:", error);
             throw error;

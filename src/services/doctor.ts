@@ -9,7 +9,7 @@ export class DoctorService {
     async getDoctors() {
         try {
             const response = await axios.get(`${API_BASE_URL}/doctors`);
-            return response.data;
+            return response.data.data;
         } catch (error) {
             console.error("Error fetching doctors:", error);
             throw error;

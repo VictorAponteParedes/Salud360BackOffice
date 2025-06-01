@@ -6,7 +6,7 @@ export class LanguageService {
     async getLanguages(): Promise<LanguageType[]> {
         try {
             const response = await axios.get(`${API_BASE_URL}/lenguages`);
-            return response.data;
+            return response.data.data;
         } catch (error) {
             console.error("Error fetching languages:", error);
             throw error;
@@ -16,7 +16,7 @@ export class LanguageService {
     async createLanguage(languageData: any) {
         try {
             const response = await axios.post(`${API_BASE_URL}/lenguages`, languageData);
-            return response.data;
+            return response.data.data;
         } catch (error) {
             console.error("Error creating language:", error);
             throw error;
