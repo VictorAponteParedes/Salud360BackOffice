@@ -11,22 +11,31 @@ import type { DoctorFormData } from "../../types/doctors";
 import { translate } from "../../lang";
 import { ImageInput } from "../../components/form/ImageInput";
 import { DoctorService } from "../../services/doctor";
+
+//Hooks
 import { usePatient } from "../../hooks/usePatient";
 import { useLanguages } from "../../hooks/useLanguage";
 import { useSpecialty } from "../../hooks/useSpecialty";
+import { useHospital } from "../../hooks/useHospital";
+
+//Types
 import type { LanguageType } from "../../types/language";
 import type { SpecialtiesType } from "../../types/specialties";
+import type { HospitalType } from "../../types/hospital";
+
 
 export default function CreateDoctor() {
   const doctorService = new DoctorService();
   const { patients } = usePatient();
   const { languages } = useLanguages();
   const { specialties } = useSpecialty();
+  const { hospitals } = useHospital();
   const methods = useForm({
     defaultValues: {
       patientIds: [],
       languageIds: [],
-      specialtyIds: []
+      specialtyIds: [],
+      hospitalId: []
     },
   });
 
@@ -56,6 +65,13 @@ export default function CreateDoctor() {
     .map((specialty: SpecialtiesType) => ({
       label: specialty.name,
       value: specialty.id,
+    }));
+
+  const hospitalOptions = hospitals
+    .filter((hospital: HospitalType) => !!hospital.id)
+    .map((hospital: HospitalType) => ({
+      label: hospital.name,
+      value: hospital.id,
     }));
 
   const onSubmit = async (data: DoctorFormData) => {
@@ -160,30 +176,10 @@ export default function CreateDoctor() {
                 )}
               />
               <SelectInput
-                name="hospital"
+                name="hospitalId"
                 label={translate("registerDoctor.fields.hospital.label")}
-                options={[
-                  {
-                    label: translate(
-                      "registerDoctor.fields.hospital.options.hospital1"
-                    ),
-                    value: "hospital1",
-                  },
-                  {
-                    label: translate(
-                      "registerDoctor.fields.hospital.options.hospital2"
-                    ),
-                    value: "hospital2",
-                  },
-                  {
-                    label: translate(
-                      "registerDoctor.fields.hospital.options.hospital3"
-                    ),
-                    value: "hospital3",
-                  },
-                ]}
+                options={hospitalOptions}
               />
-
 
               <SelectInput
                 name="patientIds"
