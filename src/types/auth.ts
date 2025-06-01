@@ -14,7 +14,15 @@ export type PatientFormData = {
     bloodType: string;
     allergies: string;
     contactEmergency: string;
-    profileImage?: any;
+    profileImage?: {
+        url: string;
+        id?: string;
+        filename?: string;
+        originalname?: string;
+        mimetype?: string;
+        size?: number;
+        path?: string;
+    };
     status?: PatientStatusEnum;
     lastVisit?: string;
     doctor?: string;
@@ -24,7 +32,7 @@ export type PatientFormData = {
     };
     profileImageId?: string;
     onclick?: () => void;
-}
+};
 
 export type LoginFormData = {
     email: string;

@@ -1,16 +1,27 @@
 import { motion } from "framer-motion";
-import { Circle, UserIcon } from "lucide-react";
+import { Circle, User, UserIcon } from "lucide-react";
 import { PatientStatus } from "../../helpers";
 import type { PatientFormData } from "../../types/auth";
 import { PatientStatusEnum } from "../../enums";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../../constants";
 
 interface Props {
   patient: PatientFormData;
 }
 
+
+
+
 export const PatientCard = ({ patient }: Props) => {
   const navigate = useNavigate();
+
+  const imageUrl = patient.profileImage?.path
+    ? `${API_BASE_URL}/${patient.profileImage.path}`
+    : '/default-profile.png';
+
+
+  console.log("imagen paciente: ", imageUrl)
 
   const goToDetails = () => {
     navigate(`/patients/${patient.id}`);
@@ -23,9 +34,17 @@ export const PatientCard = ({ patient }: Props) => {
     >
       <div className="flex items-start gap-4">
         {/* Icono de usuario */}
-        <div className="bg-blue-100 p-2 rounded-full">
-          <UserIcon className="w-5 h-5 text-blue-600" />
-        </div>
+        {patient.profileImage?.path ? (
+          <img
+            src={imageUrl}
+            alt={`Foto de ${patient.firstName} ${patient.lastName}`}
+            className="w-16 h-16 rounded-full object-cover"
+          />
+        ) : (
+          <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+            <UserIcon className="w-5 h-5 text-gray-400" />
+          </div>
+        )}
 
         {/* Información del paciente en horizontal */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">

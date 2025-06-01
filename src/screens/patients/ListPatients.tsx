@@ -9,7 +9,7 @@ import { usePatient } from "../../hooks/usePatient";
 
 export default function PatientList() {
   const navigate = useNavigate();
-  const { patients, isLoading, error } = usePatient();
+  const { patients = [], isLoading, error } = usePatient();
 
   if (error) return <div>{error}</div>;
   const handleCreateNewPatient = () => {
