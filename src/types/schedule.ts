@@ -1,6 +1,6 @@
-export type ScheduleItype = {
-  day: string;        
-  startTime: string;  
+export interface ScheduleItype {
+  day: string;
+  startTime: string;
   endTime: string;
-  doctorId: string;
-};
+  doctorId?: string; 
+}

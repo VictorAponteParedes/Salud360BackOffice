@@ -22,7 +22,7 @@ export interface DoctorFormData {
   };
   rating: string | number;
   reviews?: number;
-  schedule: ScheduleItype[];
+  scheduleDtos?: ScheduleItype[];
   specialties: SpecialtiesType[];
   status: "available" | "unavailable" | "on_leave";
   onViewDetails?: () => void;
