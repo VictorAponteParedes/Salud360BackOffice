@@ -2,6 +2,7 @@
 import type { SpecialtiesType } from "./specialties";
 import type { LanguageType } from "./language";
 import type { PatientFormDataType } from "./patient";
+import type { ScheduleItype } from "./schedule";
 
 export interface DoctorFormData {
   id: string;
@@ -21,7 +22,7 @@ export interface DoctorFormData {
   };
   rating: string | number;
   reviews?: number;
-  schedule: string;
+  schedule: ScheduleItype[];
   specialties: SpecialtiesType[];
   status: "available" | "unavailable" | "on_leave";
   onViewDetails?: () => void;
