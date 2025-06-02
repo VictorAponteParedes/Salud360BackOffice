@@ -1,5 +1,5 @@
 // src/screens/CreateDoctor.tsx
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { TextInput } from "../../components/form/TextInput";
 import { SelectInput } from "../../components/form/SelectInput";
 import { useNavigate } from "react-router-dom";
@@ -22,7 +22,7 @@ import { useHospital } from "../../hooks/useHospital";
 import type { LanguageType } from "../../types/language";
 import type { SpecialtiesType } from "../../types/specialties";
 import type { HospitalType } from "../../types/hospital";
-
+import { ScheduleInputRow } from "../../components/form/ScheduleInputArray";
 
 export default function CreateDoctor() {
   const doctorService = new DoctorService();
@@ -35,7 +35,8 @@ export default function CreateDoctor() {
       patientIds: [],
       languageIds: [],
       specialtyIds: [],
-      hospitalId: []
+      hospitalId: [],
+      scheduleDtos: [],
     },
   });
 
@@ -45,6 +46,11 @@ export default function CreateDoctor() {
     title: string;
     description: string;
   }>(null);
+
+  const { fields, append, remove } = useFieldArray({
+    control: methods.control,
+    name: "scheduleDtos",
+  });
 
   const patientOptions = patients
     .filter((patient) => !!patient.id)
@@ -75,9 +81,9 @@ export default function CreateDoctor() {
     }));
 
   const onSubmit = async (data: DoctorFormData) => {
+    console.log("Datos enviados al backend:", JSON.stringify(data, null, 2));
     try {
       const formData = new FormData();
-
       if (data.profileImage) {
         formData.append("file", data.profileImage);
       }
@@ -92,6 +98,11 @@ export default function CreateDoctor() {
       const doctorData = {
         ...data,
         profileImageId: imageId,
+        scheduleDtos: data.scheduleDtos?.map((schedule) => ({
+          day: schedule.day,
+          startTime: schedule.startTime,
+          endTime: schedule.endTime,
+        })),
       };
 
       console.log("Registrando doctor:", doctorData);
@@ -211,18 +222,35 @@ export default function CreateDoctor() {
                   },
                 ]}
               />
-              <TextInput
-                name="schedule"
-                label={translate("registerDoctor.fields.schedule.label")}
-                placeholder={translate(
-                  "registerDoctor.fields.schedule.placeholder"
-                )}
-              />
+
               <ImageInput
                 name="profileImage"
                 label={translate("registerDoctor.fields.photo.label")}
                 control={methods.control}
               />
+            </div>
+          </section>
+
+          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
+            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2 flex items-center gap-2">
+              <Stethoscope className="w-5 h-5 text-blue-600" />
+              {translate("registerDoctor.fields.schedule.label")}
+            </h2>
+            <div className="space-y-4">
+              {fields.map((field, index) => (
+                <ScheduleInputRow
+                  key={field.id}
+                  index={index}
+                  remove={remove}
+                />
+              ))}
+              <button
+                type="button"
+                onClick={() => append({ day: "", startTime: "", endTime: "" })}
+                className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+              >
+                {translate("registerDoctor.fields.schedule.add")}
+              </button>
             </div>
           </section>
 
@@ -267,7 +295,6 @@ export default function CreateDoctor() {
                 label={translate("registerDoctor.fields.languages.label")}
                 options={languagesOptions}
               />
-
             </div>
           </section>
 
