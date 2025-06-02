@@ -7,33 +7,50 @@ type ScheduleInputRowProps = {
 };
 
 const daysOfWeek = [
-  "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo",
+  { label: "Lunes", value: "MONDAY" },
+  { label: "Martes", value: "TUESDAY" },
+  { label: "Miércoles", value: "WEDNESDAY" },
+  { label: "Jueves", value: "THURSDAY" },
+  { label: "Viernes", value: "FRIDAY" },
+  { label: "Sábado", value: "SATURDAY" },
+  { label: "Domingo", value: "SUNDAY" },
 ];
 
 export const ScheduleInputRow = ({ index, remove }: ScheduleInputRowProps) => {
-  const { register, formState: { errors } } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <div className="flex gap-4 items-center mb-2">
       <select
-        {...register(`schedule.${index}.day` as const, { required: "Day is required" })}
+        {...register(`scheduleDtos.${index}.day`, {
+          required: "El día es requerido",
+        })}
         className="p-2 border rounded"
       >
-        <option value="">Selecciona el dia</option>
+        <option value="">Selecciona el día</option>
         {daysOfWeek.map((day) => (
-          <option key={day} value={day}>{day}</option>
+          <option key={day.value} value={day.value}>
+            {day.label}
+          </option>
         ))}
       </select>
 
       <input
         type="time"
-        {...register(`schedule.${index}.startTime` as const, { required: "Start time required" })}
+        {...register(`scheduleDtos.${index}.startTime`, {
+          required: "La hora de inicio es requerida",
+        })}
         className="p-2 border rounded"
       />
 
       <input
         type="time"
-        {...register(`schedule.${index}.endTime` as const, { required: "End time required" })}
+        {...register(`scheduleDtos.${index}.endTime`, {
+          required: "La hora de fin es requerida",
+        })}
         className="p-2 border rounded"
       />
 
