@@ -81,7 +81,6 @@ export default function CreateDoctor() {
     }));
 
   const onSubmit = async (data: DoctorFormData) => {
-    console.log("Datos enviados al backend:", JSON.stringify(data, null, 2));
     try {
       const formData = new FormData();
       if (data.profileImage) {
