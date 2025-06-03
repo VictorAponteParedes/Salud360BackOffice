@@ -5,3 +5,10 @@ export enum PatientStatusEnum {
     INACTIVO = "inactivo",
     PENDIENTE = "pendiente",
 }
+
+export enum AnalysisStatusEnum {
+  COMPLETADO = "Completado",
+  PENDIENTE = "Pendiente",
+  ANORMAL = "Anormal",
+  CRITICO = "Crítico",
+}
