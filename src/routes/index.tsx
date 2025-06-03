@@ -12,16 +12,25 @@ import MedicalAnalysis from "../screens/medicalAnalysis/AnalysisCreate";
 import AnalysisList from "../screens/medicalAnalysis/ListAnalysis";
 import LoginPage from "../screens/auth/login";
 import { AuthLayout } from "./AuthRoutes";
+import AppointmentList from "../screens/appointment/AppointmentList";
+import AppointmentForm from "../screens/appointment/AppointmentCreate";
 
 export const RoutesView = {
+  //patient
   patients: "/patients/list",
   patientDetail: "patients/:id",
   createPatient: "/patients/create",
+
+  //doctor
   doctors: "/doctors/list",
   analysisList: "/analysis/list",
   createDoctor: "/doctors/create",
+
+  //appoitment
+  appointmentList: "/appointment/list",
+  appointmentCreate: "/appointment/create",
+  //hospital
   hospitals: "/hospitals",
-  appointments: "/appointments",
   analysis: "/analysis/create",
   usersRoles: "/users-roles",
   notifications: "/notifications",
@@ -47,6 +56,8 @@ const router = createBrowserRouter([
       { path: `${RoutesView.doctors}`, element: <ListDoctors /> },
       { path: `${RoutesView.analysis}`, element: <MedicalAnalysis /> },
       { path: `${RoutesView.analysisList}`, element: <AnalysisList /> },
+      { path: `${RoutesView.appointmentList}`, element: <AppointmentList /> },
+      { path: `${RoutesView.appointmentCreate}`, element: <AppointmentForm /> },
     ],
   },
   {
