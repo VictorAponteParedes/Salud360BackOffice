@@ -11,29 +11,10 @@ import PatientDetails from "../screens/patients/PatientDetails";
 import LoginPage from "../screens/auth/login";
 import { AuthLayout } from "./AuthRoutes";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <AppRoutes />,
-    errorElement: <ErrorPage />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: "patients/create", element: <Patients /> },
-      { path: "patients/list", element: <PatientList /> },
-      { path: "patients/:id", element: <PatientDetails /> },
-      { path: "doctors/create", element: <CreateDoctor /> },
-      { path: "doctors/list", element: <ListDoctors /> },
-    ],
-  },
-  {
-    path: "/auth",
-    element: <AuthLayout />,
-    children: [{ path: "login", element: <LoginPage /> }],
-  },
-]);
-
 export const RoutesView = {
   patients: "/patients/list",
+  patientDetail: "patients/:id",
+  createPatient: "/patients/create",
   doctors: "/doctors/list",
   createDoctor: "/doctors/create",
   hospitals: "/hospitals",
@@ -48,6 +29,29 @@ export const RoutesView = {
   languages: "/languages",
   specialties: "/specialties",
 };
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <AppRoutes />,
+    errorElement: <ErrorPage />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: `${RoutesView.createPatient}`, element: <Patients /> },
+      { path: `${RoutesView.patients}`, element: <PatientList /> },
+      { path: `${RoutesView.patientDetail}`, element: <PatientDetails /> },
+      { path: `${RoutesView.createDoctor}`, element: <CreateDoctor /> },
+      { path: `${RoutesView.doctors}`, element: <ListDoctors /> },
+    ],
+  },
+  {
+    path: `${RoutesView.login}`,
+    element: <AuthLayout />,
+    children: [{ path: `${RoutesView.login}`, element: <LoginPage /> }],
+  },
+]);
+
+
 
 export default function Routes() {
   return <RouterProvider router={router} />;
