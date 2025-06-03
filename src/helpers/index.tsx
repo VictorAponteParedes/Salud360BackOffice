@@ -1,6 +1,6 @@
 import { PatientStatusEnum } from "../enums";
 import { LOCAL_IP } from "../constants";
-
+import { AnalysisStatusEnum } from "../enums";
 interface PatientStatusProps {
   status: PatientStatusEnum;
 }
@@ -40,4 +40,21 @@ export const fixUrl = (url: string) => {
     return url.replace("localhost", LOCAL_IP);
   }
   return url;
+};
+
+export const AnalysisStatus = ({ status }: { status: AnalysisStatusEnum }) => {
+  const statusStyles = {
+    [AnalysisStatusEnum.COMPLETADO]: "bg-green-100 text-green-800",
+    [AnalysisStatusEnum.PENDIENTE]: "bg-yellow-100 text-yellow-800",
+    [AnalysisStatusEnum.ANORMAL]: "bg-orange-100 text-orange-800",
+    [AnalysisStatusEnum.CRITICO]: "bg-red-100 text-red-800",
+  };
+
+  return (
+    <span
+      className={`text-xs font-medium px-2.5 py-0.5 rounded-full ${statusStyles[status]}`}
+    >
+      {status}
+    </span>
+  );
 };
