@@ -8,6 +8,7 @@ import CreateDoctor from "../screens/doctors/CreateDoctor";
 import ErrorPage from "../components/erroPage";
 import ListDoctors from "../screens/doctors/ListDoctors";
 import PatientDetails from "../screens/patients/PatientDetails";
+import MedicalAnalysis from "../screens/medicalAnalysis/AnalusisCreate";
 import LoginPage from "../screens/auth/login";
 import { AuthLayout } from "./AuthRoutes";
 
@@ -19,7 +20,7 @@ export const RoutesView = {
   createDoctor: "/doctors/create",
   hospitals: "/hospitals",
   appointments: "/appointments",
-  analysis: "/analysis",
+  analysis: "/analysis/create",
   usersRoles: "/users-roles",
   notifications: "/notifications",
   reports: "/reports",
@@ -42,6 +43,7 @@ const router = createBrowserRouter([
       { path: `${RoutesView.patientDetail}`, element: <PatientDetails /> },
       { path: `${RoutesView.createDoctor}`, element: <CreateDoctor /> },
       { path: `${RoutesView.doctors}`, element: <ListDoctors /> },
+      { path: `${RoutesView.analysis}`, element: <MedicalAnalysis /> },
     ],
   },
   {
