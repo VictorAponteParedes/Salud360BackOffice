@@ -45,6 +45,8 @@ export const RoutesView = {
   settings: "/settings",
   dashboard: "/",
   login: "/auth/login",
+  languages: "/languages",
+  specialties: "/specialties",
 };
 
 export default function Routes() {
