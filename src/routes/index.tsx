@@ -14,33 +14,8 @@ import LoginPage from "../screens/auth/login";
 import { AuthLayout } from "./AuthRoutes";
 import AppointmentList from "../screens/appointment/AppointmentList";
 import AppointmentForm from "../screens/appointment/AppointmentCreate";
+import { RoutesView } from "./route";
 
-export const RoutesView = {
-  //patient
-  patients: "/patients/list",
-  patientDetail: "patients/:id",
-  createPatient: "/patients/create",
-
-  //doctor
-  doctors: "/doctors/list",
-  analysisList: "/analysis/list",
-  createDoctor: "/doctors/create",
-
-  //appoitment
-  appointmentList: "/appointment/list",
-  appointmentCreate: "/appointment/create",
-  //hospital
-  hospitals: "/hospitals",
-  analysis: "/analysis/create",
-  usersRoles: "/users-roles",
-  notifications: "/notifications",
-  reports: "/reports",
-  settings: "/settings",
-  dashboard: "/",
-  login: "/auth/login",
-  languages: "/languages",
-  specialties: "/specialties",
-};
 
 const router = createBrowserRouter([
   {

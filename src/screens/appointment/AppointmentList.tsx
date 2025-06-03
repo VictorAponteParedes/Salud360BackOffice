@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 // import { useAppointment } from "../../hooks/useAppointment";
 import { AppointmentStatus } from "../../helpers";
 import { AppointmentStatusEnum } from "../../enums";
-import { RoutesView } from "../../routes";
+import { RoutesView } from "../../routes/route";
 
 // Datos de prueba para citas (simulando respuesta de API)
 const mockAppointments = [

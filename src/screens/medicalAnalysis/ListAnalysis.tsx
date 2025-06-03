@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { AnalysisStatus } from "../../helpers";
 import { AnalysisStatusEnum } from "../../enums";
 
-import { RoutesView } from "../../routes";
+import { RoutesView } from "../../routes/route";
 
 // Datos de prueba para análisis (simulando respuesta de API)
 const mockAnalyses = [

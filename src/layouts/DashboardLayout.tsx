@@ -17,7 +17,7 @@ import {
   Stethoscope,
   ChevronDown,
 } from "lucide-react";
-import { RoutesView } from "../routes";
+import { RoutesView } from "../routes/route";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";

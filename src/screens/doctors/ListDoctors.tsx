@@ -3,7 +3,7 @@ import { Search, ArrowLeft, Plus, UserX } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { DoctorCard } from "./CardDoctor";
 import { useState } from "react";
-import { RoutesView } from "../../routes";
+import { RoutesView } from "../../routes/route";
 import { useDoctor } from "../../hooks/useDoctor";
 
 
