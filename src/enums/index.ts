@@ -12,3 +12,11 @@ export enum AnalysisStatusEnum {
   ANORMAL = "Anormal",
   CRITICO = "Crítico",
 }
+
+// src/enums.ts
+export enum AppointmentStatusEnum {
+  CONFIRMADA = "Confirmada",
+  PENDIENTE = "Pendiente",
+  COMPLETADA = "Completada",
+  CANCELADA = "Cancelada",
+}
