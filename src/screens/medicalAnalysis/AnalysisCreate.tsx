@@ -1,37 +1,30 @@
-// src/screens/MedicalAnalysis.tsx
 import { FormProvider, useForm } from "react-hook-form";
 import { TextInput } from "../../components/form/TextInput";
+import { ImageInput } from "../../components/form/ImageInput";
 import { SelectInput } from "../../components/form/SelectInput";
-import { ArrowLeft } from "lucide-react";
+import { FlaskConical, ArrowLeft, UserCircle, Edit3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { MessageToast } from "../../components/MessageToast";
 import { translate } from "../../lang";
-import { TextAreaInput } from "../../components/form/TextAreaInput";
-import { DateInput } from "../../components/form/DateInput";
+import type { AnalysisFormData } from "../../types/analysis";
+import { useAnalysis } from "../../hooks/useAnalysis";
+import { Panel } from "primereact/panel";
+import { usePatient } from "../../hooks/usePatient";
 
-// Datos de prueba para pacientes (simulando respuesta de API)
-const mockPatients = [
-  { id: 1, name: "Pedro Fernández", email: "pedro@example.com", document: "12345678" },
-  { id: 2, name: "María González", email: "maria@example.com", document: "87654321" },
-  { id: 3, name: "Juan Pérez", email: "juan@example.com", document: "56781234" },
-  { id: 4, name: "Ana López", email: "ana@example.com", document: "43218765" },
-  { id: 5, name: "Carlos Ruiz", email: "carlos@example.com", document: "98765432" },
-];
-
-// Tipos para el formulario
-type AnalysisFormData = {
-  patientId: string;
-  analysisType: string;
-  analysisDate: string;
-  result: string;
-  observations: string;
-};
-
-export default function MedicalAnalysis() {
+export default function AnalysisCreate() {
   const methods = useForm<AnalysisFormData>();
   const navigate = useNavigate();
+  const { patients = [] } = usePatient();
+  const { createAnalysis } = useAnalysis();
+
+  const patientOptions = patients
+    .filter((patient) => !!patient.id)
+    .map((patient) => ({
+      label: `${patient.firstName} ${patient.lastName}`,
+      value: patient.id as string,
+    }));
   const [message, setMessage] = useState<null | {
     type: "success" | "error";
     title: string;
@@ -40,26 +33,25 @@ export default function MedicalAnalysis() {
 
   const onSubmit = async (data: AnalysisFormData) => {
     try {
-      console.log("Creando análisis médico:", data);
-      // Aquí iría la llamada al servicio para guardar el análisis
-      
-      // Simulamos un retraso de API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      const file = data.file?.[0] || undefined;
+
+      await createAnalysis(data, file);
+
       setMessage({
         type: "success",
-        title: "Análisis creado",
-        description: "El análisis médico se ha registrado correctamente",
+        title: translate("analysis.message.success.title"),
+        description: translate("analysis.message.success.description"),
       });
-      
+
       setTimeout(() => {
         navigate(-1);
       }, 2000);
     } catch (error: any) {
       setMessage({
         type: "error",
-        title: "Error al crear análisis",
-        description: error.message || "Ocurrió un error al guardar el análisis",
+        title: translate("analysis.message.error.title"),
+        description:
+          error.message || translate("analysis.message.error.description"),
       });
     }
   };
@@ -67,126 +59,112 @@ export default function MedicalAnalysis() {
   return (
     <>
       <FormProvider {...methods}>
-         <motion.form
+        <motion.form
           onSubmit={methods.handleSubmit(onSubmit)}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
         >
-          <div className="flex items-center gap-2 mb-6">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="text-gray-600 hover:text-gray-800"
-            >
-              <ArrowLeft className="w-6 h-6" />
-            </button>
-            <h1 className="text-2xl font-bold text-gray-800">
-              Nuevo Análisis Médico
-            </h1>
-          </div>
-
-          {/* Sección de selección de paciente */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
-              Selecciona paciente
-            </h2>
-            <div className="grid grid-cols-1 gap-4">
-              <SelectInput
-                name="patientId"
-                label="Buscar paciente por nombre, email o documento"
-                options={mockPatients.map(patient => ({
-                  label: `${patient.name} (${patient.document})`,
-                  value: patient.id.toString(),
-                }))}
-                placeholder="Seleccione un paciente"
-              />
+          {/* Header */}
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="text-gray-600 hover:text-gray-800"
+              >
+                <ArrowLeft className="w-6 h-6" />
+              </button>
+              <h1 className="text-2xl font-bold text-gray-800">
+                {translate("analysis.title")}
+              </h1>
             </div>
-          </section>
-
-          {/* Sección de tipo de análisis */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
-              Tipo de análisis
-            </h2>
-            <div className="grid grid-cols-1 gap-4">
-              <SelectInput
-                name="analysisType"
-                options={[
-                  { label: "Función renal", value: "renal_function" },
-                  { label: "Hemograma completo", value: "complete_blood_count" },
-                  { label: "Perfil lipídico", value: "lipid_profile" },
-                  { label: "Pruebas hepáticas", value: "liver_tests" },
-                  { label: "Glucosa en sangre", value: "blood_glucose" },
-                ]}
-                defaultValue="renal_function"
-              />
-            </div>
-          </section>
-
-          {/* Sección de fecha */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
-              Fecha
-            </h2>
-            <div className="grid grid-cols-1 gap-4">
-              <DateInput
-                name="analysisDate"
-                label="Fecha del análisis"
-                defaultValue={new Date().toISOString().split('T')[0]}
-              />
-            </div>
-          </section>
-
-          {/* Sección de resultados */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
-              Resultado
-            </h2>
-            <div className="grid grid-cols-1 gap-4">
-              <TextAreaInput
-                name="result"
-                label="Detalle del resultado o interpretación del análisis"
-                placeholder="Ingrese los resultados del análisis..."
-                rows={4}
-              />
-            </div>
-          </section>
-
-          {/* Sección de observaciones */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
-              Observaciones
-            </h2>
-            <div className="grid grid-cols-1 gap-4">
-              <TextAreaInput
-                name="observations"
-                label="Observaciones adicionales"
-                placeholder="Ingrese cualquier observación adicional..."
-                rows={3}
-              />
-            </div>
-          </section>
-
-          {/* Botones de acción */}
-          <div className="flex justify-end gap-4 mt-6">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
-            >
-              Cancelar
-            </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition"
+              className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-hover flex items-center gap-2"
             >
-              Guardar análisis
+              <Edit3 size={18} />
+              <span>{translate("analysis.button.submit")}</span>
             </button>
           </div>
+
+          {/* Panel: Información del análisis */}
+          <Panel
+            header={
+              <div className="flex items-center gap-2">
+                <div className="bg-indigo-100 p-2 rounded-lg">
+                  <FlaskConical className="text-indigo-600" size={18} />
+                </div>
+                <span className="font-semibold text-gray-800">
+                  {translate("analysis.fields.info.label")}
+                </span>
+              </div>
+            }
+            toggleable
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <TextInput
+                name="name"
+                label={translate("analysis.fields.name.label")}
+                placeholder={translate("analysis.fields.name.placeholder")}
+              />
+              <TextInput
+                name="description"
+                label={translate("analysis.fields.description.label")}
+                placeholder={translate(
+                  "analysis.fields.description.placeholder"
+                )}
+              />
+              <TextInput
+                name="results"
+                label={translate("analysis.fields.result.label")}
+                placeholder={translate("analysis.fields.result.placeholder")}
+              />
+              <TextInput
+                name="labName"
+                label={translate("analysis.fields.labName.label")}
+                placeholder={translate("analysis.fields.labName.placeholder")}
+              />
+              <TextInput
+                name="analysisDate"
+                label={translate("analysis.fields.analysisDate.label")}
+                type="date"
+              />
+            </div>
+          </Panel>
+
+          {/* Panel: Información del paciente */}
+          <Panel
+            header={
+              <div className="flex items-center gap-2">
+                <div className="bg-teal-100 p-2 rounded-lg">
+                  <UserCircle className="text-teal-600" size={18} />
+                </div>
+                <span className="font-semibold text-gray-800">
+                  {translate("analysis.fields.patient.label")}
+                </span>
+              </div>
+            }
+            toggleable
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <SelectInput
+                name="patientId"
+                label={translate("analysis.fields.patient.label")}
+                options={patientOptions}
+                placeholder={translate("analysis.fields.patient.placeholder")}
+              />
+              <ImageInput
+                name="profileImage"
+                label={translate("registerDoctor.fields.photo.label")}
+                control={methods.control}
+              />
+            </div>
+          </Panel>
         </motion.form>
       </FormProvider>
+
       {message && (
         <MessageToast {...message} onClose={() => setMessage(null)} />
       )}
