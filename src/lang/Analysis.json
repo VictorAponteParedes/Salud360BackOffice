@@ -1,0 +1,52 @@
+{
+    "analysis":{
+        "message":{
+            "success":{
+                "title":"Análisis creado",
+                "description":"El análisis ha sido creado correctamente."
+            },
+            "error":{
+                "title":"Error al crear el análisis",
+                "description":"Ha ocurrido un error al crear el análisis. Por favor, inténtalo de nuevo más tarde."
+            }
+        },
+        "title":"Análisis",
+        "fields":{
+            "name":{
+                "label":"Nombre del análisis",
+                "placeholder":"Ingresa el nombre del análisis"
+            },
+            "description":{
+                "label":"Descripción del análisis",
+                "placeholder":"Ingresa una descripción del análisis"
+            },
+            "result":{
+                "label":"Resultado del análisis",
+                "placeholder":"Ingresa el resultado del análisis"
+            },
+            "labName":{
+                "label":"Nombre del laboratorio",
+                "placeholder":"Ingresa el nombre del laboratorio"
+            },
+            "analysisDate":{
+                "label":"Fecha del análisis",
+                "placeholder":"Selecciona la fecha del análisis"
+            },
+            "patient":{
+                "label":"Paciente",
+                "placeholder":"Selecciona el paciente"
+            },
+            "profile":{
+                "label":"Perfil",
+                "placeholder":"Selecciona el perfil"
+            },
+            "info":{
+                "label":"Información adicional",
+                "placeholder":"Ingresa información adicional"
+            }
+        },
+        "button":{
+            "submit":"Guardar"
+        }
+    }
+}
