@@ -1,6 +1,7 @@
 import home from './Home.json';
 import patient from './Patient.json';
 import doctor from './Doctor.json';
+import analysis from './Analysis.json';
 
 // Definir el idioma actual, por ejemplo, 'es' para español
 const currentLanguage = 'es';
@@ -11,7 +12,8 @@ const translations = {
     // Traducciones para el idioma español
     ...home,
     ...patient,
-    ...doctor
+    ...doctor,
+    ...analysis
   },
 
 };
