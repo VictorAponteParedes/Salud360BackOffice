@@ -36,7 +36,7 @@ type AppointmentFormData = {
   notes: string;
 };
 
-export default function AppointmentForm() {
+export default function AppointmentCreate() {
   const methods = useForm<AppointmentFormData>();
   const navigate = useNavigate();
   const [message, setMessage] = useState<null | {
@@ -49,16 +49,16 @@ export default function AppointmentForm() {
     try {
       console.log("Creando cita:", data);
       // Aquí iría la llamada al servicio para guardar la cita
-      
+
       // Simulamos un retraso de API
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
       setMessage({
         type: "success",
         title: "Cita creada",
         description: "La cita médica se ha programado correctamente",
       });
-      
+
       setTimeout(() => {
         navigate("/appointments");
       }, 2000);
@@ -74,11 +74,11 @@ export default function AppointmentForm() {
   return (
     <>
       <FormProvider {...methods}>
-         <motion.form
-            initial={{ opacity: 0, x: -50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
+        <motion.form
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
         >
           <div className="flex items-center gap-2 mb-6">
             <button
@@ -103,7 +103,7 @@ export default function AppointmentForm() {
               <SelectInput
                 name="patientId"
                 label="Seleccionar paciente"
-                options={mockPatients.map(patient => ({
+                options={mockPatients.map((patient) => ({
                   label: patient.name,
                   value: patient.id.toString(),
                 }))}
@@ -125,7 +125,7 @@ export default function AppointmentForm() {
               <SelectInput
                 name="doctorId"
                 label="Seleccionar médico"
-                options={mockDoctors.map(doctor => ({
+                options={mockDoctors.map((doctor) => ({
                   label: `${doctor.name} (${doctor.specialty})`,
                   value: doctor.id.toString(),
                 }))}
@@ -147,7 +147,7 @@ export default function AppointmentForm() {
               <DateInput
                 name="date"
                 label="Fecha de la cita"
-                defaultValue={new Date().toISOString().split('T')[0]}
+                defaultValue={new Date().toISOString().split("T")[0]}
                 required
               />
               <TimeInput
