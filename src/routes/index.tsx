@@ -8,14 +8,14 @@ import CreateDoctor from "../screens/doctors/CreateDoctor";
 import ErrorPage from "../components/erroPage";
 import ListDoctors from "../screens/doctors/ListDoctors";
 import PatientDetails from "../screens/patients/PatientDetails";
-import MedicalAnalysis from "../screens/medicalAnalysis/AnalysisCreate";
+import AnalysisCreate from "../screens/medicalAnalysis/AnalysisCreate";
+// import AnalysisCreate from "../screens/analysis/AnalysisCreate";
 import AnalysisList from "../screens/medicalAnalysis/ListAnalysis";
 import LoginPage from "../screens/auth/login";
 import { AuthLayout } from "./AuthRoutes";
 import AppointmentList from "../screens/appointment/AppointmentList";
 import AppointmentForm from "../screens/appointment/AppointmentCreate";
 import { RoutesView } from "./route";
-
 
 const router = createBrowserRouter([
   {
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       { path: `${RoutesView.patientDetail}`, element: <PatientDetails /> },
       { path: `${RoutesView.createDoctor}`, element: <CreateDoctor /> },
       { path: `${RoutesView.doctors}`, element: <ListDoctors /> },
-      { path: `${RoutesView.analysis}`, element: <MedicalAnalysis /> },
+      { path: `${RoutesView.analysis}`, element: <AnalysisCreate /> },
       { path: `${RoutesView.analysisList}`, element: <AnalysisList /> },
       { path: `${RoutesView.appointmentList}`, element: <AppointmentList /> },
       { path: `${RoutesView.appointmentCreate}`, element: <AppointmentForm /> },
