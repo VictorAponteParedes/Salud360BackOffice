@@ -6,6 +6,8 @@ import { PatientCard } from "./PatiendCard";
 import { PatientStatus } from "../../helpers";
 import { PatientStatusEnum } from "../../enums";
 import { usePatient } from "../../hooks/usePatient";
+import { RoutesView } from "../../routes/route";
+import { translate } from "../../lang";
 
 export default function PatientList() {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ export default function PatientList() {
 
   if (error) return <div>{error}</div>;
   const handleCreateNewPatient = () => {
-    navigate("/patients/create");
+    navigate(RoutesView.patients);
   };
 
   if (isLoading) {
@@ -57,7 +59,7 @@ export default function PatientList() {
             <ArrowLeft className="w-6 h-6" />
           </button>
           <h1 className="text-2xl font-bold text-gray-800">
-            Gestión de Pacientes
+            {translate("registerPatient.viewPatient.patientGestion")}
           </h1>
         </div>
 
@@ -66,12 +68,12 @@ export default function PatientList() {
           className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
         >
           <Plus className="w-5 h-5" />
-          Crear Nuevo Paciente
+          {translate("registerPatient.viewPatient.addPatient")}
         </button>
       </div>
 
       <p className="mb-6 text-gray-700">
-        Administra la información de todos los pacientes
+        {translate("registerPatient.viewPatient.adminPatient")}
       </p>
 
       {/* Barra de búsqueda y filtros */}
@@ -89,17 +91,18 @@ export default function PatientList() {
 
         <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
           <Filter className="w-4 h-4" />
-          Filtros
+          {translate("registerPatient.viewPatient.filter.title")}
         </button>
       </div>
 
       <div className="border-t border-gray-200 pt-4 mb-4">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-lg font-semibold text-gray-800">
-            Lista de Pacientes
+            {translate("registerPatient.viewPatient.patientList")}
           </h2>
           <p className="text-sm text-gray-600">
-            {patients.length} pacientes registrados
+            {patients.length}{" "}
+            {translate("registerPatient.viewPatient.patiendRegisted")}
           </p>
         </div>
 
@@ -123,7 +126,7 @@ export default function PatientList() {
       {/* Posibles estados para referencia */}
       <div className="mt-8 p-4 bg-gray-50 rounded-lg">
         <h3 className="text-sm font-medium text-gray-700 mb-2">
-          Estados disponibles:
+          {translate("registerPatient.viewPatient.stateAbaleble")}
         </h3>
         <div className="flex flex-wrap gap-2">
           <PatientStatus status={PatientStatusEnum.ACTIVO} />

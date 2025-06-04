@@ -5,6 +5,19 @@
     "button": {
       "submit": "Registrar paciente"
     },
+    "viewPatient": {
+      "addPatient": "Crear Nuevo Paciente",
+      "patientGestion": "Gestión de Pacientes",
+      "patiendRegisted": "Pacientes registrados",
+      "adminPatient": "Administra la información de todos los pacientes",
+      "patientList": "Lista de Pacientes",
+      "filter": {
+        "title": "Filtros de búsqueda",
+        "search": "Buscar",
+        "clear": "Limpiar"
+      },
+      "stateAbaleble": "Estados disponibles:"
+    },
     "message": {
       "success": {
         "title": "Paciente registrado con éxito",
