@@ -1,0 +1,25 @@
+{
+    "titleName":"Salud360",
+    "title": "Gestión principal",
+    "items":{
+        "dashboard":"Dashboard",
+        "patients":"Pacientes",
+        "doctors":"Doctores",
+        "hospitals":"Hospitales",
+        "appointments":"Citas",
+        "analytics":"Análisis Clínicos",
+        "catalogs":{
+            "title":"Catálogos",
+            "languages":"Idiomas",
+            "specialties":"Especialidades"
+        },
+        "userAndRoles":"Usuarios y Roles",
+        "notifications":"Notificaciones",
+        "reports":"Reportes",
+        "sistems":"Sistemas",
+        "sistemMedics":"Sistemas Médicos",
+        "settings":"Configuración",
+        "logout":"Cerrar sesión"
+
+    }
+}

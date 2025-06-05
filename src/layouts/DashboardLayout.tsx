@@ -22,6 +22,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { translate } from "../lang";
 
 type Props = {
   children: ReactNode;
@@ -50,66 +51,76 @@ export default function DashboardLayout({ children }: Props) {
           <div>
             <div className="flex items-center gap-2 mb-1">
               <HeartPulse className="text-blue-600 w-6 h-6" />
-              <span className="text-xl font-bold">Salud360</span>
+              <span className="text-xl font-bold">
+                {translate("layout.titleName")}
+              </span>
             </div>
-            <p className="text-sm text-gray-500">Sistema Médico</p>
+            <p className="text-sm text-gray-500">
+              {translate("items.sistemMedics")}
+            </p>
           </div>
 
           {/* Sección: Gestión Principal */}
           <div className="mt-8">
             <h3 className="text-xs text-gray-500 uppercase mb-3">
-              Gestión principal
+              {translate("layout.title")}
             </h3>
             <nav className="flex flex-col gap-4">
               <Link
                 to={RoutesView.dashboard}
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <LayoutDashboard className="w-5 h-5" /> Dashboard
+                <LayoutDashboard className="w-5 h-5" />{" "}
+                {translate("items.dashboard")}
               </Link>
               <Link
                 to={RoutesView.patients}
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <Users className="w-5 h-5" /> Pacientes
+                <Users className="w-5 h-5" /> {translate("items.patients")}
               </Link>
               <Link
                 to={RoutesView.doctors}
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <User className="w-5 h-5" /> Doctores
+                <User className="w-5 h-5" />
+                {translate("items.doctors")}
               </Link>
               <Link
                 to={RoutesView.hospitals}
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <Hospital className="w-5 h-5" /> Hospitales
+                <Hospital className="w-5 h-5" /> {translate("items.hospitals")}
               </Link>
               <Link
                 to={RoutesView.appointmentList}
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <Calendar className="w-5 h-5" /> Citas
+                <Calendar className="w-5 h-5" />{" "}
+                {translate("items.appointments")}
               </Link>
               <Link
                 to={RoutesView.analysisList}
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <FileText className="w-5 h-5" /> Análisis Clínicos
+                <FileText className="w-5 h-5" /> {translate("items.analytics")}
               </Link>
             </nav>
           </div>
 
           {/* Sección: Catálogos */}
           <div className="mt-8">
-            <h3 className="text-xs text-gray-500 uppercase mb-3">Catálogos</h3>
+            <h3 className="text-xs text-gray-500 uppercase mb-3">
+              {translate("items.catalogs.title")}
+            </h3>
             <nav className="flex flex-col gap-2">
               <button
                 onClick={toggleCatalogs}
                 className="flex items-center justify-between text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
                 <div className="flex items-center gap-2">
-                  <Settings className="w-5 h-5" /> Catálogos
+                  <Settings className="w-5 h-5" />{" "}
+                  {translate("items.catalogs.title")}
                 </div>
                 <motion.div
                   animate={{ rotate: isCatalogsOpen ? 180 : 0 }}
@@ -131,13 +142,15 @@ export default function DashboardLayout({ children }: Props) {
                       to={RoutesView.languages}
                       className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
                     >
-                      <Languages className="w-5 h-5" /> Idiomas
+                      <Languages className="w-5 h-5" />{" "}
+                      {translate("items.catalogs.languages")}
                     </Link>
                     <Link
                       to={RoutesView.specialties}
                       className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
                     >
-                      <Stethoscope className="w-5 h-5" /> Especialidades
+                      <Stethoscope className="w-5 h-5" />{" "}
+                      {translate("items.catalogs.specialties")}
                     </Link>
                   </motion.div>
                 )}
@@ -147,31 +160,33 @@ export default function DashboardLayout({ children }: Props) {
 
           {/* Sección: Sistema */}
           <div className="mt-8">
-            <h3 className="text-xs text-gray-500 uppercase mb-3">Sistema</h3>
+            <h3 className="text-xs text-gray-500 uppercase mb-3">
+              {translate("items.sistems")}
+            </h3>
             <nav className="flex flex-col gap-4">
               <Link
                 to={RoutesView.usersRoles}
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <Shield className="w-5 h-5" /> Usuarios y Roles
+                <Shield className="w-5 h-5" /> {translate("items.userAndRoles")}
               </Link>
               <Link
                 to={RoutesView.notifications}
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <Bell className="w-5 h-5" /> Notificaciones
+                <Bell className="w-5 h-5" /> {translate("items.notifications")}
               </Link>
               <Link
                 to="#"
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <BarChart2 className="w-5 h-5" /> Reportes
+                <BarChart2 className="w-5 h-5" /> {translate("items.reports")}
               </Link>
               <Link
                 to={RoutesView.settings}
                 className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
               >
-                <Settings className="w-5 h-5" /> Configuración
+                <Settings className="w-5 h-5" /> {translate("items.settings")}
               </Link>
             </nav>
           </div>
