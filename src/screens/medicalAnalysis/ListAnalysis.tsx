@@ -1,121 +1,31 @@
 // src/screens/AnalysisList.tsx
 import { motion } from "framer-motion";
-import { Search, ArrowLeft, Filter, Plus, FileText, Calendar, User } from "lucide-react";
+import { Search, ArrowLeft, Filter, Plus, FileText } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-// import { useAnalysis } from "../../hooks/useAnalysis";
+import { useAnalysis } from "../../hooks/useAnalysis";
 import { AnalysisStatus } from "../../helpers";
 import { AnalysisStatusEnum } from "../../enums";
-
+import { AnalysisCard } from "./AnalysisCard";
 import { RoutesView } from "../../routes/route";
-
-// Datos de prueba para análisis (simulando respuesta de API)
-const mockAnalyses = [
-  {
-    id: 1,
-    patientName: "Pedro Fernández",
-    type: "Función renal",
-    date: "2025-06-26",
-    status: AnalysisStatusEnum.COMPLETADO,
-    resultSummary: "Resultados dentro de parámetros normales"
-  },
-  {
-    id: 2,
-    patientName: "María González",
-    type: "Hemograma completo",
-    date: "2025-06-25",
-    status: AnalysisStatusEnum.PENDIENTE,
-    resultSummary: "Esperando resultados de laboratorio"
-  },
-  {
-    id: 3,
-    patientName: "Juan Pérez",
-    type: "Perfil lipídico",
-    date: "2025-06-24",
-    status: AnalysisStatusEnum.COMPLETADO,
-    resultSummary: "Colesterol LDL elevado"
-  },
-  {
-    id: 4,
-    patientName: "Ana López",
-    type: "Pruebas hepáticas",
-    date: "2025-06-23",
-    status: AnalysisStatusEnum.ANORMAL,
-    resultSummary: "Enzimas hepáticas elevadas"
-  },
-  {
-    id: 5,
-    patientName: "Carlos Ruiz",
-    type: "Glucosa en sangre",
-    date: "2025-06-22",
-    status: AnalysisStatusEnum.COMPLETADO,
-    resultSummary: "Niveles de glucosa normales"
-  },
-];
-
-const AnalysisCard = ({ analysis }: { analysis: typeof mockAnalyses[0] }) => {
-  const navigate = useNavigate();
-
-  return (
-    <motion.div
-      whileHover={{ scale: 1.01 }}
-      whileTap={{ scale: 0.99 }}
-      className="p-4 border border-gray-200 rounded-lg hover:shadow-md transition-shadow cursor-pointer"
-    //   onClick={() => navigate(`/analysis/${analysis.id}`)}
-    onClick={() => navigate(`${RoutesView.analysis}`)}
-    >
-      <div className="flex items-start justify-between">
-        <div>
-          <h3 className="font-semibold text-lg text-gray-800">{analysis.type}</h3>
-          <div className="flex items-center gap-2 mt-1 text-sm text-gray-600">
-            <User className="w-4 h-4" />
-            <span>{analysis.patientName}</span>
-          </div>
-          <div className="flex items-center gap-2 mt-1 text-sm text-gray-600">
-            <Calendar className="w-4 h-4" />
-            <span>{new Date(analysis.date).toLocaleDateString()}</span>
-          </div>
-        </div>
-        <AnalysisStatus status={analysis.status} />
-      </div>
-      <p className="mt-3 text-gray-700">{analysis.resultSummary}</p>
-    </motion.div>
-  );
-};
+import { ErrorMessage } from "../../components/ErrorMessage";
 
 export default function AnalysisList() {
   const navigate = useNavigate();
-  // En una implementación real usarías el hook useAnalysis
-  // const { analyses = [], isLoading, error } = useAnalysis();
-  
-  // Usando datos mock mientras se integra con backend
-  const analyses = mockAnalyses;
-  const isLoading = false;
-  const error = null;
-
+  const { analysies = [], loading, error } = useAnalysis();
   const handleCreateNewAnalysis = () => {
-    navigate("/analysis/create");
+    navigate(RoutesView.analysis);
   };
-
-  if (isLoading) {
-    return (
-      <div className="max-w-6xl mx-auto p-8 flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
 
   if (error) {
     return (
-      <div className="max-w-6xl mx-auto p-8">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-          {error}
-          <button
-            onClick={() => window.location.reload()}
-            className="absolute top-0 right-0 px-4 py-3"
-          >
-            <span className="text-red-700">×</span>
-          </button>
-        </div>
+      <ErrorMessage error={error} onRetry={() => window.location.reload()} />
+    );
+  }
+
+  if (loading) {
+    return (
+      <div className="max-w-6xl mx-auto p-8 flex justify-center items-center h-64">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
       </div>
     );
   }
@@ -179,12 +89,12 @@ export default function AnalysisList() {
             Lista de Análisis
           </h2>
           <p className="text-sm text-gray-600">
-            {analyses.length} análisis registrados
+            {analysies.length} análisis registrados
           </p>
         </div>
 
         {/* Lista de análisis */}
-        {analyses.length === 0 ? (
+        {analysies.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-64 text-gray-500 bg-gray-50 rounded-lg">
             <FileText className="w-12 h-12 mb-4 text-gray-400" />
             <p className="text-lg font-semibold text-center">
@@ -193,7 +103,7 @@ export default function AnalysisList() {
           </div>
         ) : (
           <div className="space-y-4">
-            {analyses.map((analysis) => (
+            {analysies.map((analysis) => (
               <AnalysisCard key={analysis.id} analysis={analysis} />
             ))}
           </div>
