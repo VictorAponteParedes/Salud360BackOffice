@@ -1,10 +1,16 @@
+import type{ PatientFormData } from "./auth";
+
 export interface AnalysisFormData {
+    id: string;
     name: string;
     description?: string;
-    analysisDate: string; // en formato YYYY-MM-DD
-    results?: string;
     labName?: string;
-    file?: FileList; // para carga de archivo
+    fileUrl?: FileList;
+    analysisDate: string; 
+    results?: string;
+    createdAt?: string;
+    updatedAt?: string;
+    patient?: PatientFormData;
     patientId: string;
   }
   

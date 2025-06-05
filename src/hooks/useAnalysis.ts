@@ -2,6 +2,7 @@
 import { useState } from "react";
 import AnalysisService from "../services/analysis";
 import type { AnalysisFormData } from "../types/analysis";
+import { translateError } from "../helpers/translateError";
 
 export function useAnalysis() {
   const analysisService = new AnalysisService();
@@ -13,9 +14,10 @@ export function useAnalysis() {
     try {
       const response = await analysisService.createAnalysis(data);
       return response.data;
-    } catch (err: any) {
-      setError(err.response?.data?.message || "Error creando análisis");
-      throw err;
+    } catch (error: unknown) {
+      error instanceof Error
+        ? setError(translateError(error.message))
+        : setError("Error creando análisis");
     } finally {
       setLoading(false);
     }
