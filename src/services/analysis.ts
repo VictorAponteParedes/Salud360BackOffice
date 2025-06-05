@@ -15,7 +15,13 @@ export default class AnalysisService {
   }
 
   async getAllAnalyses() {
-    return axios.get("/analysis");
+    try{
+      const response = await axios.get(`${API_BASE_URL}/analysis`);
+      return response.data;
+  } catch (err: any) {
+      console.log(err);
+      throw err;
+  }
   }
 
   async getAnalysisById(id: string) {

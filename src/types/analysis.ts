@@ -12,5 +12,6 @@ export interface AnalysisFormData {
     updatedAt?: string;
     patient?: PatientFormData;
     patientId: string;
+    status: string;
   }
   
