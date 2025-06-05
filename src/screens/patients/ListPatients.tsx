@@ -20,7 +20,7 @@ export default function PatientList() {
     );
   }
   const handleCreateNewPatient = () => {
-    navigate(RoutesView.patients);
+    navigate(RoutesView.createPatient);
   };
 
   if (isLoading) {
