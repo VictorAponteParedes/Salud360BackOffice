@@ -8,12 +8,17 @@ import { PatientStatusEnum } from "../../enums";
 import { usePatient } from "../../hooks/usePatient";
 import { RoutesView } from "../../routes/route";
 import { translate } from "../../lang";
+import { ErrorMessage } from "../../components/ErrorMessage";
 
 export default function PatientList() {
   const navigate = useNavigate();
   const { patients = [], isLoading, error } = usePatient();
 
-  if (error) return <div>{error}</div>;
+  if (error) {
+    return (
+      <ErrorMessage error={error} onRetry={() => window.location.reload()} />
+    );
+  }
   const handleCreateNewPatient = () => {
     navigate(RoutesView.patients);
   };
@@ -22,22 +27,6 @@ export default function PatientList() {
     return (
       <div className="max-w-6xl mx-auto p-8 flex justify-center items-center h-64">
         <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="max-w-6xl mx-auto p-8">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-          {error}
-          <button
-            onClick={() => window.location.reload()}
-            className="absolute top-0 right-0 px-4 py-3"
-          >
-            <span className="text-red-700">×</span>
-          </button>
-        </div>
       </div>
     );
   }

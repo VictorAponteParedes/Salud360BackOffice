@@ -5,7 +5,7 @@ import { DoctorCard } from "./CardDoctor";
 import { useState } from "react";
 import { RoutesView } from "../../routes/route";
 import { useDoctor } from "../../hooks/useDoctor";
-
+import { ErrorMessage } from "../../components/ErrorMessage";
 
 export default function DoctorList() {
   const { doctors = [], error, isLoading } = useDoctor();
@@ -34,17 +34,7 @@ export default function DoctorList() {
 
   if (error) {
     return (
-      <div className="max-w-6xl mx-auto p-8">
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative">
-          {error}
-          <button
-            onClick={() => window.location.reload()}
-            className="absolute top-0 right-0 px-4 py-3"
-          >
-            <span className="text-red-700">×</span>
-          </button>
-        </div>
-      </div>
+      <ErrorMessage error={error} onRetry={() => window.location.reload()} />
     );
   }
 
@@ -152,7 +142,6 @@ export default function DoctorList() {
             ))}
           </div>
         )}
-
       </div>
     </motion.div>
   );

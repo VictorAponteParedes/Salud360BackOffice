@@ -1,7 +1,7 @@
-// hooks/usePatient.ts
 import { useEffect, useState } from "react";
 import PatientServices from "../services/patient";
 import type { PatientFormData } from "../types/auth";
+import { translateError } from "../helpers/translateError";
 
 const patientService = new PatientServices();
 
@@ -19,9 +19,12 @@ export const usePatient = (id?: string) => {
       try {
         const data = await patientService.getPatientById(id);
         setPatient(data);
-      } catch (error) {
-        console.error("Error fetching patient:", error);
-        setError("No se pudo cargar el paciente");
+      } catch (error: unknown) {
+        const errMessage =
+          error instanceof Error
+            ? translateError(error.message)
+            : "Error desconocido";
+        setError(errMessage);
       } finally {
         setIsLoading(false);
       }
@@ -32,15 +35,18 @@ export const usePatient = (id?: string) => {
 
   // Obtener lista de pacientes
   useEffect(() => {
-    if (id) return; // evita doble carga si se pasa un id
+    if (id) return;
 
     const fetchPatients = async () => {
       try {
         const response = await patientService.getPatients();
         setPatients(response);
-      } catch (error) {
-        console.error("Error fetching patients:", error);
-        setError("No se pudo cargar la lista de pacientes");
+      } catch (error: unknown) {
+        const errMessage =
+          error instanceof Error
+            ? translateError(error.message)
+            : "Error desconocido";
+        setError(errMessage);
       } finally {
         setIsLoading(false);
       }
