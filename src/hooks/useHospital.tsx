@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { HospitalService } from "../services/hospital";
 import type { HospitalType } from "../types/hospital";
-
+import { translateError } from "../helpers/translateError";
 const hospitalService = new HospitalService();
 
 export const useHospital = () => {
@@ -14,13 +14,16 @@ export const useHospital = () => {
     useEffect(() => {
         const fetchHospitals = async () => {
             try {
-                const response = await hospitalService.getHospitals();
-                setHospitals(response);
-            } catch (error) {
-                console.error("Error fetching hospitals:", error);
-                setError("No se pudo cargar la lista de hospitales");
+              const response = await hospitalService.getHospitals();
+              setHospitals(response);
+            } catch (error: unknown) {
+              const errMessage =
+                error instanceof Error
+                  ? translateError(error.message)
+                  : "Error desconocido";
+              setError(errMessage);
             } finally {
-                setIsLoading(false);
+              setIsLoading(false);
             }
         };
 
