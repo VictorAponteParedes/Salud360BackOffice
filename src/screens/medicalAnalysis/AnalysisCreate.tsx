@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { TextInput } from "../../components/form/TextInput";
-import { ImageInput } from "../../components/form/ImageInput";
+// import { ImageInput } from "../../components/form/ImageInput";
 import { SingleSelectInput } from "../../components/form/SingleSelectInput";
 import { FlaskConical, ArrowLeft, UserCircle, Edit3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
