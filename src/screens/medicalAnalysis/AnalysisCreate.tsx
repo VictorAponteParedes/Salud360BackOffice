@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { TextInput } from "../../components/form/TextInput";
 import { ImageInput } from "../../components/form/ImageInput";
-import { SelectInput } from "../../components/form/SelectInput";
+import { SingleSelectInput } from "../../components/form/SingleSelectInput";
 import { FlaskConical, ArrowLeft, UserCircle, Edit3 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -33,9 +33,14 @@ export default function AnalysisCreate() {
 
   const onSubmit = async (data: AnalysisFormData) => {
     try {
-      const file = data.file?.[0] || undefined;
+      const file = data.fileUrl?.[0] || undefined;
+      console.log("data analysis", data.patientId);
 
-      await createAnalysis(data, file);
+      const dataToSend = {
+        ...data,
+        patientId: data.patientId as string,
+      };
+      await createAnalysis(dataToSend, file);
 
       setMessage({
         type: "success",
@@ -44,7 +49,7 @@ export default function AnalysisCreate() {
       });
 
       setTimeout(() => {
-        navigate(-1);
+        // navigate(-1);
       }, 2000);
     } catch (error: any) {
       setMessage({
@@ -149,12 +154,13 @@ export default function AnalysisCreate() {
             toggleable
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <SelectInput
+              <SingleSelectInput
                 name="patientId"
                 label={translate("analysis.fields.patient.label")}
                 options={patientOptions}
                 placeholder={translate("analysis.fields.patient.placeholder")}
               />
+
               <ImageInput
                 name="profileImage"
                 label={translate("registerDoctor.fields.photo.label")}

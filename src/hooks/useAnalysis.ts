@@ -18,6 +18,7 @@ export function useAnalysis() {
       error instanceof Error
         ? setError(translateError(error.message))
         : setError("Error creando análisis");
+        throw error;
     } finally {
       setLoading(false);
     }
