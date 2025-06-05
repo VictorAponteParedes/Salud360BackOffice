@@ -25,7 +25,10 @@ export const SingleSelectInput = ({
         render={({ field }) => (
           <Dropdown
             value={field.value}
-            onChange={(e) => field.onChange(e.value)}
+            onChange={(e) => {
+              console.log("Valor seleccionado", e.value);
+              field.onChange(e.value);
+            }}
             options={options}
             optionLabel="label"
             placeholder={placeholder ?? "Seleccione una opción"}

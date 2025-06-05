@@ -33,14 +33,13 @@ export default function AnalysisCreate() {
 
   const onSubmit = async (data: AnalysisFormData) => {
     try {
-      const file = data.fileUrl?.[0] || undefined;
-      console.log("data analysis", data.patientId);
+      // const file = data.fileUrl?.[0] || undefined;
 
       const dataToSend = {
         ...data,
         patientId: data.patientId as string,
       };
-      await createAnalysis(dataToSend, file);
+      await createAnalysis(dataToSend);
 
       setMessage({
         type: "success",
@@ -49,7 +48,7 @@ export default function AnalysisCreate() {
       });
 
       setTimeout(() => {
-        // navigate(-1);
+        navigate(-1);
       }, 2000);
     } catch (error: any) {
       setMessage({
@@ -161,11 +160,11 @@ export default function AnalysisCreate() {
                 placeholder={translate("analysis.fields.patient.placeholder")}
               />
 
-              <ImageInput
+              {/* <ImageInput
                 name="profileImage"
                 label={translate("registerDoctor.fields.photo.label")}
                 control={methods.control}
-              />
+              /> */}
             </div>
           </Panel>
         </motion.form>
