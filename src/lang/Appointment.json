@@ -1,0 +1,39 @@
+{
+    "appointments": {
+        "list": {
+            "title": "Citas",
+            "subtitle": "Listado de citas programadas",
+            "description": "Aquí puedes consultar, buscar y gestionar tus citas programadas.",
+            "addAppointment": "Nueva cita",
+            "filter": "Filtrar",
+            "count": "citas encontradas",
+            "noAppointments": "No tienes citas registradas actualmente."
+        },
+        "fields": {
+            "id": "ID",
+            "patient": "Paciente",
+            "doctor": "Doctor",
+            "date": "Fecha",
+            "time": "Hora",
+            "status": "Estado",
+            "actions": "Acciones",
+            "notes": "Notas",
+            "createdAt": "Creado el",
+            "updatedAt": "Actualizado el"
+        },
+        "create": {
+            "title": "Crear nueva cita",
+            "submit": "Guardar cita",
+            "cancel": "Cancelar",
+            "success": "La cita se ha creado correctamente.",
+            "error": "Ha ocurrido un error al crear la cita."
+        },
+        "details": {
+            "title": "Detalles de la cita",
+            "edit": "Editar cita",
+            "delete": "Eliminar cita",
+            "confirmDelete": "¿Estás seguro que deseas eliminar esta cita?",
+            "deleted": "Cita eliminada correctamente."
+        }
+    }
+}

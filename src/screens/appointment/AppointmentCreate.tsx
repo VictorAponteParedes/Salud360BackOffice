@@ -1,72 +1,65 @@
-// src/screens/AppointmentForm.tsx
 import { FormProvider, useForm } from "react-hook-form";
-import { SelectInput } from "../../components/form/SelectInput";
-import { DateInput } from "../../components/form/DateInput";
-import { TimeInput } from "../../components/form/TimeInput";
-import { TextAreaInput } from "../../components/form/TextAreaInput";
-import { User, Calendar, Stethoscope, ArrowLeft } from "lucide-react";
+import { TextInput } from "../../components/form/TextInput";
+import { SingleSelectInput } from "../../components/form/SingleSelectInput";
+import { ArrowLeft, CalendarCheck, UserCircle, Stethoscope } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { MessageToast } from "../../components/MessageToast";
-
-// Datos de prueba
-const mockPatients = [
-  { id: 1, name: "Pedro Fernández" },
-  { id: 2, name: "María González" },
-  { id: 3, name: "Juan Pérez" },
-  { id: 4, name: "Ana López" },
-  { id: 5, name: "Carlos Ruiz" },
-];
-
-const mockDoctors = [
-  { id: 1, name: "Dra. María López", specialty: "Cardiología" },
-  { id: 2, name: "Dr. Carlos Ruiz", specialty: "Pediatría" },
-  { id: 3, name: "Dra. Ana Martínez", specialty: "Dermatología" },
-  { id: 4, name: "Dr. Javier Gómez", specialty: "Ortopedia" },
-  { id: 5, name: "Dra. Laura Díaz", specialty: "Neurología" },
-];
-
-type AppointmentFormData = {
-  patientId: string;
-  doctorId: string;
-  date: string;
-  time: string;
-  reason: string;
-  notes: string;
-};
+import { translate } from "../../lang";
+import { Panel } from "primereact/panel";
+import { useDoctor } from "../../hooks/useDoctor";
+import { usePatient } from "../../hooks/usePatient";
+import { useAppointment } from "../../hooks/useAppointment";
+import type { AppointmentFormData } from "../../types/appointment";
 
 export default function AppointmentCreate() {
   const methods = useForm<AppointmentFormData>();
   const navigate = useNavigate();
+  const { doctors = [] } = useDoctor();
+  const { patients = [] } = usePatient();
+  const { createAppointment } = useAppointment();
+
   const [message, setMessage] = useState<null | {
     type: "success" | "error";
     title: string;
     description: string;
   }>(null);
 
+  const doctorOptions = doctors.map((doctor) => ({
+    label: `${doctor.firstName} ${doctor.lastName}`,
+    value: doctor.id,
+  }));
+
+  const patientOptions = patients.map((patient) => ({
+    label: `${patient.firstName} ${patient.lastName}`,
+    value: patient.id,
+  }));
+
   const onSubmit = async (data: AppointmentFormData) => {
     try {
-      console.log("Creando cita:", data);
-      // Aquí iría la llamada al servicio para guardar la cita
+      const payload = {
+        ...data,
+        patientId: data.patientId,
+        doctorId: data.doctorId,
+      };
 
-      // Simulamos un retraso de API
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await createAppointment(payload);
 
       setMessage({
         type: "success",
-        title: "Cita creada",
-        description: "La cita médica se ha programado correctamente",
+        title: "Cita creada exitosamente",
+        description: "La cita médica se ha creado correctamente.",
       });
 
       setTimeout(() => {
-        navigate("/appointments");
+        navigate(-1);
       }, 2000);
     } catch (error: any) {
       setMessage({
         type: "error",
         title: "Error al crear cita",
-        description: error.message || "Ocurrió un error al programar la cita",
+        description: error.message || "Ocurrió un error inesperado.",
       });
     }
   };
@@ -75,139 +68,117 @@ export default function AppointmentCreate() {
     <>
       <FormProvider {...methods}>
         <motion.form
+          onSubmit={methods.handleSubmit(onSubmit)}
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
         >
-          <div className="flex items-center gap-2 mb-6">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="text-gray-600 hover:text-gray-800"
-            >
-              <ArrowLeft className="w-6 h-6" />
-            </button>
-            <h1 className="text-2xl font-bold text-gray-800">
-              Nueva Cita Médica
-            </h1>
-          </div>
-
-          {/* Sección de selección de paciente */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2 flex items-center gap-2">
-              <User className="w-5 h-5 text-blue-600" />
-              Datos del Paciente
-            </h2>
-            <div className="grid grid-cols-1 gap-4">
-              <SelectInput
-                name="patientId"
-                label="Seleccionar paciente"
-                options={mockPatients.map((patient) => ({
-                  label: patient.name,
-                  value: patient.id.toString(),
-                }))}
-                placeholder="Buscar paciente..."
-                isSearchable
-                icon={<User className="w-4 h-4 text-gray-400" />}
-                required
-              />
+          {/* Header */}
+          <div className="flex justify-between items-center">
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => navigate(-1)}
+                className="text-gray-600 hover:text-gray-800"
+              >
+                <ArrowLeft className="w-6 h-6" />
+              </button>
+              <h1 className="text-2xl font-bold text-gray-800">Crear cita médica</h1>
             </div>
-          </section>
-
-          {/* Sección de selección de médico */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2 flex items-center gap-2">
-              <Stethoscope className="w-5 h-5 text-green-600" />
-              Datos del Médico
-            </h2>
-            <div className="grid grid-cols-1 gap-4">
-              <SelectInput
-                name="doctorId"
-                label="Seleccionar médico"
-                options={mockDoctors.map((doctor) => ({
-                  label: `${doctor.name} (${doctor.specialty})`,
-                  value: doctor.id.toString(),
-                }))}
-                placeholder="Buscar médico..."
-                isSearchable
-                icon={<Stethoscope className="w-4 h-4 text-gray-400" />}
-                required
-              />
-            </div>
-          </section>
-
-          {/* Sección de fecha y hora */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-purple-600" />
-              Fecha y Hora
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <DateInput
-                name="date"
-                label="Fecha de la cita"
-                defaultValue={new Date().toISOString().split("T")[0]}
-                required
-              />
-              <TimeInput
-                name="time"
-                label="Hora de la cita"
-                defaultValue="09:00"
-                required
-              />
-            </div>
-          </section>
-
-          {/* Sección de motivo */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
-              Motivo de la Consulta
-            </h2>
-            <div className="grid grid-cols-1 gap-4">
-              <TextAreaInput
-                name="reason"
-                label="Motivo principal"
-                placeholder="Describa el motivo de la consulta..."
-                rows={3}
-                required
-              />
-            </div>
-          </section>
-
-          {/* Sección de notas adicionales */}
-          <section className="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <h2 className="text-lg font-semibold mb-4 text-gray-700 border-b pb-2">
-              Notas Adicionales
-            </h2>
-            <div className="grid grid-cols-1 gap-4">
-              <TextAreaInput
-                name="notes"
-                label="Observaciones"
-                placeholder="Agregue cualquier información adicional..."
-                rows={2}
-              />
-            </div>
-          </section>
-
-          {/* Botones de acción */}
-          <div className="flex justify-end gap-4 mt-6">
-            <button
-              type="button"
-              onClick={() => navigate(-1)}
-              className="px-6 py-2 bg-gray-200 text-gray-800 rounded-md hover:bg-gray-300 transition"
-            >
-              Cancelar
-            </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary-hover transition"
+              className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-hover flex items-center gap-2"
             >
-              Programar Cita
+              <CalendarCheck size={18} />
+              <span>Guardar cita</span>
             </button>
           </div>
+
+          {/* Panel: Información de la cita */}
+          <Panel
+            header={
+              <div className="flex items-center gap-2">
+                <div className="bg-blue-100 p-2 rounded-lg">
+                  <CalendarCheck className="text-blue-600" size={18} />
+                </div>
+                <span className="font-semibold text-gray-800">Datos de la cita</span>
+              </div>
+            }
+            toggleable
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <TextInput
+                name="appointmentDate"
+                label="Fecha de la cita"
+                type="date"
+              />
+
+              <TextInput
+                name="appointmentTime"
+                label="Hora de la cita"
+                type="time"
+              />
+
+              <TextInput
+                name="reason"
+                label="Motivo de la cita"
+                placeholder="Ej. chequeo general"
+              />
+              <TextInput
+                name="notes"
+                label="Notas adicionales"
+                placeholder="Agregar observaciones si es necesario"
+              />
+            </div>
+          </Panel>
+
+          {/* Panel: Información del paciente */}
+          <Panel
+            header={
+              <div className="flex items-center gap-2">
+                <div className="bg-green-100 p-2 rounded-lg">
+                  <UserCircle className="text-green-600" size={18} />
+                </div>
+                <span className="font-semibold text-gray-800">Paciente</span>
+              </div>
+            }
+            toggleable
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <SingleSelectInput
+                name="patientId"
+                label="Seleccionar paciente"
+                options={patientOptions}
+                placeholder="Buscar paciente"
+              />
+            </div>
+          </Panel>
+
+          {/* Panel: Información del doctor */}
+          <Panel
+            header={
+              <div className="flex items-center gap-2">
+                <div className="bg-purple-100 p-2 rounded-lg">
+                  <Stethoscope className="text-purple-600" size={18} />
+                </div>
+                <span className="font-semibold text-gray-800">Doctor</span>
+              </div>
+            }
+            toggleable
+          >
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <SingleSelectInput
+                name="doctorId"
+                label="Seleccionar doctor"
+                options={doctorOptions}
+                placeholder="Buscar doctor"
+              />
+            </div>
+          </Panel>
         </motion.form>
       </FormProvider>
+
       {message && (
         <MessageToast {...message} onClose={() => setMessage(null)} />
       )}
