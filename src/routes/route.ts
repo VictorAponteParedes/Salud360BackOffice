@@ -24,7 +24,15 @@ export const RoutesView = {
   reports: "/reports",
   settings: "/settings",
   dashboard: "/",
+  
+  //Auth
   login: "/auth/login",
+  forgotPassword: "/auth/forgotPassword",
+  verifyCode: "/auth/verifyCode",
+
+  
   languages: "/languages",
+
+  //Specialties
   specialties: "/specialties",
 };
