@@ -1,3 +1,5 @@
+import type { PatientStatusEnum } from "../enums";
+
 export type PatientFormDataType = {
     firstName: string;
     lastName: string;
@@ -13,3 +15,7 @@ export type PatientFormDataType = {
     contactEmergency: string;
     profileImage?: any;
 };
+
+export interface PatientStatusProps {
+  status: PatientStatusEnum;
+}

@@ -1,4 +1,5 @@
 
+import type { AppointmentStatusEnum } from "../enums";
 import type { DoctorFormData } from "./doctors";
 import type { PatientFormDataType } from "./patient";
 
@@ -14,3 +15,7 @@ export interface AppointmentFormData {
     status: string;
     appointmentTime: string;
 }
+
+export type AppointmentStatusType = {
+  status: AppointmentStatusEnum;
+};
