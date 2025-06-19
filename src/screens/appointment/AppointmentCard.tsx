@@ -2,17 +2,13 @@
 import { motion } from "framer-motion";
 import { UserIcon, Circle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import type { AppointmentFormData } from "../../types/appointment";
 import { AppointmentStatus } from "../../helpers/appointmentHelpers";
 import { API_BASE_URL } from "../../constants";
 import type { AppointmentStatusEnum } from "../../enums";
 import { translate } from "../../lang";
+import type { AppointementProps } from "../../types/appointment";
 
-interface Props {
-  appointment: AppointmentFormData;
-}
-
-export const AppointmentCard = ({ appointment }: Props) => {
+export const AppointmentCard = ({ appointment }: AppointementProps) => {
   const navigate = useNavigate();
 
   const imageUrl = appointment.doctor.profileImage?.path
@@ -48,7 +44,9 @@ export const AppointmentCard = ({ appointment }: Props) => {
             <h3 className="text-lg font-bold text-gray-800">
               {appointment.patient.firstName} {appointment.patient.lastName}
             </h3>
-            {/* <AppointmentStatus status={appointment.status} /> */}
+            <AppointmentStatus
+              status={appointment.status as AppointmentStatusEnum}
+            />
           </div>
 
           <div className="space-y-1">
@@ -66,17 +64,6 @@ export const AppointmentCard = ({ appointment }: Props) => {
             </p>
             <p className="text-sm text-gray-600">
               {appointment.doctor.firstName} {appointment.doctor.lastName}
-            </p>
-          </div>
-
-          <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-700">
-              {translate("appointments.labels.status")}
-            </p>
-            <p className="text-sm text-gray-600">
-              <AppointmentStatus
-                status={appointment.status as AppointmentStatusEnum}
-              />
             </p>
           </div>
 

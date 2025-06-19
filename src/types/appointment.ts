@@ -19,3 +19,7 @@ export interface AppointmentFormData {
 export type AppointmentStatusType = {
   status: AppointmentStatusEnum;
 };
+
+export interface AppointementProps {
+  appointment: AppointmentFormData;
+}
