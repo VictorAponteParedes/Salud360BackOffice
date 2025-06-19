@@ -15,8 +15,8 @@ export enum AnalysisStatusEnum {
 
 // src/enums.ts
 export enum AppointmentStatusEnum {
-  CONFIRMADA = "Confirmada",
-  PENDIENTE = "Pendiente",
-  COMPLETADA = "Completada",
-  CANCELADA = "Cancelada",
+  CONFIRMADA = "CONFIRM",
+  PENDIENTE = "PENDING",
+  COMPLETADA = "APPROVED",
+  CANCELADA = "REJECTED",
 }
