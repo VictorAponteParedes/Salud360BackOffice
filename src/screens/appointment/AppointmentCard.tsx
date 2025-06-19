@@ -6,6 +6,7 @@ import type { AppointmentFormData } from "../../types/appointment";
 import { AppointmentStatus } from "../../helpers/appointmentHelpers";
 import { API_BASE_URL } from "../../constants";
 import type { AppointmentStatusEnum } from "../../enums";
+import { translate } from "../../lang";
 
 interface Props {
   appointment: AppointmentFormData;
@@ -51,21 +52,27 @@ export const AppointmentCard = ({ appointment }: Props) => {
           </div>
 
           <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-700">Fecha y Hora</p>
+            <p className="text-sm font-medium text-gray-700">
+              {translate("appointments.labels.dateAndTime")}
+            </p>
             <p className="text-sm text-gray-600">
               {appointment.appointmentDate} - {appointment.appointmentTime}
             </p>
           </div>
 
           <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-700">Profesional</p>
+            <p className="text-sm font-medium text-gray-700">
+              {translate("appointments.labels.profesional")}
+            </p>
             <p className="text-sm text-gray-600">
               {appointment.doctor.firstName} {appointment.doctor.lastName}
             </p>
           </div>
 
           <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-700">Estado</p>
+            <p className="text-sm font-medium text-gray-700">
+              {translate("appointments.labels.status")}
+            </p>
             <p className="text-sm text-gray-600">
               <AppointmentStatus
                 status={appointment.status as AppointmentStatusEnum}
@@ -79,7 +86,7 @@ export const AppointmentCard = ({ appointment }: Props) => {
               className="text-blue-600 hover:text-blue-800 text-sm font-medium border border-blue-200 rounded-md px-3 py-1 flex items-center gap-1"
             >
               <Circle className="w-3 h-3" />
-              Ver Detalle
+              {translate("appointments.details.buttonDetail")}
             </button>
           </div>
         </div>
