@@ -3,7 +3,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { logoHospital, logo } from "../../../assets/images";
-import { Hospital } from "lucide-react";
+import { RoutesView } from "../../../routes/route";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -118,7 +118,7 @@ export default function LoginPage() {
 
             <div className="text-right">
               <a
-                href="#"
+                href={RoutesView.forgotPassword}
                 className="text-sm text-gray-400 hover:text-blue-600 transition"
               >
                 ¿Olvidaste tu contraseña?
