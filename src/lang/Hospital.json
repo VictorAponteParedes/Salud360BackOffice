@@ -14,6 +14,16 @@
                 "description": "Ocurrió un error al intentar registrar el hospital."
             }
         },
+        "list": {
+            "title": "Listado de Hospitales",
+            "buttonAdd": "Agregar Hospital",
+            "description": "Visualiza y gestiona todos los hospitales registrados en el sistema.",
+            "filter": "Filtrar",
+            "listTitle": "Hospitales Registrados",
+            "countRegistered": "hospitales registrados",
+            "emptyMessage": "No hay hospitales registrados en este momento.",
+            "searchPlaceholder": "Buscar hospitales por nombre, ciudad o estado..."
+        },
         "fields": {
             "titleGeneralInfo": "Información General",
             "titleMap": "Ubicación Geográfica",
