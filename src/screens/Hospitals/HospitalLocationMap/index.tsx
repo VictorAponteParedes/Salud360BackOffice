@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, Marker, useMap } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, useMap, Popup } from "react-leaflet";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 
@@ -24,43 +24,46 @@ const HospitalLocationMap = ({
 }: HospitalLocationMapProps) => {
     const [position, setPosition] = useState<[number, number]>(initialPosition || defaultPosition);
 
-    // Componente para manejar el marcador arrastrable
-    const DraggableMarker = () => {
+    // Componente para manejar los eventos del mapa
+    const MapClickHandler = () => {
         const map = useMap();
 
-        // Centrar el mapa en la posición inicial si se proporciona
+        // Centrar el mapa en la posición inicial
         useEffect(() => {
             if (initialPosition) {
                 setPosition(initialPosition);
                 map.flyTo(initialPosition, map.getZoom());
+            } else {
+                map.flyTo(position, map.getZoom());
             }
         }, [initialPosition, map]);
 
-        return (
-            <Marker
-                position={position}
-                draggable={true}
-                eventHandlers={{
-                    dragend: (e) => {
-                        const { lat, lng } = e.target.getLatLng();
-                        const newPos: [number, number] = [lat, lng];
-                        setPosition(newPos);
-                        onChange(lat, lng);
-                    },
-                }}
-            />
-        );
+        // Manejador de clicks en el mapa
+        useEffect(() => {
+            const handleClick = (e: L.LeafletMouseEvent) => {
+                const { lat, lng } = e.latlng;
+                const newPos: [number, number] = [lat, lng];
+                setPosition(newPos);
+                onChange(lat, lng);
+                map.flyTo(newPos, map.getZoom());
+            };
+
+            map.on('click', handleClick);
+
+            return () => {
+                map.off('click', handleClick);
+            };
+        }, [map, onChange]);
+
+        return null;
     };
 
-    // Notificar el cambio de posición inicial
+    // Actualizar posición cuando cambia initialPosition desde fuera
     useEffect(() => {
         if (initialPosition) {
             setPosition(initialPosition);
-            onChange(initialPosition[0], initialPosition[1]);
-        } else {
-            onChange(position[0], position[1]);
         }
-    }, []);
+    }, [initialPosition]);
 
     return (
         <div className="w-full h-[400px] rounded-lg overflow-hidden shadow-md">
@@ -69,13 +72,22 @@ const HospitalLocationMap = ({
                 zoom={13}
                 scrollWheelZoom={true}
                 style={{ height: "100%", width: "100%" }}
+                doubleClickZoom={false}
             >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <DraggableMarker />
+                <MapClickHandler />
+                {position && (
+                    <Marker position={position}>
+                        <Popup>Ubicación seleccionada</Popup>
+                    </Marker>
+                )}
             </MapContainer>
+            <div className="mt-2 text-sm text-gray-500">
+                Haga click en el mapa para seleccionar la ubicación exacta
+            </div>
         </div>
     );
 };
