@@ -1,9 +1,11 @@
-import { useFormContext } from 'react-hook-form';
-import type { TextInputProps } from '../../types/input';
+import { useFormContext } from "react-hook-form";
+import type { TextInputProps } from "../../types/input";
 
-
-export const TextInput = ({ name, label, placeholder, type = 'text' }: TextInputProps) => {
-  const { register, formState: { errors } } = useFormContext();
+export const TextInput = ({ name, label, placeholder, type = "text", ...rest }: TextInputProps) => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
 
   return (
     <div className="mb-4">
@@ -12,6 +14,7 @@ export const TextInput = ({ name, label, placeholder, type = 'text' }: TextInput
         type={type}
         placeholder={placeholder}
         {...register(name)}
+        {...rest}
         className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
       />
       {errors[name] && (
