@@ -1,0 +1,67 @@
+{
+    "registerHospital": {
+        "title": "Registro de Hospital",
+        "button": {
+            "submit": "Registrar Hospital"
+        },
+        "message": {
+            "success": {
+                "title": "Hospital registrado",
+                "description": "El hospital se ha registrado correctamente."
+            },
+            "error": {
+                "title": "Error al registrar",
+                "description": "Ocurrió un error al intentar registrar el hospital."
+            }
+        },
+        "fields": {
+            "titleGeneralInfo": "Información General",
+            "titleMap": "Ubicación Geográfica",
+            "titleContactLocation": "Información de Contacto",
+            "image": {
+                "label": "Imagen del Hospital",
+                "placeholder": "Seleccione una imagen"
+            },
+            "name": {
+                "label": "Nombre del Hospital",
+                "placeholder": "Ingrese el nombre del hospital"
+            },
+            "address": {
+                "label": "Dirección",
+                "placeholder": "Ingrese la dirección completa"
+            },
+            "city": {
+                "label": "Ciudad",
+                "placeholder": "Ingrese la ciudad"
+            },
+            "state": {
+                "label": "Departamento/Estado",
+                "placeholder": "Ingrese el departamento o estado"
+            },
+            "country": {
+                "label": "País",
+                "placeholder": "Ingrese el país"
+            },
+            "phone": {
+                "label": "Teléfono",
+                "placeholder": "Ingrese el número de teléfono"
+            },
+            "email": {
+                "label": "Correo Electrónico",
+                "placeholder": "Ingrese el correo electrónico"
+            },
+            "website": {
+                "label": "Sitio Web",
+                "placeholder": "Ingrese la URL del sitio web"
+            },
+            "latitude": {
+                "label": "Latitud",
+                "placeholder": "Ej: -25.263739"
+            },
+            "longitude": {
+                "label": "Longitud",
+                "placeholder": "Ej: -57.575926"
+            }
+        }
+    }
+}
