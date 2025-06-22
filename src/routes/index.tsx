@@ -18,6 +18,7 @@ import AppointmentList from "../screens/appointment/AppointmentList";
 import AppointmentForm from "../screens/appointment/AppointmentCreate";
 import { RoutesView } from "./route";
 import VerifyCode from "../screens/auth/VerifyCode";
+import Hospitals from "../screens/Hospitals/CreateHospital";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,7 @@ const router = createBrowserRouter([
       { path: `${RoutesView.analysisList}`, element: <AnalysisList /> },
       { path: `${RoutesView.appointmentList}`, element: <AppointmentList /> },
       { path: `${RoutesView.appointmentCreate}`, element: <AppointmentForm /> },
+      { path: `${RoutesView.hospitals}`, element: <Hospitals /> },
     ],
   },
   {
