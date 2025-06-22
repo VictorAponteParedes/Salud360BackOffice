@@ -53,9 +53,8 @@ export default function DashboardLayout({ children }: Props) {
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside
-        className={`${
-          isSidebarCollapsed ? "w-20" : "w-64"
-        } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
+        className={`${isSidebarCollapsed ? "w-20" : "w-64"
+          } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
       >
         {/* Botón de toggle */}
         <button
@@ -112,7 +111,7 @@ export default function DashboardLayout({ children }: Props) {
                   {translate("layout.items.doctors")}
                 </Link>
                 <Link
-                  to={RoutesView.hospitals}
+                  to={RoutesView.listHospital}
                   className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
                 >
                   <Hospital className="w-5 h-5" />{" "}
@@ -300,9 +299,8 @@ export default function DashboardLayout({ children }: Props) {
 
       {/* Main content */}
       <main
-        className={`flex-1 bg-gray-100 p-6 overflow-y-auto ${
-          isSidebarCollapsed ? "ml-1" : "ml-1"
-        } transition-all duration-300`}
+        className={`flex-1 bg-gray-100 p-6 overflow-y-auto ${isSidebarCollapsed ? "ml-1" : "ml-1"
+          } transition-all duration-300`}
       >
         {children}
       </main>
