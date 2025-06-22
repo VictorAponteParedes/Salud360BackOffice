@@ -22,6 +22,8 @@ export interface HospitalType {
     email?: string;
     website?: string;
     status: boolean;
+    latitude?: number | null;
+    longitude?: number | null;
     hospitaImage?: HospitalImage;
     doctors?: DoctorFormData[];
     patients?: PatientFormDataType[];
