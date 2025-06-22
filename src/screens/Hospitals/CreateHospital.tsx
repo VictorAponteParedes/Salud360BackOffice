@@ -32,6 +32,8 @@ export default function Hospitals() {
             let imageId = null;
             const hospitalData = {
                 ...data,
+                latitude: parseFloat(data.latitude as any),
+                longitude: parseFloat(data.longitude as any),
                 hospitalImageId: imageId,
             };
 
@@ -154,23 +156,32 @@ export default function Hospitals() {
                         <div className="space-y-4">
                             <HospitalLocationMap
                                 onChange={(lat, lng) => {
+                                    console.log("Nueva posición:", lat, lng);
                                     methods.setValue("latitude", lat);
                                     methods.setValue("longitude", lng);
                                 }}
+                                initialPosition={[
+                                    methods.watch("latitude") || -25.263739,
+                                    methods.watch("longitude") || -57.575926
+                                ]}
                             />
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <TextInput
                                     name="latitude"
-                                    label={translate("registerHospital.fields.latitude.label")}
+                                    label="Latitud"
                                     placeholder="-25.263739"
                                     type="number"
+                                    step="any"
                                 />
+
                                 <TextInput
                                     name="longitude"
-                                    label={translate("registerHospital.fields.longitude.label")}
+                                    label="Longitud"
                                     placeholder="-57.575926"
                                     type="number"
+                                    step="any"
                                 />
+
                             </div>
                         </div>
                     </Panel>
