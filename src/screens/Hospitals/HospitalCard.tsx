@@ -15,8 +15,8 @@ export const HospitalCard = ({ hospital }: Props) => {
         navigate(`/hospitals/${hospital.id}`);
     };
 
-    const imageUrl = hospital.hospitaImage?.path
-        ? `${API_BASE_URL}/${hospital.hospitaImage.path}`
+    const imageUrl = hospital.hospitalImage?.path
+        ? `${API_BASE_URL}/${hospital.hospitalImage.path}`
         : '/default-hospital.png';
 
     return (
