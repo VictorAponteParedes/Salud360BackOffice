@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Globe, Building } from "lucide-react";
+import { MapPin, Globe, Building, ImageOff } from "lucide-react"; // Añadido ImageOff
 import { useNavigate } from "react-router-dom";
 import type { HospitalType } from "../../types/hospital";
 import { API_BASE_URL } from "../../constants";
@@ -15,10 +15,6 @@ export const HospitalCard = ({ hospital }: Props) => {
         navigate(`/hospitals/${hospital.id}`);
     };
 
-    const imageUrl = hospital.hospitalImage?.path
-        ? `${API_BASE_URL}/${hospital.hospitalImage.path}`
-        : '/default-hospital.png';
-
     return (
         <motion.div
             whileHover={{ scale: 1.01 }}
@@ -26,16 +22,23 @@ export const HospitalCard = ({ hospital }: Props) => {
             onClick={goToDetails}
         >
             <div className="flex items-start gap-4">
-                {/* Imagen del hospital */}
-                <div className="relative">
-                    <img
-                        src={imageUrl}
-                        alt={`Imagen de ${hospital.name}`}
-                        className="w-20 h-20 rounded-md object-cover"
-                    />
+                {/* Contenedor de imagen/icono */}
+                <div className="relative w-20 h-20 rounded-md bg-gray-100 flex items-center justify-center">
+                    {hospital.hospitalImage?.path ? (
+                        <img
+                            src={`${API_BASE_URL}/${hospital.hospitalImage.path}`}
+                            alt={`Imagen de ${hospital.name}`}
+                            className="w-full h-full object-cover rounded-md"
+                        />
+                    ) : (
+                        <div className="flex flex-col items-center justify-center text-gray-400">
+                            <ImageOff size={24} />
+                            <span className="text-xs mt-1">Sin imagen</span>
+                        </div>
+                    )}
                 </div>
 
-                {/* Información principal */}
+                {/* Resto del código permanece igual */}
                 <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
                     {/* Columna 1: Nombre y estado */}
                     <div className="space-y-1">
