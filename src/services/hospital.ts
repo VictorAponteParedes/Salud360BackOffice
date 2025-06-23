@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "../constants";
 import axios from "axios";
 import type { HospitalType } from "../types/hospital";
+import { uploadApi } from "./patient";
 
 export class HospitalService {
 
@@ -21,6 +22,20 @@ export class HospitalService {
         } catch (error) {
             console.error("Error creating hospital:", error);
             throw error;
+        }
+    }
+    async uploadImage(formDataUser: FormData) {
+        console.log('Datos imagen services: ', formDataUser)
+        try {
+            const response = await uploadApi.post('/upload', formDataUser, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return response.data;
+        } catch (e: any) {
+            console.log('Error detallado:', e.response?.data || e.message);
+            throw e;
         }
     }
 
