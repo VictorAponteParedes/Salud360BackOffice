@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useHospital } from "../../hooks/useHospital";
 import { MessageToast } from "../../components/MessageToast";
 import { translate } from "../../lang";
-import { Building, Globe, MapPin, Phone, ArrowLeft, PlusCircle } from "lucide-react";
+import { Building, MapPin, Phone, ArrowLeft, PlusCircle } from "lucide-react";
 import type { HospitalType } from "../../types/hospital";
 import HospitalLocationMap from "./HospitalLocationMap";
 import { Panel } from "primereact/panel";
@@ -28,7 +28,7 @@ export default function Hospitals() {
         try {
             const formData = new FormData();
             if (data.hospitalImage) {
-                formData.append("file", data.hospitalImage);
+                formData.append("file", data.hospitalImage.path);
             }
 
             let imageId = null;
