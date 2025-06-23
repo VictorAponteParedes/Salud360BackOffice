@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { MapPin, Globe, Building, ImageOff } from "lucide-react"; // Añadido ImageOff
+import { MapPin, Globe, Building, ImageOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import type { HospitalType } from "../../types/hospital";
 import { API_BASE_URL } from "../../constants";
