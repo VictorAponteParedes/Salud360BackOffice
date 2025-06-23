@@ -24,7 +24,8 @@ export interface HospitalType {
     status: boolean;
     latitude?: number | null;
     longitude?: number | null;
-    hospitaImage?: HospitalImage;
+    hospitalImage?: HospitalImage;
+    hospitalImageId?: string;
     doctors?: DoctorFormData[];
     patients?: PatientFormDataType[];
 }
