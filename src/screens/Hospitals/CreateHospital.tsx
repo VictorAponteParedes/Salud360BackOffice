@@ -11,8 +11,10 @@ import { Building, Globe, MapPin, Phone, ArrowLeft, PlusCircle } from "lucide-re
 import type { HospitalType } from "../../types/hospital";
 import HospitalLocationMap from "./HospitalLocationMap";
 import { Panel } from "primereact/panel";
+import { HospitalService } from "../../services/hospital";
 
 export default function Hospitals() {
+    const hospitalService = new HospitalService();
     const methods = useForm<HospitalType>();
     const navigate = useNavigate();
     const { createHospital } = useHospital();
@@ -25,11 +27,16 @@ export default function Hospitals() {
     const onSubmit = async (data: HospitalType) => {
         try {
             const formData = new FormData();
-            if (data.hospitaImage?.path) {
-                formData.append("file", data.hospitaImage?.path);
+            if (data.hospitalImage) {
+                formData.append("file", data.hospitalImage);
             }
 
             let imageId = null;
+            if (formData.has("file")) {
+                const uploadResponse = await hospitalService.uploadImage(formData);
+                imageId = uploadResponse.id;
+                console.log("Imagen subida:", uploadResponse);
+            }
             const hospitalData = {
                 ...data,
                 latitude: parseFloat(data.latitude as any),
