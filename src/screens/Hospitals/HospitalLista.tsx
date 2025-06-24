@@ -6,13 +6,64 @@ import { RoutesView } from "../../routes/route";
 import { translate } from "../../lang";
 import { ErrorMessage } from "../../components/ErrorMessage";
 import { HospitalCard } from "./HospitalCard";
+import { useState, useMemo } from "react";
 
 export default function HospitalList() {
     const navigate = useNavigate();
     const { hospitals = [], isLoading, error } = useHospital();
+    const [searchTerm, setSearchTerm] = useState("");
+    const [showFilters, setShowFilters] = useState(false);
+    const [filters, setFilters] = useState({
+        city: "",
+        state: "",
+        name: ""
+    });
+
+    const filteredHospitals = useMemo(() => {
+        return hospitals.filter(hospital => {
+            // Filtro por término de búsqueda general
+            const matchesSearchTerm =
+                searchTerm === "" ||
+                hospital.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                hospital.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                hospital.state.toLowerCase().includes(searchTerm.toLowerCase());
+
+            // Filtros individuales
+            const matchesName =
+                filters.name === "" ||
+                hospital.name.toLowerCase().includes(filters.name.toLowerCase());
+
+            const matchesCity =
+                filters.city === "" ||
+                hospital.city.toLowerCase().includes(filters.city.toLowerCase());
+
+            const matchesState =
+                filters.state === "" ||
+                hospital.state.toLowerCase().includes(filters.state.toLowerCase());
+
+            return matchesSearchTerm && matchesName && matchesCity && matchesState;
+        });
+    }, [hospitals, searchTerm, filters]);
 
     const handleCreateNewHospital = () => {
         navigate(RoutesView.hospitals);
+    };
+
+    const handleFilterChange = (e) => {
+        const { name, value } = e.target;
+        setFilters(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const resetFilters = () => {
+        setSearchTerm("");
+        setFilters({
+            city: "",
+            state: "",
+            name: ""
+        });
     };
 
     if (error) {
@@ -70,14 +121,73 @@ export default function HospitalList() {
                         type="text"
                         placeholder="Buscar hospitales por nombre, ciudad o estado..."
                         className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
                     />
                 </div>
 
-                <button className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                <button
+                    className="flex items-center gap-2 px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    onClick={() => setShowFilters(!showFilters)}
+                >
                     <Filter className="w-4 h-4" />
                     {translate("registerHospital.list.filter")}
                 </button>
             </div>
+
+            {showFilters && (
+                <div className="bg-gray-50 p-4 rounded-lg mb-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                                Nombre del hospital
+                            </label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                value={filters.name}
+                                onChange={handleFilterChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="city" className="block text-sm font-medium text-gray-700 mb-1">
+                                Ciudad
+                            </label>
+                            <input
+                                type="text"
+                                id="city"
+                                name="city"
+                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                value={filters.city}
+                                onChange={handleFilterChange}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="state" className="block text-sm font-medium text-gray-700 mb-1">
+                                Estado
+                            </label>
+                            <input
+                                type="text"
+                                id="state"
+                                name="state"
+                                className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                value={filters.state}
+                                onChange={handleFilterChange}
+                            />
+                        </div>
+                    </div>
+                    <div className="flex justify-end mt-4 space-x-2">
+                        <button
+                            onClick={resetFilters}
+                            className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50"
+                        >
+                            Limpiar filtros
+                        </button>
+                    </div>
+                </div>
+            )}
 
             <div className="border-t border-gray-200 pt-4 mb-4">
                 <div className="flex justify-between items-center mb-6">
@@ -85,20 +195,22 @@ export default function HospitalList() {
                         {translate("registerHospital.list.listTitle")}
                     </h2>
                     <p className="text-sm text-gray-600">
-                        {hospitals.length} {translate("registerHospital.list.countRegistered")}
+                        {filteredHospitals.length} {translate("registerHospital.list.countRegistered")}
                     </p>
                 </div>
 
-                {hospitals.length === 0 ? (
+                {filteredHospitals.length === 0 ? (
                     <div className="flex flex-col items-center justify-center h-64 text-gray-500 bg-gray-50 rounded-lg">
                         <Hospital className="w-12 h-12 mb-4 text-gray-400" />
                         <p className="text-lg font-semibold text-center">
-                            No hay hospitales registrados en este momento.
+                            {hospitals.length === 0
+                                ? "No hay hospitales registrados en este momento."
+                                : "No se encontraron hospitales con los filtros aplicados."}
                         </p>
                     </div>
                 ) : (
                     <div className="space-y-4">
-                        {hospitals.map((hospital) => (
+                        {filteredHospitals.map((hospital) => (
                             <HospitalCard key={hospital.id} hospital={hospital} />
                         ))}
                     </div>
