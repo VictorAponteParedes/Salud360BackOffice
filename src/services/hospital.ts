@@ -15,6 +15,16 @@ export class HospitalService {
         }
     }
 
+    async getHospitalById(id: string): Promise<HospitalType> {
+     try {
+        const response = await axios.get(`${API_BASE_URL}/hospitals/${id}`);
+        return response.data.data;
+    } catch (error) {
+        console.error(`Error fetching hospital with ID ${id}:`, error);
+        throw error;
+    }
+    }
+
     async createHospital(hospitalData: Omit<HospitalType, 'id'>): Promise<HospitalType> {
         try {
             const response = await axios.post(`${API_BASE_URL}/hospitals`, hospitalData);
@@ -37,6 +47,14 @@ export class HospitalService {
             console.log('Error detallado:', e.response?.data || e.message);
             throw e;
         }
+    }
+
+    returnUrlImage(hospital: HospitalType): string {
+        return hospital?.hospitalImage?.path
+            ? hospital.hospitalImage.path.startsWith("http")
+                ? hospital.hospitalImage.path
+                : `${API_BASE_URL}/${hospital.hospitalImage.path}`
+            : "/default-avatar.png";
     }
 
 }
