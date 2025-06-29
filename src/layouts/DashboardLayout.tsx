@@ -110,6 +110,20 @@ export default function DashboardLayout({ children }: Props) {
                   <User className="w-5 h-5" />
                   {translate("layout.items.doctors")}
                 </Link>
+
+
+
+
+                <Link
+                  to={RoutesView.informationCardCreate}
+                  className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                >
+                  <User className="w-5 h-5" />
+                  Crear informacion card
+                </Link>
+
+
+
                 <Link
                   to={RoutesView.listHospital}
                   className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
