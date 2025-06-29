@@ -28,7 +28,7 @@ export default function Hospitals() {
         try {
             const formData = new FormData();
             if (data.hospitalImage) {
-                formData.append("file", data.hospitalImage.path);
+                formData.append("file", data.hospitalImage);
             }
 
             let imageId = null;
