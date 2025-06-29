@@ -37,4 +37,8 @@ export const RoutesView = {
 
   //Specialties
   specialties: "/specialties",
+
+
+  //Information Card
+  informationCardCreate: "/information-card/create",
 };
