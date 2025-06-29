@@ -8,7 +8,7 @@ export interface HospitalImage {
     originalname: string;
     mimetype: string;
     size: number;
-    path: string;
+    path?: string;
 }
 
 export interface HospitalType {
