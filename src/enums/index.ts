@@ -1,9 +1,9 @@
 export enum PatientStatusEnum {
-    ACTIVO = "activo",
-    CRITICO = "critico",
-    SEGUIMIENTO = "seguimiento",
-    INACTIVO = "inactivo",
-    PENDIENTE = "pendiente",
+  ACTIVO = "activo",
+  CRITICO = "critico",
+  SEGUIMIENTO = "seguimiento",
+  INACTIVO = "inactivo",
+  PENDIENTE = "pendiente",
 }
 
 export enum AnalysisStatusEnum {
@@ -19,4 +19,9 @@ export enum AppointmentStatusEnum {
   PENDIENTE = "PENDING",
   COMPLETADA = "APPROVED",
   CANCELADA = "REJECTED",
+}
+
+export enum InformationCardStatusEnum {
+  ACTIVO = "Activo",
+  INACTIVO = "Inactivo",
 }
