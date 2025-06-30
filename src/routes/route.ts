@@ -41,4 +41,5 @@ export const RoutesView = {
 
   //Information Card
   informationCardCreate: "/information-card/create",
+  informationCardList: "/information-card/list",
 };
