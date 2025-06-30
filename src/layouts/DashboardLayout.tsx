@@ -111,18 +111,18 @@ export default function DashboardLayout({ children }: Props) {
                   {translate("layout.items.doctors")}
                 </Link>
 
-
-
-
-                <Link
-                  to={RoutesView.informationCardCreate}
-                  className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
-                >
-                  <User className="w-5 h-5" />
-                  Crear informacion card
-                </Link>
-
-
+                <div className="mt-8">
+                  <h3 className="text-xs text-gray-500 uppercase mb-3">Información</h3>
+                  <nav className="flex flex-col gap-4">
+                    <Link
+                      to={RoutesView.informationCardList}
+                      className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                    >
+                      <FileText className="w-5 h-5" />
+                      Tarjetas informativas
+                    </Link>
+                  </nav>
+                </div>
 
                 <Link
                   to={RoutesView.listHospital}
