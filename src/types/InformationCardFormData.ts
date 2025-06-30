@@ -9,6 +9,7 @@ export interface InformationCardImage {
 
 
 export interface InformationCardFormData {
+    id?: string;
     title: string;
     description: string;
     screen?: string;
