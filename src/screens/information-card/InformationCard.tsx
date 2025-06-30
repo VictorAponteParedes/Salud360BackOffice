@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { FileText, ImageOff } from "lucide-react";
 import { API_BASE_URL } from "../../constants";
 import type { InformationCardFormData } from "../../types/InformationCardFormData";
+import { InformationCardStatus } from "../../helpers/Information-card-status";
 
 interface Props {
     card: InformationCardFormData;
@@ -29,10 +30,13 @@ export const InformationCard = ({ card }: Props) => {
             </div>
 
             <div className="flex-1 grid md:grid-cols-3 gap-4">
-                <div>
-                    <h3 className="text-lg font-bold text-gray-800 flex items-center gap-1">
-                        <FileText size={16} /> {card.title}
-                    </h3>
+                <div className="space-y-1">
+                    <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-bold text-gray-800 flex items-center gap-1">
+                            <FileText size={16} /> {card.title}
+                        </h3>
+                        <InformationCardStatus isActive={card.isActive} />
+                    </div>
                     <p className="text-sm text-gray-500">{card.screen || "Pantalla no asignada"}</p>
                 </div>
                 <div className="col-span-2">
