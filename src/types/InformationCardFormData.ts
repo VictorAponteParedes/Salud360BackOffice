@@ -13,5 +13,6 @@ export interface InformationCardFormData {
     title: string;
     description: string;
     screen?: string;
+    isActive: boolean;
     serviceImage?: InformationCardImage;
 }
