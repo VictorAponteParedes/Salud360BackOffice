@@ -1,7 +1,7 @@
 export const RoutesView = {
   //patient
   patients: "/patients/list",
-  patientDetail: "patients/:id",
+  patientDetail: "/patients/:id",
   createPatient: "/patients/create",
 
   //doctor

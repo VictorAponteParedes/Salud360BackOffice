@@ -14,7 +14,7 @@ export const uploadApi = axios.create({
 class PatientServices {
     async getProfileImage(userId: any) {
         try {
-            const response = await axios.get(`/users/${userId}/profile-image`);
+            const response = await axios.get(`${API_BASE_URL}/users/${userId}/profile-image`);
             console.log("Paciente perfil imagen: ", response.data.url)
             return response.data.url;
         } catch (error) {
