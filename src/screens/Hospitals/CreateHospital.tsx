@@ -13,6 +13,8 @@ import HospitalLocationMap from "./HospitalLocationMap";
 import { Panel } from "primereact/panel";
 import { HospitalService } from "../../services/hospital";
 
+
+
 export default function Hospitals() {
     const hospitalService = new HospitalService();
     const methods = useForm<HospitalType>();
