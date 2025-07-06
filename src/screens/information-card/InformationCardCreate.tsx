@@ -25,7 +25,6 @@ export default function InformationCardCreate() {
 
     const onSubmit = async (data: InformationCardFormData) => {
         try {
-            // Primero subir la imagen si existe
             let imageId = null;
             if (data.serviceImage) {
                 const imageFormData = new FormData();
@@ -36,15 +35,12 @@ export default function InformationCardCreate() {
                 console.log("Imagen subida:", uploadResponse);
             }
 
-            // Luego crear la tarjeta
+
             const cardData = {
                 ...data,
-                serviceImageId: imageId, // Envía el ID de la imagen
+                serviceImageId: imageId,
             };
-
-            // Elimina la propiedad serviceImage del objeto si existe
             delete cardData.serviceImage;
-
             await service.create(cardData);
 
             setMessage({

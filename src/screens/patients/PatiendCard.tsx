@@ -9,10 +9,7 @@ import { API_BASE_URL } from "../../constants";
 interface Props {
   patient: PatientFormData;
 }
-
-
-
-
+// Componente para mostrar la tarjeta de un paciente
 export const PatientCard = ({ patient }: Props) => {
   const navigate = useNavigate();
 
