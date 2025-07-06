@@ -274,7 +274,7 @@ export default function DashboardLayout({ children }: Props) {
                   <User className="w-5 h-5" />
                 </Link>
                 <Link
-                  to={RoutesView.hospitals}
+                  to={RoutesView.hospitalCreate}
                   className="text-white p-2 rounded-md hover:bg-blue-50 hover:text-blue-600 transition-all"
                   title={translate("items.hospitals")}
                 >

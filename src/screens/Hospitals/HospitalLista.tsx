@@ -46,7 +46,7 @@ export default function HospitalList() {
     }, [hospitals, searchTerm, filters]);
 
     const handleCreateNewHospital = () => {
-        navigate(RoutesView.hospitals);
+        navigate(RoutesView.hospitalCreate);
     };
 
     const handleFilterChange = (e) => {

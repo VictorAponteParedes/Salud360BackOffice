@@ -13,7 +13,7 @@ export const RoutesView = {
   appointmentCreate: "/appointment/create",
 
   //hospital
-  hospitals: "/hospitals",
+  hospitalCreate: "/createHospitals",
   listHospital: '/listHospital',
   hospitalDetail: "hospitals/:id",
 

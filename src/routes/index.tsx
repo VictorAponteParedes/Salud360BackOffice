@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       { path: `${RoutesView.analysisList}`, element: <AnalysisList /> },
       { path: `${RoutesView.appointmentList}`, element: <AppointmentList /> },
       { path: `${RoutesView.appointmentCreate}`, element: <AppointmentForm /> },
-      { path: `${RoutesView.hospitals}`, element: <HospitalCreate /> },
+      { path: `${RoutesView.hospitalCreate}`, element: <HospitalCreate /> },
       { path: `${RoutesView.listHospital}`, element: <HospitalList /> },
       { path: `${RoutesView.hospitalDetail}`, element: <HospitalDetails /> },
       { path: `${RoutesView.informationCardCreate}`, element: <InformationCardCreate /> },
