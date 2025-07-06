@@ -25,6 +25,7 @@ import InformationCardCreate from "../screens/information-card/InformationCardCr
 import InformationCardList from "../screens/information-card/InformationCardList";
 
 
+
 const router = createBrowserRouter([
   {
     path: "/",
