@@ -15,7 +15,7 @@ import { HospitalService } from "../../services/hospital";
 
 
 
-export default function Hospitals() {
+export default function HospitalCreate() {
     const hospitalService = new HospitalService();
     const methods = useForm<HospitalType>();
     const navigate = useNavigate();
