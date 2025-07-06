@@ -14,7 +14,7 @@ export const RoutesView = {
 
   //hospital
   hospitals: "/hospitals",
-  listHospital: '/hospitalList',
+  listHospital: '/listHospital',
   hospitalDetail: "hospitals/:id",
 
   //analysis
