@@ -3,6 +3,7 @@ import { Panel } from "primereact/panel";
 import { Tag } from "primereact/tag";
 import { motion } from "framer-motion";
 import PatientServices from "../../services/patient";
+import { MessageToast } from "../../components/MessageToast";
 import {
   ArrowLeft,
   Droplet,
@@ -16,18 +17,50 @@ import {
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePatient } from "../../hooks/usePatient";
+import { RoutesView } from "../../routes/route";
+import { ConfirmDeleteModal } from "../../components/modals/confirm-delete-modal";
+
 const patientService = new PatientServices();
 
 const PatientDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { patient, isLoading } = usePatient(id);
+  const [message, setMessage] = useState<null | {
+    type: "success" | "error";
+    title: string;
+    description: string;
+  }>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [loadingDelete, setLoadingDelete] = useState(false);
+
   const imageUrl = patient
     ? patientService.returnUrlImage(patient)
     : "/default-avatar.png";
 
-  const handleDeletePatient = () => {
-    console.log("Paciente eliminado: ");
+  const handleDeletePatient = async () => {
+    if (!id) return;
+    setLoadingDelete(true);
+    try {
+      // await patientService.deletePatient(id);
+      setMessage({
+        type: "success",
+        title: "Paciente eliminado",
+        description: "El paciente fue eliminado correctamente.",
+      });
+      setTimeout(() => {
+        navigate(RoutesView.patients);
+      }, 2000);
+    } catch (error: any) {
+      setMessage({
+        type: "error",
+        title: "Error al eliminar",
+        description: error.message || "No se pudo eliminar el paciente.",
+      });
+    } finally {
+      setShowDeleteModal(false);
+      setLoadingDelete(false);
+    }
   };
 
   return (
@@ -63,7 +96,7 @@ const PatientDetails = () => {
               </button>
 
               <button
-                onClick={handleDeletePatient}
+                onClick={() => setShowDeleteModal(true)}
                 className="bg-red-100 text-red-600 px-4 py-2 rounded hover:bg-red-200 flex items-center gap-2"
               >
                 <Trash2 size={18} />
@@ -222,6 +255,17 @@ const PatientDetails = () => {
           No se encontró el paciente
         </div>
       )}
+      {message && (
+        <MessageToast {...message} onClose={() => setMessage(null)} />
+      )}
+      <ConfirmDeleteModal
+        visible={showDeleteModal}
+        onHide={() => setShowDeleteModal(false)}
+        onConfirm={handleDeletePatient}
+        loading={loadingDelete}
+        title="¿Eliminar paciente?"
+        message="¿Estás seguro de que deseas eliminar este paciente? Esta acción no se puede deshacer."
+      />
     </>
   );
 };
