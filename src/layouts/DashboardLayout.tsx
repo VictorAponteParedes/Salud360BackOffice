@@ -18,6 +18,7 @@ import {
   ChevronDown,
   ChevronLeft,
   ChevronRight,
+  Smartphone,
 } from "lucide-react";
 import { RoutesView } from "../routes/route";
 import { useNavigate } from "react-router-dom";
@@ -35,6 +36,7 @@ export default function DashboardLayout({ children }: Props) {
   const { logout } = useAuth();
   const [isCatalogsOpen, setIsCatalogsOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isAppManagementOpen, setIsAppManagementOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -53,8 +55,9 @@ export default function DashboardLayout({ children }: Props) {
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside
-        className={`${isSidebarCollapsed ? "w-20" : "w-64"
-          } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
+        className={`${
+          isSidebarCollapsed ? "w-20" : "w-64"
+        } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
       >
         {/* Botón de toggle */}
         <button
@@ -111,16 +114,47 @@ export default function DashboardLayout({ children }: Props) {
                   {translate("layout.items.doctors")}
                 </Link>
 
+                {/* Sección: Gestión de la aplicación */}
                 <div className="mt-8">
-                  <h3 className="text-xs text-gray-500 uppercase mb-3">Información</h3>
-                  <nav className="flex flex-col gap-4">
-                    <Link
-                      to={RoutesView.informationCardList}
-                      className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                  <h3 className="text-xs text-gray-500 uppercase mb-3">
+                    Gestión de la aplicación
+                  </h3>
+                  <nav className="flex flex-col gap-2">
+                    <button
+                      onClick={() => setIsAppManagementOpen((prev) => !prev)}
+                      className="flex items-center justify-between text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
                     >
-                      <FileText className="w-5 h-5" />
-                      Tarjetas informativas
-                    </Link>
+                      <div className="flex items-center gap-2">
+                        <Smartphone className="w-5 h-5" />
+                        Gestión app
+                      </div>
+
+                      <motion.div
+                        animate={{ rotate: isAppManagementOpen ? 180 : 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ChevronDown className="w-5 h-5" />
+                      </motion.div>
+                    </button>
+                    <AnimatePresence>
+                      {isAppManagementOpen && (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={{ duration: 0.3, ease: "easeInOut" }}
+                          className="flex flex-col gap-2 pl-6"
+                        >
+                          <Link
+                            to={RoutesView.informationCardList}
+                            className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                          >
+                            <FileText className="w-5 h-5" />
+                            Tarjetas informativas
+                          </Link>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </nav>
                 </div>
 
@@ -313,8 +347,9 @@ export default function DashboardLayout({ children }: Props) {
 
       {/* Main content */}
       <main
-        className={`flex-1 bg-gray-100 p-6 overflow-y-auto ${isSidebarCollapsed ? "ml-1" : "ml-1"
-          } transition-all duration-300`}
+        className={`flex-1 bg-gray-100 p-6 overflow-y-auto ${
+          isSidebarCollapsed ? "ml-1" : "ml-1"
+        } transition-all duration-300`}
       >
         {children}
       </main>
