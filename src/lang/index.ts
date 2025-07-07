@@ -5,6 +5,7 @@ import analysis from './Analysis.json';
 import layout from './Layout.json';
 import appointment from './Appointment.json'
 import hospital from './Hospital.json'
+import Login from './Login.json'
 
 // Definir el idioma actual, por ejemplo, 'es' para español
 const currentLanguage = 'es';
@@ -19,7 +20,8 @@ const translations = {
     ...analysis,
     ...layout,
     ...appointment,
-    ...hospital
+    ...hospital,
+    ...Login
   },
 
 };
