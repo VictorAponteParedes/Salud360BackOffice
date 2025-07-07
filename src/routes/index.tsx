@@ -18,10 +18,16 @@ import AppointmentList from "../screens/appointment/AppointmentList";
 import AppointmentForm from "../screens/appointment/AppointmentCreate";
 import { RoutesView } from "./route";
 import VerifyCode from "../screens/auth/VerifyCode";
+
+
+//Information Card
+import InformationCardCreate from "../screens/informationCard/InformationCardCreate";
+import InformationCardList from "../screens/informationCard/InformationCardList";
+
+
+//hospitals
 import HospitalList from "../screens/hospitals/HospitalLista";
 import HospitalDetails from "../screens/hospitals/HospitalDetails";
-import InformationCardCreate from "../screens/information-card/InformationCardCreate";
-import InformationCardList from "../screens/information-card/InformationCardList";
 import HospitalCreate from "../screens/hospitals/HospitalCreate";
 
 
