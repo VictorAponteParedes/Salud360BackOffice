@@ -11,11 +11,12 @@ import {
   MapPin,
   Phone,
   Shield,
+  Trash2,
   User,
 } from "lucide-react";
 import { useNavigate, useParams } from "react-router-dom";
 import { usePatient } from "../../hooks/usePatient";
-const patientService = new PatientServices()
+const patientService = new PatientServices();
 
 const PatientDetails = () => {
   const navigate = useNavigate();
@@ -25,10 +26,16 @@ const PatientDetails = () => {
     ? patientService.returnUrlImage(patient)
     : "/default-avatar.png";
 
+  const handleDeletePatient = () => {
+    console.log("Paciente eliminado: ");
+  };
+
   return (
     <>
       {isLoading ? (
-        <div className="text-center text-gray-600">Cargando...</div>
+        <div className="max-w-6xl mx-auto p-8 flex justify-center items-center h-64">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        </div>
       ) : patient ? (
         <motion.div
           initial={{ opacity: 0, x: -50 }}
@@ -49,10 +56,20 @@ const PatientDetails = () => {
                 Detalle de Pacientes
               </h1>
             </div>
-            <button className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-hover flex items-center gap-2">
-              <Edit3 size={18} />
-              <span>Editar paciente</span>
-            </button>
+            <div className="flex gap-2">
+              <button className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-hover flex items-center gap-2">
+                <Edit3 size={18} />
+                <span>Editar paciente</span>
+              </button>
+
+              <button
+                onClick={handleDeletePatient}
+                className="bg-red-100 text-red-600 px-4 py-2 rounded hover:bg-red-200 flex items-center gap-2"
+              >
+                <Trash2 size={18} />
+                <span>Eliminar</span>
+              </button>
+            </div>
           </div>
 
           {/* Paneles uno debajo del otro */}
