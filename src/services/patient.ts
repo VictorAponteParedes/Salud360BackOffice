@@ -68,13 +68,17 @@ class PatientServices {
         }
     }
 
-    async getPatients(): Promise<PatientFormData[]> {
-        try {
-            const response = await axios.get(`${API_BASE_URL}/users/`);
-            return response.data;
-        } catch (error) {
-            console.error('Error al obtener pacientes:', error);
-            throw error;
+    async getPatients(token: string): Promise<PatientFormData[]> {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/users/patients`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener pacientes:", error);
+        throw error;
         }
     }
 
