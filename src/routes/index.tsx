@@ -18,7 +18,7 @@ import AppointmentList from "../screens/appointment/AppointmentList";
 import AppointmentForm from "../screens/appointment/AppointmentCreate";
 import { RoutesView } from "./route";
 import VerifyCode from "../screens/auth/VerifyCode";
-import HospitalCreate from "../screens/hospitals/HospitalCreate.tsx";
+import HospitalCreate from "../../src/screens/hospitals/HospitalCreate";
 import HospitalList from "../screens/hospitals/HospitalLista";
 import HospitalDetails from "../screens/hospitals/HospitalDetails";
 import InformationCardCreate from "../screens/information-card/InformationCardCreate";
