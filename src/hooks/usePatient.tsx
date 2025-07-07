@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import PatientServices from "../services/patient";
 import type { PatientFormData } from "../types/auth";
 import { translateError } from "../helpers/translateError";
+import { useAuth } from "../context/AuthContext";
 
 const patientService = new PatientServices();
 
 export const usePatient = (id?: string) => {
+  const { token } = useAuth();
   const [patient, setPatient] = useState<PatientFormData | null>(null);
   const [patients, setPatients] = useState<PatientFormData[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -33,13 +35,13 @@ export const usePatient = (id?: string) => {
     fetchPatient();
   }, [id]);
 
-  // Obtener lista de pacientes
   useEffect(() => {
     if (id) return;
+    if (!token) return;
 
     const fetchPatients = async () => {
       try {
-        const response = await patientService.getPatients();
+        const response = await patientService.getPatients(token);
         setPatients(response);
       } catch (error: unknown) {
         const errMessage =
@@ -53,7 +55,7 @@ export const usePatient = (id?: string) => {
     };
 
     fetchPatients();
-  }, [id]);
+  }, [id, token]);
 
   return { patient, patients, isLoading, error };
 };
