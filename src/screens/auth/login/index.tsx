@@ -2,30 +2,64 @@ import { useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useForm, FormProvider } from "react-hook-form";
 import { logoHospital, logo } from "../../../assets/images";
 import { RoutesView } from "../../../routes/route";
+import { TextInput } from "../../../components/form/TextInput";
+import { MessageToast } from "../../../components/MessageToast";
+import { translate } from "../../../lang";
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 export default function LoginPage() {
+  const methods = useForm<LoginFormData>({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
+
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [email, setEmail] = useState("vaponte520@gmail.com");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+
+  const [error, setError] = useState<string | null>(null);
+  const [message, setMessage] = useState<null | {
+    type: "success" | "error";
+    title: string;
+    description: string;
+  }>(null);
+
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = async (data: LoginFormData) => {
     setIsLoading(true);
-    setError("");
+    setError(null);
+    setMessage(null);
 
     try {
-      const success = await login(email, password);
+      const success = await login(data.email, data.password);
       if (success) {
-        navigate("/", { replace: true });
+        setMessage({
+          type: "success",
+          title: translate("Login.messageSuccess.title"),
+          description: translate("Login.messageSuccess.subtitle"),
+        });
+
+        setTimeout(() => {
+          navigate("/", { replace: true });
+        }, 2000);
       } else {
-        setError("Credenciales inválidas");
+        setMessage({
+          type: "error",
+          title: translate("Login.messageError.title"),
+          description: translate("Login.messageError.subtitle"),
+        });
       }
     } catch (err) {
+      setMessage(null);
       setError("Ocurrió un error durante el login");
       console.error("Login error:", err);
     } finally {
@@ -50,9 +84,7 @@ export default function LoginPage() {
         }}
       ></div>
 
-      {/* Card de login */}
       <div className="flex flex-col md:flex-row w-full max-w-6xl shadow-2xl rounded-3xl overflow-hidden bg-white relative z-10">
-        {/* Columna izquierda con ícono Lucide */}
         <div
           className="hidden md:flex flex-1 bg-blue-50 items-center justify-center"
           style={{
@@ -63,76 +95,65 @@ export default function LoginPage() {
             src={logo}
             alt="Logo"
             className="w-full h-full object-cover"
-            style={{ borderRadius: "0 0 0 12px" }} // Si querés esquinas redondeadas solo en este lado
+            style={{ borderRadius: "0 0 0 12px" }}
           />
         </div>
 
-        {/* Columna derecha con formulario */}
         <div className="flex-1 p-16 bg-white">
-          <h2 className="text-4xl font-semibold text-gray-800 mb-10 text-center">
-            Iniciar sesión
+          <h2 className="text-4xl font-semibold text-gray-800 mb-4 text-center">
+            {translate("Login.title")}
           </h2>
+          <p className="mb-8 text-center text-gray-600">
+            {translate("Login.subtitle")}
+          </p>
 
           {error && (
-            <div className="bg-red-100 border border-red-400 text-red-700 px-5 py-4 rounded mb-8 text-center">
+            <div className="bg-red-100 border border-red-400 text-red-700 px-5 py-4 rounded mb-6 text-center">
               {error}
             </div>
           )}
-
-          <form onSubmit={handleSubmit} className="space-y-8">
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-base font-medium text-gray-600 mb-3"
-              >
-                Correo electrónico
-              </label>
-              <input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full border border-gray-300 rounded-full px-5 py-4 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-3 focus:ring-blue-500 transition"
-                placeholder="ejemplo@correo.com"
-                required
-              />
-            </div>
-
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-base font-medium text-gray-600 mb-3"
-              >
-                Contraseña
-              </label>
-              <input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full border border-gray-300 rounded-full px-5 py-4 text-gray-700 placeholder-gray-400 focus:outline-none focus:ring-3 focus:ring-blue-500 transition"
-                placeholder="●●●●●●●●"
-                required
-              />
-            </div>
-
-            <div className="text-right">
-              <a
-                href={RoutesView.forgotPassword}
-                className="text-sm text-gray-400 hover:text-blue-600 transition"
-              >
-                ¿Olvidaste tu contraseña?
-              </a>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-blue-600 text-white py-4 rounded-full text-lg font-semibold hover:bg-blue-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+          <FormProvider {...methods}>
+            <form
+              onSubmit={methods.handleSubmit(onSubmit)}
+              className="space-y-8"
             >
-              {isLoading ? "Cargando..." : "Entrar"}
-            </button>
-          </form>
+              <TextInput
+                name="email"
+                label={translate("Login.emailLabel")}
+                type="email"
+                placeholder={translate("Login.emailPlaceholder")}
+              />
+
+              <TextInput
+                name="password"
+                label={translate("Login.passwordLabel")}
+                type="password"
+                placeholder={translate("Login.passwordPlaceholder")}
+              />
+
+              <div className="text-right">
+                <a
+                  href={RoutesView.forgotPassword}
+                  className="text-sm text-gray-400 hover:text-blue-600 transition"
+                >
+                  {translate("Login.forgotPassword")}
+                </a>
+              </div>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full bg-blue-600 text-white py-4 rounded-full text-lg font-semibold hover:bg-blue-700 transition disabled:opacity-60 disabled:cursor-not-allowed"
+              >
+                {isLoading
+                  ? translate("Login.loading")
+                  : translate("Login.buttonSubmit")}
+              </button>
+            </form>
+          </FormProvider>
+          {message && (
+            <MessageToast {...message} onClose={() => setMessage(null)} />
+          )}
         </div>
       </div>
     </motion.div>
