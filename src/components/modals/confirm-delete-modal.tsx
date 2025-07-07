@@ -2,17 +2,7 @@
 import React from "react";
 import { Dialog } from "primereact/dialog";
 import { Button } from "primereact/button";
-
-interface ConfirmDeleteModalProps {
-  visible: boolean;
-  onHide: () => void;
-  onConfirm: () => void;
-  title?: string;
-  message?: string;
-  loading?: boolean;
-  confirmLabel?: string;
-  cancelLabel?: string;
-}
+import type { ConfirmDeleteModalProps } from "../../types/modals";
 
 export const ConfirmDeleteModal: React.FC<ConfirmDeleteModalProps> = ({
   visible,
