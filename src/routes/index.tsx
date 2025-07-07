@@ -26,9 +26,9 @@ import InformationCardList from "../screens/informationCard/InformationCardList"
 
 
 //hospitals
-import HospitalList from "../screens/hospitals/HospitalLista";
-import HospitalDetails from "../screens/hospitals/HospitalDetails";
-import HospitalCreate from "../screens/hospitals/HospitalCreate";
+import HospitalList from "../screens/Hospitals/HospitalLista";
+import HospitalDetails from "../screens/Hospitals/HospitalDetails";
+import HospitalCreate from "../screens/Hospitals/HospitalCreate";
 
 
 
