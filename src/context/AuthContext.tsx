@@ -1,6 +1,7 @@
 // src/context/AuthContext.tsx
 import { createContext, useContext, useState, useEffect } from "react";
 import type { ReactNode } from "react";
+import { loginRequest } from "../services/auth/login";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -22,27 +23,30 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setIsAuthenticated(localStorage.getItem("isAuthenticated") === "true");
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    return () => window.removeEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const login = async (email: string, password: string): Promise<boolean> => {
-    const fixedCredentials = {
-      email: "vaponte520@gmail.com",
-      password: "Admin123",
-    };
+    try {
+      const { access_token, user } = await loginRequest(email, password);
 
-    if (email === fixedCredentials.email && password === fixedCredentials.password) {
+      // Guardar en localStorage
+      localStorage.setItem("token", access_token);
+      localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("isAuthenticated", "true");
-      setIsAuthenticated(true); // Actualiza el estado reactivo
+
+      setIsAuthenticated(true);
       return true;
+    } catch (error) {
+      console.error("Login error:", error);
+      return false;
     }
-    return false;
   };
 
   const logout = () => {
     localStorage.removeItem("isAuthenticated");
-    setIsAuthenticated(false); // Actualiza el estado reactivo
+    setIsAuthenticated(false);
   };
 
   return (
