@@ -74,15 +74,23 @@ export default function LoginPage() {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="relative min-h-screen flex items-center justify-center font-poppins bg-gradient-to-r from-blue-100 to-white overflow-hidden"
     >
-      <div
-        className="absolute top-0 left-0 w-full h-full"
-        style={{
-          backgroundImage: `url(${logoHospital})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      ></div>
+      <div className="absolute top-0 left-0 w-full h-full z-0 overflow-hidden">
+        <div
+          className="w-full h-full bg-cover bg-center blur-sm scale-110"
+          style={{
+            backgroundImage: `url(${logoHospital})`,
+            backgroundRepeat: "no-repeat",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `radial-gradient(125% 125% at 50% 90%, rgba(255, 255, 255, 0.7) 30%, rgba(103, 163, 201, 0.6) 100%)`,
+          }}
+        />
+      </div>
 
       <div className="flex flex-col md:flex-row w-full max-w-6xl shadow-2xl rounded-3xl overflow-hidden bg-white relative z-10">
         <div

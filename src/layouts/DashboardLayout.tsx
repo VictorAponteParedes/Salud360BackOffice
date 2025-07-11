@@ -55,9 +55,8 @@ export default function DashboardLayout({ children }: Props) {
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside
-        className={`${
-          isSidebarCollapsed ? "w-20" : "w-64"
-        } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
+        className={`${isSidebarCollapsed ? "w-20" : "w-64"
+          } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
       >
         {/* Botón de toggle */}
         <button
@@ -346,13 +345,25 @@ export default function DashboardLayout({ children }: Props) {
       </aside>
 
       {/* Main content */}
-      <main
-        className={`flex-1 bg-gray-100 p-6 overflow-y-auto ${
-          isSidebarCollapsed ? "ml-1" : "ml-1"
-        } transition-all duration-300`}
-      >
-        {children}
+      <main className="flex-1 relative overflow-y-auto transition-all duration-300">
+        {/* Fondo gradiente radial en #67a3c9 */}
+        <div
+          className="absolute inset-0 z-0"
+          style={{
+            backgroundImage:
+              "radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #67a3c9 100%)",
+            backgroundSize: "100% 100%",
+          }}
+        />
+
+        {/* Contenido principal sobre el fondo */}
+        <div className="relative z-10 p-6">
+          {children}
+        </div>
       </main>
+
+
     </div>
   );
 }
+
