@@ -1,6 +1,6 @@
 type StatCardProps = {
   title: string;
-  value: string;
+  value: any;
   icon?: React.ReactNode;
   difference: string;
   isPositive?: boolean;

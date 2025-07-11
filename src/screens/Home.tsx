@@ -6,15 +6,28 @@ import { StatCard } from "./dashboard/StatCard";
 import AlertsSection from "./dashboard/AlertsSection";
 import { WeeklyActivityChart } from "./dashboard/WeeklyActivityChart";
 import ActivitySection from "./dashboard/ActivitySection";
+import { usePatient } from "../hooks/usePatient";
+import { useDoctor } from "../hooks/useDoctor";
+import { DoctorStatus } from "../enums";
 
 export default function Home() {
   const methods = useForm();
   const navigate = useNavigate();
-
+  const { patients } = usePatient();
+  const { doctors } = useDoctor();
   const onSubmit = (data: any) => {
     console.log(data);
     navigate("/dashboard");
   };
+
+  const totalPatient = patients.length ? patients.length : "";
+  const totalDoctorActive = doctors?.filter(
+    (doc) => doc.status === DoctorStatus.Available
+  );
+
+  const showTotalDoctorActive = totalDoctorActive
+    ? totalDoctorActive.length
+    : "";
 
   return (
     <motion.form
@@ -31,13 +44,13 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
           <StatCard
             title="Total Pacientes"
-            value="2,847"
+            value={totalPatient}
             difference="+12%"
             isPositive
           />
           <StatCard
             title="Doctores Activos"
-            value="156"
+            value={showTotalDoctorActive}
             difference="+3%"
             isPositive
           />

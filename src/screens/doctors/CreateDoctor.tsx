@@ -23,6 +23,7 @@ import type { LanguageType } from "../../types/language";
 import type { SpecialtiesType } from "../../types/specialties";
 import type { HospitalType } from "../../types/hospital";
 import { ScheduleInputRow } from "../../components/form/ScheduleInputArray";
+import { DoctorStatus } from "../../enums";
 
 export default function CreateDoctor() {
   const doctorService = new DoctorService();
@@ -205,19 +206,19 @@ export default function CreateDoctor() {
                     label: translate(
                       "registerDoctor.fields.status.options.available"
                     ),
-                    value: "available",
+                    value: DoctorStatus.Available,
                   },
                   {
                     label: translate(
                       "registerDoctor.fields.status.options.unavailable"
                     ),
-                    value: "unavailable",
+                    value: DoctorStatus.Unavailable,
                   },
                   {
                     label: translate(
                       "registerDoctor.fields.status.options.on_leave"
                     ),
-                    value: "on_leave",
+                    value: DoctorStatus.OnLeave,
                   },
                 ]}
               />

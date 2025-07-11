@@ -25,3 +25,9 @@ export const InformationCardStatusEnum = {
   ACTIVO: "Activo",
   INACTIVO: "Inactivo",
 } as const;
+
+export const DoctorStatus = {
+  Available: "available",
+  Unavailable: "unavailable",
+  OnLeave: "on_leave"
+} as const;
