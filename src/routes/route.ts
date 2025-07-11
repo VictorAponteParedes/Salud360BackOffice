@@ -3,6 +3,7 @@ export const RoutesView = {
   patients: "/patients/list",
   patientDetail: "/patients/:id",
   createPatient: "/patients/create",
+  waitingCall: '/waiting',
 
   //doctor
   doctors: "/doctors/list",

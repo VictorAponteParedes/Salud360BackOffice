@@ -19,6 +19,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Smartphone,
+  Megaphone,
 } from "lucide-react";
 import { RoutesView } from "../routes/route";
 import { useNavigate } from "react-router-dom";
@@ -151,12 +152,18 @@ export default function DashboardLayout({ children }: Props) {
                             <FileText className="w-5 h-5" />
                             Tarjetas informativas
                           </Link>
+                          <Link
+                            to={RoutesView.waitingCall}
+                            className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                          >
+                            <Megaphone className="w-5 h-5" />
+                            Llamado de pacientes
+                          </Link>
                         </motion.div>
                       )}
                     </AnimatePresence>
                   </nav>
                 </div>
-
                 <Link
                   to={RoutesView.listHospital}
                   className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
@@ -351,7 +358,7 @@ export default function DashboardLayout({ children }: Props) {
           className="absolute inset-0 z-0"
           style={{
             backgroundImage:
-              "radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #67a3c9 100%)",
+              "min-h-screen w-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-[#67a3c9] via-blue-100 to-white",
             backgroundSize: "100% 100%",
           }}
         />
