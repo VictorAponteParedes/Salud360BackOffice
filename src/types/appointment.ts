@@ -12,12 +12,12 @@ export interface AppointmentFormData {
     doctorId: string;
     patient: PatientFormDataType;
     doctor: DoctorFormData;
-    status: string;
+    status: AppointmentStatusEnum;
     appointmentTime: string;
 }
 
 export type AppointmentStatusType = {
-  status: AppointmentStatusEnum;
+  status: typeof AppointmentStatusEnum;
 };
 
 export interface AppointementProps {

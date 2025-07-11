@@ -6,28 +6,42 @@ import { StatCard } from "./dashboard/StatCard";
 import AlertsSection from "./dashboard/AlertsSection";
 import { WeeklyActivityChart } from "./dashboard/WeeklyActivityChart";
 import ActivitySection from "./dashboard/ActivitySection";
+
+//Hooks
 import { usePatient } from "../hooks/usePatient";
 import { useDoctor } from "../hooks/useDoctor";
-import { DoctorStatus } from "../enums";
+import { AppointmentStatusEnum, DoctorStatus } from "../enums";
+import { useAppointment } from "../hooks/useAppointment";
 
 export default function Home() {
   const methods = useForm();
   const navigate = useNavigate();
   const { patients } = usePatient();
   const { doctors } = useDoctor();
+  const { appointments } = useAppointment(); 
+
+
   const onSubmit = (data: any) => {
     console.log(data);
     navigate("/dashboard");
   };
 
-  const totalPatient = patients.length ? patients.length : "";
+  const totalPatient = patients.length ? patients.length : "-";
+
   const totalDoctorActive = doctors?.filter(
     (doc) => doc.status === DoctorStatus.Available
   );
-
-  const showTotalDoctorActive = totalDoctorActive
+  const showTotalDoctorActive = totalDoctorActive?.length
     ? totalDoctorActive.length
-    : "";
+    : "-";
+
+  const totalAppointmentPending = appointments?.filter(
+    (app) => app.status === AppointmentStatusEnum.PENDIENTE
+  );
+
+  const showTotalAppointmentPending = totalAppointmentPending.length
+    ? totalAppointmentPending.length
+    : "-";
 
   return (
     <motion.form
@@ -62,7 +76,7 @@ export default function Home() {
           />
           <StatCard
             title="Análisis Pendientes"
-            value="23"
+            value={showTotalAppointmentPending}
             difference="+8%"
             isPositive
           />
