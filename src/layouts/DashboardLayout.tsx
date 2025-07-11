@@ -358,7 +358,7 @@ export default function DashboardLayout({ children }: Props) {
           className="absolute inset-0 z-0"
           style={{
             backgroundImage:
-              "min-h-screen w-full flex flex-col items-center justify-center p-8 bg-gradient-to-br from-[#67a3c9] via-blue-100 to-white",
+              "radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #67a3c9 100%)",
             backgroundSize: "100% 100%",
           }}
         />
