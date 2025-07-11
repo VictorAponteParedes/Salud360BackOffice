@@ -11,6 +11,9 @@ import { MessageToast } from "../../components/MessageToast";
 import { translate } from "../../lang";
 import InformationCardService from "../../services/informationCard";
 import type { InformationCardFormData } from "../../types/InformationCardFormData";
+import { SingleSelectInput } from "../../components/form/SingleSelectInput";
+import appRoutes from "../../helpers/appRoutes";
+
 
 export default function InformationCardCreate() {
     const methods = useForm<InformationCardFormData>();
@@ -89,10 +92,15 @@ export default function InformationCardCreate() {
                                 label="Título"
                                 placeholder="Ingrese un título informativo"
                             />
-                            <TextInput
+                            <SingleSelectInput
                                 name="screen"
                                 label="Pantalla destino (opcional)"
-                                placeholder="Ej: services, covid-info, etc."
+                                options={[
+                                    { label: 'Inicio', value: appRoutes.HOME },
+                                    { label: 'Perfil del Paciente', value: appRoutes.PROFILE },
+                                    { label: 'Marcar una cita médico', value: appRoutes.QUOTES },
+                                    { label: 'Olvido de clave', value: appRoutes.FORGOT_PASSWORD },
+                                ]}
                             />
                             <ImageInput
                                 name="serviceImage"
