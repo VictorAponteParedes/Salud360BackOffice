@@ -38,6 +38,7 @@ export default function DashboardLayout({ children }: Props) {
   const [isCatalogsOpen, setIsCatalogsOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isAppManagementOpen, setIsAppManagementOpen] = useState(false);
+  const [isPatientsOpen, setIsPatientsOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -56,8 +57,9 @@ export default function DashboardLayout({ children }: Props) {
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside
-        className={`${isSidebarCollapsed ? "w-20" : "w-64"
-          } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
+        className={`${
+          isSidebarCollapsed ? "w-20" : "w-64"
+        } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
       >
         {/* Botón de toggle */}
         <button
@@ -99,13 +101,51 @@ export default function DashboardLayout({ children }: Props) {
                   <LayoutDashboard className="w-5 h-5" />{" "}
                   {translate("layout.items.dashboard")}
                 </Link>
-                <Link
-                  to={RoutesView.patients}
-                  className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+
+                {/* Submenú Pacientes */}
+                <button
+                  onClick={() => setIsPatientsOpen((prev) => !prev)}
+                  className="flex items-center justify-between text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
                 >
-                  <Users className="w-5 h-5" />{" "}
-                  {translate("layout.items.patients")}
-                </Link>
+                  <div className="flex items-center gap-2">
+                    <Users className="w-5 h-5" />
+                    {translate("layout.items.patients")}
+                  </div>
+                  <motion.div
+                    animate={{ rotate: isPatientsOpen ? 180 : 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <ChevronDown className="w-5 h-5" />
+                  </motion.div>
+                </button>
+
+                <AnimatePresence>
+                  {isPatientsOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="flex flex-col gap-2 pl-6"
+                    >
+                      <Link
+                        to={RoutesView.patients}
+                        className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                      >
+                        <User className="w-5 h-5" />
+                        Lista de pacientes
+                      </Link>
+                      <Link
+                        to={RoutesView.waitingCall}
+                        className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
+                      >
+                        <Megaphone className="w-5 h-5" />
+                        Llamado de pacientes
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 <Link
                   to={RoutesView.doctors}
                   className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
@@ -151,13 +191,6 @@ export default function DashboardLayout({ children }: Props) {
                           >
                             <FileText className="w-5 h-5" />
                             Tarjetas informativas
-                          </Link>
-                          <Link
-                            to={RoutesView.waitingCall}
-                            className="flex items-center gap-2 text-white px-3 py-2 rounded-md border-l-4 border-transparent hover:border-blue-600 hover:bg-blue-50 hover:text-blue-600 transition-all duration-200"
-                          >
-                            <Megaphone className="w-5 h-5" />
-                            Llamado de pacientes
                           </Link>
                         </motion.div>
                       )}
@@ -364,12 +397,8 @@ export default function DashboardLayout({ children }: Props) {
         />
 
         {/* Contenido principal sobre el fondo */}
-        <div className="relative z-10 p-6">
-          {children}
-        </div>
+        <div className="relative z-10 p-6">{children}</div>
       </main>
-
-
     </div>
   );
 }
