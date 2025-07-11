@@ -18,7 +18,7 @@ import AppointmentList from "../screens/appointment/AppointmentList";
 import AppointmentForm from "../screens/appointment/AppointmentCreate";
 import { RoutesView } from "./route";
 import VerifyCode from "../screens/auth/VerifyCode";
-import WaitingCallScreen from "../screens/WaitingCallPatient";
+import PatientCallScreen from "../screens/WaitingCallPatient";
 
 
 //Information Card
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: `${RoutesView.createPatient}`, element: <Patients /> },
       { path: `${RoutesView.patients}`, element: <PatientList /> },
-      { path: `${RoutesView.waitingCall}`, element: <WaitingCallScreen /> },
+      { path: `${RoutesView.waitingCall}`, element: <PatientCallScreen /> },
       { path: `${RoutesView.patientDetail}`, element: <PatientDetails /> },
       { path: `${RoutesView.createDoctor}`, element: <CreateDoctor /> },
       { path: `${RoutesView.doctors}`, element: <ListDoctors /> },
@@ -53,8 +53,14 @@ const router = createBrowserRouter([
       { path: `${RoutesView.hospitalCreate}`, element: <HospitalCreate /> },
       { path: `${RoutesView.listHospital}`, element: <HospitalList /> },
       { path: `${RoutesView.hospitalDetail}`, element: <HospitalDetails /> },
-      { path: `${RoutesView.informationCardCreate}`, element: <InformationCardCreate /> },
-      { path: `${RoutesView.informationCardList}`, element: <InformationCardList /> },
+      {
+        path: `${RoutesView.informationCardCreate}`,
+        element: <InformationCardCreate />,
+      },
+      {
+        path: `${RoutesView.informationCardList}`,
+        element: <InformationCardList />,
+      },
     ],
   },
   {
