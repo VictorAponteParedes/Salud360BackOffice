@@ -31,3 +31,10 @@ export const DoctorStatus = {
   Unavailable: "unavailable",
   OnLeave: "on_leave"
 } as const;
+
+export const UserRole = {
+  SUPER_ADMIN: 'superadmin',
+  ADMIN: 'admin',
+  PATIENT: 'patient',
+  STAFF: 'staff',
+} as const
