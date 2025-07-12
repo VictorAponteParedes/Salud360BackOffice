@@ -5,7 +5,7 @@ import { loginRequest } from "../services/auth/login";
 
 interface AuthContextType {
   isAuthenticated: boolean;
-  token: string | null;
+  token: any;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
 }

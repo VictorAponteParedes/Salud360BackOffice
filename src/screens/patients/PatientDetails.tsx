@@ -20,13 +20,15 @@ import { usePatient } from "../../hooks/usePatient";
 import { RoutesView } from "../../routes/route";
 import { ConfirmDeleteModal } from "../../components/modals/confirm-delete-modal";
 import { PatientImage } from "./components/PatientImage";
+import { useAuth } from "../../context/AuthContext";
 
 const patientService = new PatientServices();
 
 const PatientDetails = () => {
+  const { token } = useAuth();
   const navigate = useNavigate();
   const { id } = useParams();
-  const { patient, isLoading, deletePatient } = usePatient(id);
+  const { patient, isLoading } = usePatient(id);
   const [message, setMessage] = useState<null | {
     type: "success" | "error";
     title: string;
@@ -43,7 +45,7 @@ const PatientDetails = () => {
     if (!id) return;
     setLoadingDelete(true);
     try {
-      await deletePatient(id);
+      await patientService.deletePatient(id, token);
       setMessage({
         type: "success",
         title: "Paciente eliminado",

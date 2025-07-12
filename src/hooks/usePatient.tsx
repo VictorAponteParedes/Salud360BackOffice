@@ -56,21 +56,7 @@ export const usePatient = (id?: string) => {
     fetchPatients();
   }, [id, token]);
 
-  const deletePatient = async (patientId: string): Promise<void> => {
-    if (!token) return;
 
-    try {
-      await patientService.deletePatient(patientId, token);
-      setPatients((prev) => prev.filter((p) => p.id !== patientId));
-    } catch (error: unknown) {
-      const errMessage =
-        error instanceof Error
-          ? translateError(error.message)
-          : "Error desconocido";
-      setError(errMessage);
-      throw error;
-    }
-  };
 
-  return { patient, patients, deletePatient, isLoading, error };
+  return { patient, patients, isLoading, error };
 };
