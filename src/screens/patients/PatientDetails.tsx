@@ -19,13 +19,14 @@ import { useNavigate, useParams } from "react-router-dom";
 import { usePatient } from "../../hooks/usePatient";
 import { RoutesView } from "../../routes/route";
 import { ConfirmDeleteModal } from "../../components/modals/confirm-delete-modal";
+import { PatientImage } from "./components/PatientImage";
 
 const patientService = new PatientServices();
 
 const PatientDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
-  const { patient, isLoading } = usePatient(id);
+  const { patient, isLoading, deletePatient } = usePatient(id);
   const [message, setMessage] = useState<null | {
     type: "success" | "error";
     title: string;
@@ -42,7 +43,7 @@ const PatientDetails = () => {
     if (!id) return;
     setLoadingDelete(true);
     try {
-      // await patientService.deletePatient(id);
+      await deletePatient(id);
       setMessage({
         type: "success",
         title: "Paciente eliminado",
@@ -124,13 +125,10 @@ const PatientDetails = () => {
             >
               <div className="flex items-center gap-4">
                 {patient.profileImage?.path ? (
-                  <img
+                  <PatientImage
                     src={imageUrl}
                     alt={`Foto de ${patient.firstName} ${patient.lastName}`}
                     className="w-24 h-24 object-cover rounded-full"
-                    onError={(e) => {
-                      e.currentTarget.src = "/default-avatar.png"; // Fallback a imagen por defecto en caso de error
-                    }}
                   />
                 ) : (
                   <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
