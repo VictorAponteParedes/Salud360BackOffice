@@ -92,6 +92,7 @@ export default function DashboardLayout({ children }: Props) {
               <h3 className="text-xs text-gray-500 uppercase mb-3">
                 {translate("layout.title")}
               </h3>
+
               <nav className="flex flex-col gap-4">
                 <Link
                   to={RoutesView.dashboard}
