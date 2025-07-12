@@ -18,7 +18,7 @@ export default function Home() {
   const navigate = useNavigate();
   const { patients } = usePatient();
   const { doctors } = useDoctor();
-  const { appointments } = useAppointment(); 
+  const { appointments } = useAppointment();
 
 
   const onSubmit = (data: any) => {
@@ -35,9 +35,9 @@ export default function Home() {
     ? totalDoctorActive.length
     : "-";
 
-  const totalAppointmentPending = appointments?.filter(
-    (app) => app.status === AppointmentStatusEnum.PENDIENTE
-  );
+  const totalAppointmentPending = Array.isArray(appointments)
+    ? appointments.filter((app) => app.status === AppointmentStatusEnum.PENDIENTE)
+    : []
 
   const showTotalAppointmentPending = totalAppointmentPending.length
     ? totalAppointmentPending.length
