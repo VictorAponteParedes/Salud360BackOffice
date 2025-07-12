@@ -1,0 +1,16 @@
+{
+    "AdminUser": {
+        "title": "Gestión de Usuarios Administrativos",
+        "addUser": "Agregar Usuario",
+        "description": "Aquí puedes ver y gestionar los usuarios con roles de administrador y superadministrador.",
+        "searchPlaceholder": "Buscar usuarios por nombre, correo o ID...",
+        "filter": {
+            "title": "Filtrar"
+        },
+        "noUsersMessage": "No hay usuarios administrativos registrados en este momento.",
+        "noPatientsMessage": "No hay pacientes registrados en este momento.",
+        "contact": "Contacto",
+        "birthDate": "Fecha de nacimiento",
+        "viewDetails": "Ver Detalle"
+    }
+}
