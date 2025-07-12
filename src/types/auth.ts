@@ -1,4 +1,5 @@
 import type { PatientStatusEnum } from "../enums";
+import { UserRole } from "../enums";
 
 export type PatientFormData = {
     id?: string;
@@ -28,6 +29,7 @@ export type PatientFormData = {
     doctor?: string;
     profileImageId?: string;
     onclick?: () => void;
+    role: UserRole
 };
 
 export type LoginFormData = {

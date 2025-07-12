@@ -12,6 +12,7 @@ import type { PatientFormData } from "../../types/auth";
 import { useState } from "react";
 import { MessageToast } from "../../components/MessageToast";
 import { translate } from "../../lang";
+import { UserRole } from "../../enums";
 
 export default function Patients() {
   const methods = useForm<PatientFormData>();
@@ -39,7 +40,9 @@ export default function Patients() {
       }
 
       const userData = {
+
         ...data,
+        role: UserRole.PATIENT,
         profileImageId: imageId,
       };
 
