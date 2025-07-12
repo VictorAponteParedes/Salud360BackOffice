@@ -69,16 +69,16 @@ class PatientServices {
     }
 
     async getPatients(token: string): Promise<PatientFormData[]> {
-    try {
-        const response = await axios.get(`${API_BASE_URL}/users/patients`, {
-        headers: {
-            Authorization: `Bearer ${token}`,
-        },
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Error al obtener pacientes:", error);
-        throw error;
+        try {
+            const response = await axios.get(`${API_BASE_URL}/users/patients`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            return response.data;
+        } catch (error) {
+            console.error("Error al obtener pacientes:", error);
+            throw error;
         }
     }
 
@@ -88,6 +88,18 @@ class PatientServices {
             return response.data;
         } catch (error) {
             console.error('Error al obtener paciente:', error);
+            throw error;
+        }
+    }
+    async deletePatient(patientId: string, token: string): Promise<void> {
+        try {
+            await axios.delete(`${API_BASE_URL}/users/${patientId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+        } catch (error: any) {
+            console.error("Error al eliminar paciente:", error);
             throw error;
         }
     }
