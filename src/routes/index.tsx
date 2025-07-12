@@ -20,6 +20,7 @@ import { RoutesView } from "./route";
 import VerifyCode from "../screens/auth/VerifyCode";
 import PatientCallScreen from "../screens/WaitingCallPatient";
 import AdminUserList from "../screens/Admin/AdminUserList";
+import AdminUserCreate from "../screens/Admin/AdminUserCreate";
 
 
 //Information Card
@@ -45,7 +46,8 @@ const router = createBrowserRouter([
       { path: `${RoutesView.patients}`, element: <PatientList /> },
       { path: `${RoutesView.waitingCall}`, element: <PatientCallScreen /> },
       { path: `${RoutesView.patientDetail}`, element: <PatientDetails /> },
-      { path: `${RoutesView.usersRoles}`, element: <AdminUserList /> },
+      { path: `${RoutesView.adminList}`, element: <AdminUserList /> },
+      { path: `${RoutesView.adminCreate}`, element: <AdminUserCreate /> },
       { path: `${RoutesView.createDoctor}`, element: <CreateDoctor /> },
       { path: `${RoutesView.doctors}`, element: <ListDoctors /> },
       { path: `${RoutesView.analysis}`, element: <AnalysisCreate /> },

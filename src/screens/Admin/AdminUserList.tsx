@@ -5,6 +5,7 @@ import { useAdminUser } from "../../hooks/useAdmin";
 import { translate } from "../../lang";
 import { ErrorMessage } from "../../components/ErrorMessage";
 import { AdminUserCard } from "./AdminUserCard";
+import { RoutesView } from "../../routes/route";
 
 export default function AdminUserList() {
     const navigate = useNavigate();
@@ -44,7 +45,7 @@ export default function AdminUserList() {
                 </div>
 
                 <button
-                    onClick={() => console.log("creacino de usuario admin")}
+                    onClick={() => navigate(RoutesView.adminCreate)}
                     className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                 >
                     <Plus className="w-5 h-5" />

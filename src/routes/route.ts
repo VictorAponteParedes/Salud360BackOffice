@@ -22,7 +22,9 @@ export const RoutesView = {
   analysis: "/analysis/create",
   analysisList: "/analysis/list",
 
-  usersRoles: "/users-roles",
+  adminList: "/users-admin/list",
+  adminCreate: "/users-admin/create",
+
   notifications: "/notifications",
   reports: "/reports",
   settings: "/settings",
