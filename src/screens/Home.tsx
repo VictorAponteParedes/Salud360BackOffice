@@ -26,14 +26,14 @@ export default function Home() {
     navigate("/dashboard");
   };
 
-  const totalPatient = patients.length ? patients.length : "-";
+  const totalPatient = patients.length ? patients.length : "0";
 
   const totalDoctorActive = doctors?.filter(
     (doc) => doc.status === DoctorStatus.Available
   );
   const showTotalDoctorActive = totalDoctorActive?.length
     ? totalDoctorActive.length
-    : "-";
+    : "0";
 
   const totalAppointmentPending = Array.isArray(appointments)
     ? appointments.filter((app) => app.status === AppointmentStatusEnum.PENDIENTE)
@@ -41,7 +41,7 @@ export default function Home() {
 
   const showTotalAppointmentPending = totalAppointmentPending.length
     ? totalAppointmentPending.length
-    : "-";
+    : "0";
 
   return (
     <motion.form
