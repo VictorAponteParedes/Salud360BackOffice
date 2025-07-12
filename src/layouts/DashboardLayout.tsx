@@ -57,9 +57,8 @@ export default function DashboardLayout({ children }: Props) {
     <div className="flex min-h-screen">
       {/* Sidebar */}
       <aside
-        className={`${
-          isSidebarCollapsed ? "w-20" : "w-64"
-        } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
+        className={`${isSidebarCollapsed ? "w-20" : "w-80"
+          } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
       >
         {/* Botón de toggle */}
         <button
