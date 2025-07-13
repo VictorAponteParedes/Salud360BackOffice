@@ -21,6 +21,8 @@ import { RoutesView } from "../../routes/route";
 import { ConfirmDeleteModal } from "../../components/modals/confirm-delete-modal";
 import { PatientImage } from "./components/PatientImage";
 import { useAuth } from "../../context/AuthContext";
+import { API_BASE_URL } from "../../constants";
+import axios from "axios";
 
 const patientService = new PatientServices();
 
@@ -66,6 +68,42 @@ const PatientDetails = () => {
     }
   };
 
+
+
+  const handleDownloadPdf = async () => {
+    if (!id || !token) return;
+
+    try {
+      const response = await axios.get(`${API_BASE_URL}/users/${id}/pdf`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        responseType: 'blob',  // Muy importante para manejar archivos binarios
+      });
+
+      const blob = response.data;
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `paciente-${id}.pdf`;
+
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error al descargar PDF:", error);
+      setMessage({
+        type: "error",
+        title: "Error",
+        description: "No se pudo generar el PDF del paciente.",
+      });
+    }
+  };
+
+
   return (
     <>
       {isLoading ? (
@@ -93,6 +131,14 @@ const PatientDetails = () => {
               </h1>
             </div>
             <div className="flex gap-2">
+              <button
+                onClick={handleDownloadPdf}
+                className="bg-blue-100 text-blue-700 px-4 py-2 rounded hover:bg-blue-200 flex items-center gap-2"
+              >
+                <Shield size={18} />
+                <span>Descargar PDF</span>
+              </button>
+
               <button className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-hover flex items-center gap-2">
                 <Edit3 size={18} />
                 <span>Editar paciente</span>
