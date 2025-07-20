@@ -18,6 +18,7 @@
     "lucide-react": "^0.511.0",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.5",
+    "quill": "^2.0.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.56.4",
