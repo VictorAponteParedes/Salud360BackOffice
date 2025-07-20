@@ -33,6 +33,9 @@ import HospitalList from "../screens/Hospitals/HospitalLista";
 import HospitalDetails from "../screens/Hospitals/HospitalDetails";
 import HospitalCreate from "../screens/Hospitals/HospitalCreate";
 
+//Settings
+import Settings from "../screens/settings";
+
 
 
 const router = createBrowserRouter([
@@ -57,6 +60,7 @@ const router = createBrowserRouter([
       { path: `${RoutesView.hospitalCreate}`, element: <HospitalCreate /> },
       { path: `${RoutesView.listHospital}`, element: <HospitalList /> },
       { path: `${RoutesView.hospitalDetail}`, element: <HospitalDetails /> },
+      { path: `${RoutesView.settings}`, element: <Settings /> },
       {
         path: `${RoutesView.informationCardCreate}`,
         element: <InformationCardCreate />,
