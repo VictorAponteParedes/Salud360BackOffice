@@ -8,7 +8,7 @@ import { useState } from "react";
 
 export function GeneralSettings() {
   const methods = useForm();
-  const [isLightTheme, setIsLightTheme] = useState(true);
+  const [isLightTheme, setIsLightTheme] = useState<boolean>(false);
   return (
     <FormProvider {...methods}>
       <Panel
