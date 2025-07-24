@@ -5,20 +5,19 @@ import type { PatientFormData } from "../../types/auth";
 import { PatientStatusEnum } from "../../enums";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../constants";
+import { useTheme } from "../../context/ThemeContext";
 
 interface Props {
   patient: PatientFormData;
 }
-// Componente para mostrar la tarjeta de un paciente
+
 export const PatientCard = ({ patient }: Props) => {
   const navigate = useNavigate();
+  const { isDark } = useTheme();
 
   const imageUrl = patient.profileImage?.path
     ? `${API_BASE_URL}/${patient.profileImage.path}`
-    : '/default-profile.png';
-
-
-  console.log("imagen paciente: ", imageUrl)
+    : "/default-profile.png";
 
   const goToDetails = () => {
     navigate(`/patients/${patient.id}`);
@@ -27,7 +26,11 @@ export const PatientCard = ({ patient }: Props) => {
   return (
     <motion.div
       whileHover={{ scale: 1.01 }}
-      className="bg-white p-4 rounded-lg shadow-sm mb-4 border border-gray-200"
+      className={`p-4 rounded-lg shadow-sm mb-4 border ${
+        isDark
+          ? "bg-gray-700 border-gray-600 hover:bg-gray-600"
+          : "bg-white border-gray-200 hover:bg-gray-50"
+      } transition-colors duration-200`}
     >
       <div className="flex items-start gap-4">
         {/* Icono de usuario */}
@@ -38,15 +41,27 @@ export const PatientCard = ({ patient }: Props) => {
             className="w-16 h-16 rounded-full object-cover"
           />
         ) : (
-          <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-            <UserIcon className="w-5 h-5 text-gray-400" />
+          <div
+            className={`w-12 h-12 rounded-full flex items-center justify-center ${
+              isDark ? "bg-gray-600" : "bg-gray-100"
+            }`}
+          >
+            <UserIcon
+              className={`w-5 h-5 ${
+                isDark ? "text-gray-300" : "text-gray-400"
+              }`}
+            />
           </div>
         )}
 
         {/* Información del paciente en horizontal */}
         <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="space-y-1">
-            <h3 className="text-lg font-bold text-gray-800">
+            <h3
+              className={`text-lg font-bold ${
+                isDark ? "text-white" : "text-gray-800"
+              }`}
+            >
               {patient.firstName} {patient.lastName}
             </h3>
             <PatientStatus
@@ -55,22 +70,54 @@ export const PatientCard = ({ patient }: Props) => {
           </div>
 
           <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-700">Contacto</p>
-            <p className="text-sm text-gray-600">{patient.phone}</p>
-            <p className="text-sm text-gray-600">{patient.email}</p>
+            <p
+              className={`text-sm font-medium ${
+                isDark ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Contacto
+            </p>
+            <p
+              className={`text-sm ${
+                isDark ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              {patient.phone}
+            </p>
+            <p
+              className={`text-sm ${
+                isDark ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              {patient.email}
+            </p>
           </div>
 
           <div className="space-y-1">
-            <p className="text-sm font-medium text-gray-700">
+            <p
+              className={`text-sm font-medium ${
+                isDark ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
               Fecha de nacimiento
             </p>
-            <p className="text-sm text-gray-600">{patient.dateBirth}</p>
+            <p
+              className={`text-sm ${
+                isDark ? "text-gray-400" : "text-gray-600"
+              }`}
+            >
+              {patient.dateBirth}
+            </p>
           </div>
 
           <div className="flex items-center justify-end">
             <button
               onClick={goToDetails}
-              className="text-blue-600 hover:text-blue-800 text-sm font-medium border border-blue-200 rounded-md px-3 py-1 flex items-center gap-1"
+              className={`text-sm font-medium rounded-md px-3 py-1 flex items-center gap-1 border ${
+                isDark
+                  ? "text-blue-400 hover:text-blue-300 border-blue-500 hover:border-blue-400"
+                  : "text-blue-600 hover:text-blue-800 border-blue-200 hover:border-blue-300"
+              } transition-colors`}
             >
               <Circle className="w-3 h-3" />
               Ver Detalle
