@@ -7,11 +7,12 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { MessageToast } from "../../components/MessageToast";
 import { translate } from "../../lang";
-import { Panel } from "primereact/panel";
 import { useDoctor } from "../../hooks/useDoctor";
 import { usePatient } from "../../hooks/usePatient";
 import { useAppointment } from "../../hooks/useAppointment";
 import type { AppointmentFormData } from "../../types/appointment";
+import { CustomPanel } from "../../components/CustomPanel";
+import { useTheme } from "../../context/ThemeContext";
 
 export default function AppointmentCreate() {
   const methods = useForm<AppointmentFormData>();
@@ -19,6 +20,7 @@ export default function AppointmentCreate() {
   const { doctors = [] } = useDoctor();
   const { patients = [] } = usePatient();
   const { createAppointment } = useAppointment();
+  const { isDark } = useTheme();
 
   const [message, setMessage] = useState<null | {
     type: "success" | "error";
@@ -84,7 +86,9 @@ export default function AppointmentCreate() {
               >
                 <ArrowLeft className="w-6 h-6" />
               </button>
-              <h1 className="text-2xl font-bold text-gray-800">Crear cita médica</h1>
+              <h1 className="text-2xl font-bold text-gray-800">
+                Crear cita médica
+              </h1>
             </div>
             <button
               type="submit"
@@ -96,16 +100,30 @@ export default function AppointmentCreate() {
           </div>
 
           {/* Panel: Información de la cita */}
-          <Panel
+          <CustomPanel
             header={
-              <div className="flex items-center gap-2">
-                <div className="bg-blue-100 p-2 rounded-lg">
-                  <CalendarCheck className="text-blue-600" size={18} />
+              <>
+                <div
+                  className={`p-2 rounded-lg ${
+                    isDark ? "bg-gray-600" : "bg-purple-100"
+                  }`}
+                >
+                  <CalendarCheck
+                    className={isDark ? "text-gray-300" : "text-gray-500"}
+                    size={18}
+                  />
                 </div>
-                <span className="font-semibold text-gray-800">Datos de la cita</span>
-              </div>
+                <span
+                  className={`font-semibold ${
+                    isDark ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  Datos de la cita
+                </span>
+              </>
             }
             toggleable
+            className="w-full mb-4"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <TextInput
@@ -131,19 +149,33 @@ export default function AppointmentCreate() {
                 placeholder="Agregar observaciones si es necesario"
               />
             </div>
-          </Panel>
+          </CustomPanel>
 
           {/* Panel: Información del paciente */}
-          <Panel
+          <CustomPanel
             header={
-              <div className="flex items-center gap-2">
-                <div className="bg-green-100 p-2 rounded-lg">
-                  <UserCircle className="text-green-600" size={18} />
+              <>
+                <div
+                  className={`p-2 rounded-lg ${
+                    isDark ? "bg-gray-600" : "bg-purple-100"
+                  }`}
+                >
+                  <UserCircle
+                    className={isDark ? "text-gray-300" : "text-gray-500"}
+                    size={18}
+                  />
                 </div>
-                <span className="font-semibold text-gray-800">Paciente</span>
-              </div>
+                <span
+                  className={`font-semibold ${
+                    isDark ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  Paciente
+                </span>
+              </>
             }
             toggleable
+            className="w-full mb-4"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <SingleSelectInput
@@ -153,19 +185,33 @@ export default function AppointmentCreate() {
                 placeholder="Buscar paciente"
               />
             </div>
-          </Panel>
+          </CustomPanel>
 
           {/* Panel: Información del doctor */}
-          <Panel
+          <CustomPanel
             header={
-              <div className="flex items-center gap-2">
-                <div className="bg-purple-100 p-2 rounded-lg">
-                  <Stethoscope className="text-purple-600" size={18} />
+              <>
+                <div
+                  className={`p-2 rounded-lg ${
+                    isDark ? "bg-gray-600" : "bg-purple-100"
+                  }`}
+                >
+                  <Stethoscope
+                    className={isDark ? "text-gray-300" : "text-gray-500"}
+                    size={18}
+                  />
                 </div>
-                <span className="font-semibold text-gray-800">Doctor</span>
-              </div>
+                <span
+                  className={`font-semibold ${
+                    isDark ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  Doctor
+                </span>
+              </>
             }
             toggleable
+            className="w-full mb-4"
           >
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <SingleSelectInput
@@ -175,7 +221,7 @@ export default function AppointmentCreate() {
                 placeholder="Buscar doctor"
               />
             </div>
-          </Panel>
+          </CustomPanel>
         </motion.form>
       </FormProvider>
 
