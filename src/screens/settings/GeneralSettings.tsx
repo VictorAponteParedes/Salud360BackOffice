@@ -1,14 +1,16 @@
+// src/views/GeneralSettings.tsx
 import { FormProvider, useForm } from "react-hook-form";
 import { Panel } from "primereact/panel";
 import { Hospital } from "lucide-react";
 import { TextInput } from "../../components/form/TextInput";
 import { ImageInput } from "../../components/form/ImageInput";
 import { ToggleSwitch } from "../../components/ToggleSwitch";
-import { useState } from "react";
+import { useTheme } from "../../context/ThemeContext";
 
 export function GeneralSettings() {
   const methods = useForm();
-  const [isLightTheme, setIsLightTheme] = useState<boolean>(false);
+  const { theme, setTheme, isDark } = useTheme();
+
   return (
     <FormProvider {...methods}>
       <Panel
@@ -17,7 +19,7 @@ export function GeneralSettings() {
             <div className="bg-green-100 p-2 rounded-lg">
               <Hospital className="text-green-600" size={18} />
             </div>
-            <span className="font-semibold text-gray-800">
+            <span className="font-semibold text-gray-800 dark:text-gray-200">
               General del Sistema
             </span>
           </div>
@@ -41,15 +43,19 @@ export function GeneralSettings() {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <div className="border rounded-lg p-4 bg-gray-50">
+            <div className="border rounded-lg p-4 bg-gray-50 dark:bg-gray-800">
               <ToggleSwitch
                 label="Tema del Sistema"
-                enabled={isLightTheme}
+                enabled={isDark}
                 onChange={(checked) => {
-                  setIsLightTheme(checked);
-                  console.log("Modo claro activado:", checked);
+                  setTheme(checked ? "dark" : "light");
                 }}
               />
+              <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
+                {theme === "system"
+                  ? "Usando tema del sistema"
+                  : `Tema ${theme === "dark" ? "oscuro" : "claro"} activado`}
+              </div>
             </div>
           </div>
         </div>

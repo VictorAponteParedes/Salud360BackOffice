@@ -27,6 +27,7 @@ import { useAuth } from "../context/AuthContext";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { translate } from "../lang";
+import { useTheme } from "../context/ThemeContext";
 
 type Props = {
   children: ReactNode;
@@ -35,6 +36,7 @@ type Props = {
 export default function DashboardLayout({ children }: Props) {
   const navigate = useNavigate();
   const { logout } = useAuth();
+  const { isDark } = useTheme();
   const [isCatalogsOpen, setIsCatalogsOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const [isAppManagementOpen, setIsAppManagementOpen] = useState(false);
@@ -54,11 +56,12 @@ export default function DashboardLayout({ children }: Props) {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <div className={`flex min-h-screen ${isDark ? "dark" : ""}`}>
       {/* Sidebar */}
       <aside
-        className={`${isSidebarCollapsed ? "w-20" : "w-80"
-          } bg-primary p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
+        className={`${isSidebarCollapsed ? "w-20" : "w-80"} ${
+          isDark ? "bg-gray-900 text-gray-200" : "bg-primary text-white"
+        } p-6 shadow-sm sticky top-0 h-screen flex flex-col justify-between transition-all duration-300`}
       >
         {/* Botón de toggle */}
         <button
@@ -390,9 +393,9 @@ export default function DashboardLayout({ children }: Props) {
         <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage:
-              "radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #67a3c9 100%)",
-            backgroundSize: "100% 100%",
+            backgroundImage: isDark
+              ? "radial-gradient(125% 125% at 50% 90%, #1f2937 40%, #111827 100%)"
+              : "radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #67a3c9 100%)",
           }}
         />
 
