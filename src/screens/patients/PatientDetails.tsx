@@ -23,6 +23,7 @@ import { PatientImage } from "./components/PatientImage";
 import { useAuth } from "../../context/AuthContext";
 import { API_BASE_URL } from "../../constants";
 import axios from "axios";
+import { useTheme } from "../../context/ThemeContext";
 
 const patientService = new PatientServices();
 
@@ -31,6 +32,7 @@ const PatientDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { patient, isLoading } = usePatient(id);
+  const { isDark } = useTheme();
   const [message, setMessage] = useState<null | {
     type: "success" | "error";
     title: string;
@@ -68,8 +70,6 @@ const PatientDetails = () => {
     }
   };
 
-
-
   const handleDownloadPdf = async () => {
     if (!id || !token) return;
 
@@ -78,13 +78,13 @@ const PatientDetails = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        responseType: 'blob',  // Muy importante para manejar archivos binarios
+        responseType: "blob",
       });
 
       const blob = response.data;
       const url = window.URL.createObjectURL(blob);
 
-      const a = document.createElement('a');
+      const a = document.createElement("a");
       a.href = url;
       a.download = `paciente-${id}.pdf`;
 
@@ -103,11 +103,14 @@ const PatientDetails = () => {
     }
   };
 
-
   return (
     <>
       {isLoading ? (
-        <div className="max-w-6xl mx-auto p-8 flex justify-center items-center h-64">
+        <div
+          className={`max-w-6xl mx-auto p-8 flex justify-center items-center h-64 ${
+            isDark ? "bg-gray-800" : "bg-white"
+          }`}
+        >
           <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
         </div>
       ) : patient ? (
@@ -115,38 +118,62 @@ const PatientDetails = () => {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
+          className={`max-w-6xl mx-auto p-8 rounded-xl shadow-lg space-y-6 ${
+            isDark ? "bg-gray-800" : "bg-white"
+          }`}
         >
           {/* Header */}
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-2">
               <button
                 onClick={() => navigate(-1)}
-                className="text-gray-600 hover:text-gray-800"
+                className={`${
+                  isDark
+                    ? "text-gray-300 hover:text-white"
+                    : "text-gray-600 hover:text-gray-800"
+                }`}
               >
                 <ArrowLeft className="w-6 h-6" />
               </button>
-              <h1 className="text-2xl font-bold text-gray-800">
+              <h1
+                className={`text-2xl font-bold ${
+                  isDark ? "text-white" : "text-gray-800"
+                }`}
+              >
                 Detalle de Pacientes
               </h1>
             </div>
             <div className="flex gap-2">
               <button
                 onClick={handleDownloadPdf}
-                className="bg-blue-100 text-blue-700 px-4 py-2 rounded hover:bg-blue-200 flex items-center gap-2"
+                className={`${
+                  isDark
+                    ? "bg-blue-900 text-blue-200 hover:bg-blue-800"
+                    : "bg-blue-100 text-blue-700 hover:bg-blue-200"
+                } px-4 py-2 rounded flex items-center gap-2`}
               >
                 <Shield size={18} />
                 <span>Descargar PDF</span>
               </button>
 
-              <button className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-hover flex items-center gap-2">
+              <button
+                className={`${
+                  isDark
+                    ? "bg-primary-dark text-white hover:bg-primary-darker"
+                    : "bg-primary text-white hover:bg-primary-hover"
+                } px-4 py-2 rounded flex items-center gap-2`}
+              >
                 <Edit3 size={18} />
                 <span>Editar paciente</span>
               </button>
 
               <button
                 onClick={() => setShowDeleteModal(true)}
-                className="bg-red-100 text-red-600 px-4 py-2 rounded hover:bg-red-200 flex items-center gap-2"
+                className={`${
+                  isDark
+                    ? "bg-red-900 text-red-200 hover:bg-red-800"
+                    : "bg-red-100 text-red-600 hover:bg-red-200"
+                } px-4 py-2 rounded flex items-center gap-2`}
               >
                 <Trash2 size={18} />
                 <span>Eliminar</span>
@@ -160,16 +187,31 @@ const PatientDetails = () => {
             <Panel
               header={
                 <div className="flex items-center gap-2">
-                  <div className="bg-purple-100 p-2 rounded-lg">
-                    <User className="text-gray-500" size={18} />
+                  <div
+                    className={`p-2 rounded-lg ${
+                      isDark ? "bg-gray-700" : "bg-purple-100"
+                    }`}
+                  >
+                    <User
+                      className={`${
+                        isDark ? "text-gray-300" : "text-gray-500"
+                      }`}
+                      size={18}
+                    />
                   </div>
-                  <span className="font-semibold text-gray-800">
+                  <span
+                    className={`font-semibold ${
+                      isDark ? "text-white" : "text-gray-800"
+                    }`}
+                  >
                     Información Personal
                   </span>
                 </div>
               }
               toggleable
-              className="w-full"
+              className={`w-full ${
+                isDark ? "bg-gray-700 border-gray-600" : "bg-white"
+              }`}
             >
               <div className="flex items-center gap-4">
                 {patient.profileImage?.path ? (
@@ -179,11 +221,22 @@ const PatientDetails = () => {
                     className="w-24 h-24 object-cover rounded-full"
                   />
                 ) : (
-                  <div className="w-24 h-24 bg-gray-200 rounded-full flex items-center justify-center">
-                    <User className="text-gray-500" size={48} />
+                  <div
+                    className={`w-24 h-24 rounded-full flex items-center justify-center ${
+                      isDark ? "bg-gray-600" : "bg-gray-200"
+                    }`}
+                  >
+                    <User
+                      className={`${
+                        isDark ? "text-gray-300" : "text-gray-500"
+                      }`}
+                      size={48}
+                    />
                   </div>
                 )}
-                <div>
+                <div
+                  className={`${isDark ? "text-gray-200" : "text-gray-800"}`}
+                >
                   <p>
                     <strong>Nombre(s):</strong> {patient.firstName}
                   </p>
@@ -201,71 +254,105 @@ const PatientDetails = () => {
             <Panel
               header={
                 <div className="flex items-center gap-2">
-                  <div className="bg-purple-100 p-2 rounded-lg">
-                    <Mail className="text-gray-500" size={18} />
+                  <div
+                    className={`p-2 rounded-lg ${
+                      isDark ? "bg-gray-700" : "bg-purple-100"
+                    }`}
+                  >
+                    <Mail
+                      className={`${
+                        isDark ? "text-gray-300" : "text-gray-500"
+                      }`}
+                      size={18}
+                    />
                   </div>
-                  <span className="font-semibold text-gray-800">
+                  <span
+                    className={`font-semibold ${
+                      isDark ? "text-white" : "text-gray-800"
+                    }`}
+                  >
                     Información de Contacto
                   </span>
                 </div>
               }
               toggleable
-              className="w-full"
+              className={`w-full ${
+                isDark ? "bg-gray-700 border-gray-600" : "bg-white"
+              }`}
             >
-              <p>
-                <Mail className="inline-block mr-2" size={16} />{" "}
-                <strong>Correo:</strong> {patient.email}
-              </p>
-              <p>
-                <Phone className="inline-block mr-2" size={16} />{" "}
-                <strong>Teléfono:</strong> {patient.phone}
-              </p>
-              <p>
-                <MapPin className="inline-block mr-2" size={16} />{" "}
-                <strong>Dirección:</strong> {patient.address}
-              </p>
-              <p>
-                <strong>Contacto emergencia:</strong> {patient.contactEmergency}
-              </p>
+              <div className={`${isDark ? "text-gray-200" : "text-gray-800"}`}>
+                <p>
+                  <Mail className="inline-block mr-2" size={16} />{" "}
+                  <strong>Correo:</strong> {patient.email}
+                </p>
+                <p>
+                  <Phone className="inline-block mr-2" size={16} />{" "}
+                  <strong>Teléfono:</strong> {patient.phone}
+                </p>
+                <p>
+                  <MapPin className="inline-block mr-2" size={16} />{" "}
+                  <strong>Dirección:</strong> {patient.address}
+                </p>
+                <p>
+                  <strong>Contacto emergencia:</strong>{" "}
+                  {patient.contactEmergency}
+                </p>
+              </div>
             </Panel>
 
             {/* Información Médica */}
             <Panel
               header={
                 <div className="flex items-center gap-2">
-                  <div className="bg-purple-100 p-2 rounded-lg">
+                  <div
+                    className={`p-2 rounded-lg ${
+                      isDark ? "bg-gray-700" : "bg-purple-100"
+                    }`}
+                  >
                     <Droplet className="text-red-500" size={18} />
                   </div>
-                  <span className="font-semibold text-gray-800">
+                  <span
+                    className={`font-semibold ${
+                      isDark ? "text-white" : "text-gray-800"
+                    }`}
+                  >
                     Información Médica
                   </span>
                 </div>
               }
               toggleable
-              className="w-full"
+              className={`w-full ${
+                isDark ? "bg-gray-700 border-gray-600" : "bg-white"
+              }`}
             >
-              <p>
-                <strong>Número de documento:</strong> {patient.documentNumber}
-              </p>
-              <p>
-                <strong>Tipo de sangre:</strong>{" "}
-                <Tag value={patient.bloodType} severity="danger" />
-              </p>
-              <p>
-                <strong>Alergias:</strong>
-              </p>
-              <div className="flex gap-2 mt-2 flex-wrap">
-                {patient.allergies ? (
-                  patient.allergies
-                    .split(",")
-                    .map((a, index) => (
-                      <Tag key={index} value={a.trim()} severity="warning" />
-                    ))
-                ) : (
-                  <p className="text-sm text-gray-500">
-                    Sin alergias registradas
-                  </p>
-                )}
+              <div className={`${isDark ? "text-gray-200" : "text-gray-800"}`}>
+                <p>
+                  <strong>Número de documento:</strong> {patient.documentNumber}
+                </p>
+                <p>
+                  <strong>Tipo de sangre:</strong>{" "}
+                  <Tag value={patient.bloodType} severity="danger" />
+                </p>
+                <p>
+                  <strong>Alergias:</strong>
+                </p>
+                <div className="flex gap-2 mt-2 flex-wrap">
+                  {patient.allergies ? (
+                    patient.allergies
+                      .split(",")
+                      .map((a, index) => (
+                        <Tag key={index} value={a.trim()} severity="warning" />
+                      ))
+                  ) : (
+                    <p
+                      className={`text-sm ${
+                        isDark ? "text-gray-400" : "text-gray-500"
+                      }`}
+                    >
+                      Sin alergias registradas
+                    </p>
+                  )}
+                </div>
               </div>
             </Panel>
 
@@ -273,22 +360,56 @@ const PatientDetails = () => {
             <Panel
               header={
                 <div className="flex items-center gap-2">
-                  <div className="bg-purple-100 p-2 rounded-lg">
-                    <Shield className="text-purple-500" size={18} />
+                  <div
+                    className={`p-2 rounded-lg ${
+                      isDark ? "bg-gray-700" : "bg-purple-100"
+                    }`}
+                  >
+                    <Shield
+                      className={`${
+                        isDark ? "text-purple-300" : "text-purple-500"
+                      }`}
+                      size={18}
+                    />
                   </div>
-                  <span className="font-semibold text-gray-800">Seguridad</span>
+                  <span
+                    className={`font-semibold ${
+                      isDark ? "text-white" : "text-gray-800"
+                    }`}
+                  >
+                    Seguridad
+                  </span>
                 </div>
               }
               toggleable
-              className="w-full"
+              className={`w-full ${
+                isDark ? "bg-gray-700 border-gray-600" : "bg-white"
+              }`}
             >
-              <div className="bg-gray-100 p-4 rounded-lg flex items-start gap-3">
-                <Shield className="text-gray-500 mt-1" size={18} />
+              <div
+                className={`p-4 rounded-lg flex items-start gap-3 ${
+                  isDark ? "bg-gray-600" : "bg-gray-100"
+                }`}
+              >
+                <Shield
+                  className={`${
+                    isDark ? "text-gray-300" : "text-gray-500"
+                  } mt-1`}
+                  size={18}
+                />
                 <div>
-                  <p className="font-semibold text-gray-800">
+                  <p
+                    className={`font-semibold ${
+                      isDark ? "text-white" : "text-gray-800"
+                    }`}
+                  >
                     Contraseña protegida
                   </p>
-                  <p className="text-gray-600 text-sm">
+                  <p
+                    className={`text-sm ${
+                      isDark ? "text-gray-300" : "text-gray-600"
+                    }`}
+                  >
                     La información de acceso está protegida por seguridad
                   </p>
                 </div>
@@ -297,7 +418,9 @@ const PatientDetails = () => {
           </div>
         </motion.div>
       ) : (
-        <div className="text-center text-red-500">
+        <div
+          className={`text-center ${isDark ? "text-red-300" : "text-red-500"}`}
+        >
           No se encontró el paciente
         </div>
       )}
