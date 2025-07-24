@@ -50,7 +50,7 @@ export default function AppointmentCreate() {
 
       setMessage({
         type: "success",
-        title: "Cita creada exitosamente",
+        title: translate("appointments.create.success"),
         description: "La cita médica se ha creado correctamente.",
       });
 
@@ -60,7 +60,7 @@ export default function AppointmentCreate() {
     } catch (error: any) {
       setMessage({
         type: "error",
-        title: "Error al crear cita",
+        title: translate("appointments.create.error"),
         description: error.message || "Ocurrió un error inesperado.",
       });
     }
@@ -87,7 +87,7 @@ export default function AppointmentCreate() {
                 <ArrowLeft className="w-6 h-6" />
               </button>
               <h1 className="text-2xl font-bold text-gray-800">
-                Crear cita médica
+                {translate("appointments.create.title")}
               </h1>
             </div>
             <button
@@ -95,7 +95,7 @@ export default function AppointmentCreate() {
               className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-hover flex items-center gap-2"
             >
               <CalendarCheck size={18} />
-              <span>Guardar cita</span>
+              <span>{translate("appointments.create.submit")}</span>
             </button>
           </div>
 
@@ -118,7 +118,7 @@ export default function AppointmentCreate() {
                     isDark ? "text-white" : "text-gray-800"
                   }`}
                 >
-                  Datos de la cita
+                  {translate("appointments.create.appointmentsDates")}
                 </span>
               </>
             }
@@ -170,7 +170,7 @@ export default function AppointmentCreate() {
                     isDark ? "text-white" : "text-gray-800"
                   }`}
                 >
-                  Paciente
+                  {translate("appointments.fields.patient")}
                 </span>
               </>
             }
@@ -206,7 +206,7 @@ export default function AppointmentCreate() {
                     isDark ? "text-white" : "text-gray-800"
                   }`}
                 >
-                  Doctor
+                  {translate("appointments.fields.doctor")}
                 </span>
               </>
             }

@@ -13,7 +13,7 @@ interface Option {
 export interface SelectInputProps {
   name: string;
   label: string;
-  options: Option[];
+  options: any;
   placeholder?: string;
 }
 

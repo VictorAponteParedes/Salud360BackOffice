@@ -25,6 +25,7 @@
         "title": "Crear nueva cita",
         "submit": "Guardar cita",
         "cancel": "Cancelar",
+        "appointmentsDates": "Datos de la cita",
         "success": "La cita se ha creado correctamente.",
         "error": "Ha ocurrido un error al crear la cita."
       },
