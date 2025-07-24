@@ -21,4 +21,5 @@ export interface PasswordInputProps {
   name: string;
   label: string;
   placeholder?: string;
+  showEyes?: boolean;
 }

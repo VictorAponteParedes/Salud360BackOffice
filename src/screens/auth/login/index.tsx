@@ -6,6 +6,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { logoHospital, logo } from "../../../assets/images";
 import { RoutesView } from "../../../routes/route";
 import { TextInput } from "../../../components/form/TextInput";
+import { PasswordInput } from "../../../components/form/PasswordInput";
 import { MessageToast } from "../../../components/MessageToast";
 import { translate } from "../../../lang";
 
@@ -132,11 +133,11 @@ export default function LoginPage() {
                 placeholder={translate("Login.emailPlaceholder")}
               />
 
-              <TextInput
+              <PasswordInput
                 name="password"
                 label={translate("Login.passwordLabel")}
-                type="password"
                 placeholder={translate("Login.passwordPlaceholder")}
+                showEyes
               />
 
               <div className="text-right">
