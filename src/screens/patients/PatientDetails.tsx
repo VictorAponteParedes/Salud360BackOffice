@@ -210,7 +210,7 @@ const PatientDetails = () => {
               }
               toggleable
               className={`w-full ${
-                isDark ? "bg-gray-700 border-gray-600" : "bg-white"
+                isDark ? "p-panel-content-dark border-gray-600" : "bg-white"
               }`}
             >
               <div className="flex items-center gap-4">

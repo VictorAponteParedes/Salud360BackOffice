@@ -14,3 +14,6 @@
     --color-green-check-500: #007f00;
 
 }
+.p-panel-content {
+    @apply bg-gray-700 text-gray-200;
+}
