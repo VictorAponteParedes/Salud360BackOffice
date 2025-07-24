@@ -1,4 +1,5 @@
 import { CheckCircle, Calendar, AlertCircle, Clock } from "lucide-react";
+import { useTheme } from "../../context/ThemeContext";
 
 const activities = [
   {
@@ -36,18 +37,38 @@ const activities = [
 ];
 
 export default function ActivitySection() {
+  const { isDark } = useTheme();
+
   return (
-    <section className="bg-white p-6 rounded-xl shadow-sm w-full md:w-1/2">
-      <h2 className="text-lg font-bold text-gray-800 mb-4">Actividad Reciente</h2>
+    <section
+      className={`p-6 rounded-xl shadow-sm w-full md:w-1/2 ${
+        isDark ? "bg-gray-700" : "bg-white"
+      }`}
+    >
+      <h2
+        className={`text-lg font-bold mb-4 ${
+          isDark ? "text-white" : "text-gray-800"
+        }`}
+      >
+        Actividad Reciente
+      </h2>
       <ul className="space-y-4">
         {activities.map((activity) => (
           <li key={activity.id} className="flex items-start space-x-3">
             <div className="mt-1">{activity.icon}</div>
             <div>
-              <p className="text-sm font-medium text-gray-700">
+              <p
+                className={`text-sm font-medium ${
+                  isDark ? "text-gray-100" : "text-gray-700"
+                }`}
+              >
                 {activity.message}
               </p>
-              <p className="text-xs text-gray-500">
+              <p
+                className={`text-xs ${
+                  isDark ? "text-gray-400" : "text-gray-500"
+                }`}
+              >
                 {activity.author} • {activity.time}
               </p>
             </div>

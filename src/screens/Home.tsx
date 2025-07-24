@@ -6,6 +6,7 @@ import { StatCard } from "./dashboard/StatCard";
 import AlertsSection from "./dashboard/AlertsSection";
 import { WeeklyActivityChart } from "./dashboard/WeeklyActivityChart";
 import ActivitySection from "./dashboard/ActivitySection";
+import { useTheme } from "../context/ThemeContext";
 
 //Hooks
 import { usePatient } from "../hooks/usePatient";
@@ -19,7 +20,7 @@ export default function Home() {
   const { patients } = usePatient();
   const { doctors } = useDoctor();
   const { appointments } = useAppointment();
-
+  const { isDark } = useTheme();
 
   const onSubmit = (data: any) => {
     console.log(data);
@@ -36,8 +37,10 @@ export default function Home() {
     : "0";
 
   const totalAppointmentPending = Array.isArray(appointments)
-    ? appointments.filter((app) => app.status === AppointmentStatusEnum.PENDIENTE)
-    : []
+    ? appointments.filter(
+        (app) => app.status === AppointmentStatusEnum.PENDIENTE
+      )
+    : [];
 
   const showTotalAppointmentPending = totalAppointmentPending.length
     ? totalAppointmentPending.length
@@ -49,7 +52,9 @@ export default function Home() {
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
+      className={`max-w-6xl mx-auto p-8 rounded-xl shadow-lg space-y-6 ${
+        isDark ? "bg-gray-800" : "bg-white"
+      }`}
     >
       <div className="p-6 space-y-6">
         <DashboardHeader />
