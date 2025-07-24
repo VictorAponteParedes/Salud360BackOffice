@@ -24,6 +24,7 @@ import { useAuth } from "../../context/AuthContext";
 import { API_BASE_URL } from "../../constants";
 import axios from "axios";
 import { useTheme } from "../../context/ThemeContext";
+import { CustomPanel } from "../../components/CustomPanel";
 
 const patientService = new PatientServices();
 
@@ -184,18 +185,16 @@ const PatientDetails = () => {
           {/* Paneles uno debajo del otro */}
           <div className="flex flex-col gap-6">
             {/* Información Personal */}
-            <Panel
+            <CustomPanel
               header={
-                <div className="flex items-center gap-2">
+                <>
                   <div
                     className={`p-2 rounded-lg ${
-                      isDark ? "bg-gray-700" : "bg-purple-100"
+                      isDark ? "bg-gray-600" : "bg-purple-100"
                     }`}
                   >
                     <User
-                      className={`${
-                        isDark ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className={isDark ? "text-gray-300" : "text-gray-500"}
                       size={18}
                     />
                   </div>
@@ -206,12 +205,10 @@ const PatientDetails = () => {
                   >
                     Información Personal
                   </span>
-                </div>
+                </>
               }
               toggleable
-              className={`w-full ${
-                isDark ? "p-panel-content-dark border-gray-600" : "bg-white"
-              }`}
+              className="w-full mb-4"
             >
               <div className="flex items-center gap-4">
                 {patient.profileImage?.path ? (
@@ -248,21 +245,19 @@ const PatientDetails = () => {
                   </p>
                 </div>
               </div>
-            </Panel>
+            </CustomPanel>
 
             {/* Información de Contacto */}
-            <Panel
+            <CustomPanel
               header={
-                <div className="flex items-center gap-2">
+                <>
                   <div
                     className={`p-2 rounded-lg ${
-                      isDark ? "bg-gray-700" : "bg-purple-100"
+                      isDark ? "bg-gray-600" : "bg-purple-100"
                     }`}
                   >
                     <Mail
-                      className={`${
-                        isDark ? "text-gray-300" : "text-gray-500"
-                      }`}
+                      className={isDark ? "text-gray-300" : "text-gray-500"}
                       size={18}
                     />
                   </div>
@@ -271,14 +266,12 @@ const PatientDetails = () => {
                       isDark ? "text-white" : "text-gray-800"
                     }`}
                   >
-                    Información de Contacto
+                    Información Personal
                   </span>
-                </div>
+                </>
               }
               toggleable
-              className={`w-full ${
-                isDark ? "bg-gray-700 border-gray-600" : "bg-white"
-              }`}
+              className="w-full mb-4"
             >
               <div className={`${isDark ? "text-gray-200" : "text-gray-800"}`}>
                 <p>
@@ -298,32 +291,33 @@ const PatientDetails = () => {
                   {patient.contactEmergency}
                 </p>
               </div>
-            </Panel>
+            </CustomPanel>
 
             {/* Información Médica */}
-            <Panel
+            <CustomPanel
               header={
-                <div className="flex items-center gap-2">
+                <>
                   <div
                     className={`p-2 rounded-lg ${
-                      isDark ? "bg-gray-700" : "bg-purple-100"
+                      isDark ? "bg-gray-600" : "bg-purple-100"
                     }`}
                   >
-                    <Droplet className="text-red-500" size={18} />
+                    <Droplet
+                      className={isDark ? "text-gray-300" : "text-gray-500"}
+                      size={18}
+                    />
                   </div>
                   <span
                     className={`font-semibold ${
                       isDark ? "text-white" : "text-gray-800"
                     }`}
                   >
-                    Información Médica
+                    Información Personal
                   </span>
-                </div>
+                </>
               }
               toggleable
-              className={`w-full ${
-                isDark ? "bg-gray-700 border-gray-600" : "bg-white"
-              }`}
+              className="w-full mb-4"
             >
               <div className={`${isDark ? "text-gray-200" : "text-gray-800"}`}>
                 <p>
@@ -354,21 +348,19 @@ const PatientDetails = () => {
                   )}
                 </div>
               </div>
-            </Panel>
+            </CustomPanel>
 
             {/* Seguridad */}
-            <Panel
+            <CustomPanel
               header={
-                <div className="flex items-center gap-2">
+                <>
                   <div
                     className={`p-2 rounded-lg ${
-                      isDark ? "bg-gray-700" : "bg-purple-100"
+                      isDark ? "bg-gray-600" : "bg-purple-100"
                     }`}
                   >
                     <Shield
-                      className={`${
-                        isDark ? "text-purple-300" : "text-purple-500"
-                      }`}
+                      className={isDark ? "text-gray-300" : "text-gray-500"}
                       size={18}
                     />
                   </div>
@@ -377,14 +369,12 @@ const PatientDetails = () => {
                       isDark ? "text-white" : "text-gray-800"
                     }`}
                   >
-                    Seguridad
+                    Información Personal
                   </span>
-                </div>
+                </>
               }
               toggleable
-              className={`w-full ${
-                isDark ? "bg-gray-700 border-gray-600" : "bg-white"
-              }`}
+              className="w-full mb-4"
             >
               <div
                 className={`p-4 rounded-lg flex items-start gap-3 ${
@@ -414,7 +404,7 @@ const PatientDetails = () => {
                   </p>
                 </div>
               </div>
-            </Panel>
+            </CustomPanel>
           </div>
         </motion.div>
       ) : (
