@@ -74,7 +74,11 @@ export default function AppointmentCreate() {
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="max-w-6xl mx-auto p-8 bg-white rounded-xl shadow-lg space-y-6"
+          className={`max-w-6xl mx-auto p-8 rounded-xl shadow-lg space-y-6 ${
+            isDark
+              ? "bg-gray-800 border border-gray-700"
+              : "bg-white border border-gray-200"
+          }`}
         >
           {/* Header */}
           <div className="flex justify-between items-center">
@@ -82,17 +86,29 @@ export default function AppointmentCreate() {
               <button
                 type="button"
                 onClick={() => navigate(-1)}
-                className="text-gray-600 hover:text-gray-800"
+                className={`${
+                  isDark
+                    ? "text-gray-300 hover:text-white"
+                    : "text-gray-600 hover:text-gray-800"
+                }`}
               >
                 <ArrowLeft className="w-6 h-6" />
               </button>
-              <h1 className="text-2xl font-bold text-gray-800">
+              <h1
+                className={`text-2xl font-bold ${
+                  isDark ? "text-white" : "text-gray-800"
+                }`}
+              >
                 {translate("appointments.create.title")}
               </h1>
             </div>
             <button
               type="submit"
-              className="bg-primary text-white px-4 py-2 rounded hover:bg-primary-hover flex items-center gap-2"
+              className={`px-4 py-2 rounded hover:bg-blue-700 flex items-center gap-2 ${
+                isDark
+                  ? "bg-blue-600 text-white"
+                  : "bg-primary text-white hover:bg-primary-hover"
+              }`}
             >
               <CalendarCheck size={18} />
               <span>{translate("appointments.create.submit")}</span>
@@ -130,23 +146,27 @@ export default function AppointmentCreate() {
                 name="appointmentDate"
                 label="Fecha de la cita"
                 type="date"
+                isDark={isDark}
               />
 
               <TextInput
                 name="appointmentTime"
                 label="Hora de la cita"
                 type="time"
+                isDark={isDark}
               />
 
               <TextInput
                 name="reason"
                 label="Motivo de la cita"
                 placeholder="Ej. chequeo general"
+                isDark={isDark}
               />
               <TextInput
                 name="notes"
                 label="Notas adicionales"
                 placeholder="Agregar observaciones si es necesario"
+                isDark={isDark}
               />
             </div>
           </CustomPanel>
@@ -183,6 +203,7 @@ export default function AppointmentCreate() {
                 label="Seleccionar paciente"
                 options={patientOptions}
                 placeholder="Buscar paciente"
+                isDark={isDark}
               />
             </div>
           </CustomPanel>
@@ -219,6 +240,7 @@ export default function AppointmentCreate() {
                 label="Seleccionar doctor"
                 options={doctorOptions}
                 placeholder="Buscar doctor"
+                isDark={isDark}
               />
             </div>
           </CustomPanel>

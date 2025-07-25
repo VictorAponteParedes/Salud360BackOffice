@@ -45,7 +45,7 @@ export const AppointmentCard = ({ appointment }: AppointementProps) => {
               {appointment.patient.firstName} {appointment.patient.lastName}
             </h3>
             <AppointmentStatus
-              status={appointment.status as AppointmentStatusEnum}
+              status={appointment.status as typeof AppointmentStatusEnum}
             />
           </div>
 

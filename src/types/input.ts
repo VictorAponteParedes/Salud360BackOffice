@@ -3,6 +3,7 @@ export interface TextInputProps {
   label: string;
   placeholder?: string;
   type?: string;
+  isDark?:any
 }
 
 interface Option {
@@ -15,6 +16,7 @@ export interface SelectInputProps {
   label: string;
   options: any;
   placeholder?: string;
+  isDark?:any
 }
 
 export interface PasswordInputProps {
